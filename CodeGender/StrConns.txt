@@ -1,0 +1,1 @@
+﻿Data Source=115.159.40.235;Initial Catalog=Instagram.Media;User ID=ins;Password=q1w2e3r4;Pooling=true;

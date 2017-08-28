@@ -1,4 +1,4 @@
-﻿namespace InstagramPhotosCollection
+﻿namespace InstagramPhotos
 {
     partial class Form1
     {

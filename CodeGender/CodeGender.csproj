@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FB55336-7B40-42A6-9408-196412E75C9B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeGender</RootNamespace>
+    <AssemblyName>CodeGender</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.TextEditor, Version=1.1.0.1913, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Coder\Classes\Class.cs" />
+    <Compile Include="Coder\Classes\EnmuClass.cs" />
+    <Compile Include="Coder\Classes\EntityClass.cs" />
+    <Compile Include="Coder\Classes\EntityDtoClass.cs" />
+    <Compile Include="Coder\Classes\QueryEntityClass.cs" />
+    <Compile Include="Coder\Classes\TinyEntityClass.cs" />
+    <Compile Include="Coder\CodeOption.cs" />
+    <Compile Include="Coder\Coder.cs" />
+    <Compile Include="Coder\Column.cs" />
+    <Compile Include="Coder\FunctionOption.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\BatCreateDAFunc.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\CreateEntityDAFunc.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\DeleteEntityDAFunc.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\GetEntitiesDAFunc.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\GetEntityIdsDAFunc.cs" />
+    <Compile Include="Coder\Funtions\DataAccess\UpdateEntityDAFunc.cs" />
+    <Compile Include="Coder\Funtions\Function.cs" />
+    <Compile Include="Coder\Funtions\FunctionParameter.cs" />
+    <Compile Include="Coder\Funtions\Manager\BatCreateFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\CreateEntityFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\DeleteEntityFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\GetEntitiesFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\GetEntityFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\GetEntitySetFunc.cs" />
+    <Compile Include="Coder\Funtions\Manager\UpdateEntityFunc.cs" />
+    <Compile Include="Coder\StoredProcedures\BatCreateEntity.cs" />
+    <Compile Include="Coder\StoredProcedures\BatUpdateEntitySP.cs" />
+    <Compile Include="Coder\StoredProcedures\CreateEntitySP.cs" />
+    <Compile Include="Coder\StoredProcedures\DeleteEntitySP.cs" />
+    <Compile Include="Coder\StoredProcedures\GetAssistantEntitiesSP.cs" />
+    <Compile Include="Coder\StoredProcedures\GetAssistantSP.cs" />
+    <Compile Include="Coder\StoredProcedures\GetEntitiesSP.cs" />
+    <Compile Include="Coder\StoredProcedures\GetIdsSP.cs" />
+    <Compile Include="Coder\StoredProcedures\StoredProcedure.cs" />
+    <Compile Include="Coder\StoredProcedures\StoredProcedureParameter.cs" />
+    <Compile Include="Coder\StoredProcedures\UpdateEntitySP.cs" />
+    <Compile Include="Coder\Table.cs" />
+    <Compile Include="DB\DataAccess.cs" />
+    <Compile Include="Extension\StringBuilderExtension.cs" />
+    <Compile Include="Extension\StringExtension.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConn.designer.cs">
+      <DependentUpon>frmConn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConnStr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConnStr.designer.cs">
+      <DependentUpon>frmConnStr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDBDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDBDocument.designer.cs">
+      <DependentUpon>frmDBDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGeCodeFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGeCodeFiles.designer.cs">
+      <DependentUpon>frmGeCodeFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\PluralizerHelper.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
+    <Compile Include="Helper\TypeMappings.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmConn.resx">
+      <DependentUpon>frmConn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConnStr.resx">
+      <DependentUpon>frmConnStr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDBDocument.resx">
+      <DependentUpon>frmDBDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGeCodeFiles.resx">
+      <DependentUpon>frmGeCodeFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="full.ico" />
+    <Content Include="ICSharpCode.TextEditor.dll" />
+    <EmbeddedResource Include="StrConns.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

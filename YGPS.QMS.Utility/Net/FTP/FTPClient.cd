@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Exfresh.WMS.Utility.Net.FTP.FTPclient">
+    <Position X="5.5" Y="1.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>SgAAAAgACBABEgCGAwAQAIiAAGIACARCMEcQIAAQCAA=</HashCode>
+      <FileName>Net\FTP\FtpClient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Exfresh.WMS.Utility.Net.FTP.FTPfileInfo">
+    <Position X="1.75" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Exfresh.WMS.Utility.Net.FTP.FTPfileInfo.DirectoryEntryTypes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Net\FTP\FtpFileinfo.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAAAwAAAAACwIYAEAABAAAACAggAQAAABAAAAIACAA=</HashCode>
+      <FileName>Net\FTP\FtpFileinfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Exfresh.WMS.Utility.Net.FTP.FTPdirectory">
+    <Position X="3.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAQAAAABAABAAAAAAAAQAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Net\FTP\FtpDirectory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

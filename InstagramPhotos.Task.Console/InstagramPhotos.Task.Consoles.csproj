@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ACF54B68-0BCA-4ED6-8102-CD084A173487}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{F9284E10-415F-49E9-92D2-FB91CD09086B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InstagramPhotos.Domain</RootNamespace>
-    <AssemblyName>InstagramPhotos.Domain</AssemblyName>
+    <RootNamespace>InstagramPhotos.Task.Console</RootNamespace>
+    <AssemblyName>InstagramPhotos.Task.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,16 +43,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InsUser\InsUserTypeDO.cs" />
-    <Compile Include="Media\MediaDO.cs" />
-    <Compile Include="Media\MediaTaskDO.cs" />
+    <Compile Include="MediaQueueHelper.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sys\LogInfoDO.cs" />
-    <Compile Include="Sys\LogSimpleInfoDO.cs" />
-    <Compile Include="Sys\VersionInfoDO.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tag\" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InstagramPhotos.Domain\InstagramPhotos.Domain.csproj">
+      <Project>{acf54b68-0bca-4ed6-8102-cd084a173487}</Project>
+      <Name>InstagramPhotos.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Task.Server\InstagramPhotos.Task.Server.csproj">
+      <Project>{B255F300-9315-45DE-83BE-AB12E7DB859D}</Project>
+      <Name>InstagramPhotos.Task.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
+      <Project>{1ff0e241-38a7-4154-bc1c-45ac437aeea9}</Project>
+      <Name>InstagramPhotos.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryModel\QueryModel.csproj">
+      <Project>{5E952773-9AD4-43F8-B1CC-80AA1CBFD9B7}</Project>
+      <Name>QueryModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.Interface\Service.Interface.csproj">
+      <Project>{067f53f2-2fa9-4968-a73b-869f1dc09144}</Project>
+      <Name>Service.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{cb22b79b-5240-44c1-b1a2-5294bb16f9c4}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{a6966944-1cdc-4d42-abbf-72d240524b2e}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

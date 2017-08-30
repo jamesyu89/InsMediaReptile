@@ -61,7 +61,7 @@ namespace InstagramPhotos.Repository
             {
                 using (DbConnection conn = GetConn())
                 {
-                    DBTools.InsertObject(conn, entity, GetTableName(MediaDO.TableName), db);
+                    DBTools.InsertObject(conn, entity, GetTableName(MediaDO.TableName), db, data);
                 }
             }
             else
@@ -259,6 +259,203 @@ namespace InstagramPhotos.Repository
             {
                 IEnumerable<MediaDO> result = DBTools.ReadCollection<MediaDO>(conn, sql, null);
                 return result.ToDictionary(i => i.MediaID);
+            }
+        }
+
+        #endregion
+
+        #region auto MediaTask
+
+        /// <summary>
+        ///     新增MediaTask信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public void AddMediatask(MediaTaskDO entity, DbTransaction tran = null)
+        {
+            var data = new[]
+            {
+                MediaTaskDO.ColumnEnum.MediaTaskId.ToString(),
+                MediaTaskDO.ColumnEnum.Url.ToString(),
+                MediaTaskDO.ColumnEnum.FileFullName.ToString(),
+                MediaTaskDO.ColumnEnum.MetaTypeList.ToString(),
+                MediaTaskDO.ColumnEnum.RegexList.ToString(),
+                MediaTaskDO.ColumnEnum.Disabled.ToString(),
+                MediaTaskDO.ColumnEnum.Rec_CreateBy.ToString(),
+                MediaTaskDO.ColumnEnum.Rec_CreateTime.ToString(),
+                MediaTaskDO.ColumnEnum.Rec_ModifyBy.ToString(),
+                MediaTaskDO.ColumnEnum.Rec_ModifyTime.ToString()
+            };
+            if (tran == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.InsertObject(conn, entity, GetTableName(MediaTaskDO.TableName), db, data);
+                }
+            }
+            else
+                DBTools.InsertObjectWithTrans(tran.Connection, entity, GetTableName(MediaTaskDO.TableName), db, tran, data);
+        }
+
+        /// <summary>
+        ///     批量新增MediaTask信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void AddMediataskList(List<MediaTaskDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"INSERT INTO {0} SELECT
+				T.ts.value('@MediaTaskId', 'uniqueidentifier') as MediaTaskId,
+				T.ts.value('@Url', 'nvarchar(200)') as Url,
+				T.ts.value('@FileFullName', 'nvarchar(200)') as FileFullName,
+				T.ts.value('@MetaTypeList', 'nvarchar(200)') as MetaTypeList,
+				T.ts.value('@RegexList', 'nvarchar(200)') as RegexList,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts)", GetTableName(MediaTaskDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+
+        /// <summary>
+        ///    更新MediaTask信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public Boolean UpdateMediatask(MediaTaskDO entity, DbTransaction tran = null)
+        {
+            try
+            {
+                if (tran == null)
+                    using (DbConnection conn = GetConn())
+                    {
+                        DBTools.UpdateObject(conn, entity, GetTableName(MediaTaskDO.TableName), new[] { MediaTaskDO.IdName }, db);
+                    }
+                else
+                    DBTools.UpdateObjectWithTrans(tran.Connection, entity, GetTableName(MediaTaskDO.TableName), new[] { MediaTaskDO.IdName }, db, tran);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     批量更新MediaTask信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void UpdateMediataskList(List<MediaTaskDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"DECLARE @TBL TABLE(
+				[MediaTaskId] uniqueidentifier NOT NULL ,
+				[Url] nvarchar(200) NULL ,
+				[FileFullName] nvarchar(200) NULL ,
+				[MetaTypeList] nvarchar(200) NULL ,
+				[RegexList] nvarchar(200) NULL ,
+				[Disabled] int NULL ,
+				[Rec_CreateBy] uniqueidentifier NULL ,
+				[Rec_CreateTime] datetime NULL ,
+				[Rec_ModifyBy] uniqueidentifier NULL ,
+				[Rec_ModifyTime] datetime NULL )
+
+
+				INSERT INTO @TBL SELECT
+				T.ts.value('@MediaTaskId', 'uniqueidentifier') as MediaTaskId,
+				T.ts.value('@Url', 'nvarchar(200)') as Url,
+				T.ts.value('@FileFullName', 'nvarchar(200)') as FileFullName,
+				T.ts.value('@MetaTypeList', 'nvarchar(200)') as MetaTypeList,
+				T.ts.value('@RegexList', 'nvarchar(200)') as RegexList,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts);
+
+
+				UPDATE {0} SET  
+				[Url] = B.Url,
+				[FileFullName] = B.FileFullName,
+				[MetaTypeList] = B.MetaTypeList,
+				[RegexList] = B.RegexList,
+				[Disabled] = B.Disabled,
+				[Rec_CreateBy] = B.Rec_CreateBy,
+				[Rec_CreateTime] = B.Rec_CreateTime,
+				[Rec_ModifyBy] = B.Rec_ModifyBy,
+				[Rec_ModifyTime] = B.Rec_ModifyTime
+				FROM {0} A,@TBL B WHERE A.MediaTaskId=B.MediaTaskId ", GetTableName(MediaTaskDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+        /// <summary>
+        ///    获取MediaTask信息
+        /// </summary>
+        /// <param name="MediaTaskId">主键</param>
+        public MediaTaskDO GetMediatask(Guid MediaTaskId)
+        {
+            var cmd = new CmdParams { { "@MediaTaskId", MediaTaskId } };
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE MediaTaskId=@MediaTaskId", GetTableName(MediaTaskDO.TableName));
+            using (DbConnection conn = GetConn())
+            {
+                return DBTools.ExecuteReader<MediaTaskDO>(conn, sql, cmd);
+            }
+        }
+
+        /// <summary>
+        ///    根据MediaTaskIds数组获取MediaTask信息列表
+        /// </summary>
+        /// <param name="MediaTaskIds">主键集合</param>
+        /// <returns>MediaTask信息列表</returns>
+        public Dictionary<Guid, MediaTaskDO> GetMediatasks(IEnumerable<Guid> MediaTaskIds)
+        {
+            Guid[] mediataskids = MediaTaskIds as Guid[] ?? MediaTaskIds.ToArray();
+            if (!mediataskids.Any()) return null;
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE MediaTaskId in ('{1}')",
+                GetTableName(MediaTaskDO.TableName), mediataskids.Distinct().ToCSV("','"));
+            using (DbConnection conn = GetConn())
+            {
+                IEnumerable<MediaTaskDO> result = DBTools.ReadCollection<MediaTaskDO>(conn, sql, null);
+                return result.ToDictionary(i => i.MediaTaskId);
             }
         }
 

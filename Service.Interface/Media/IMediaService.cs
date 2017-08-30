@@ -60,5 +60,57 @@ namespace Service.Interface.Media
 
         #endregion
 
+        #region auto MediaTask
+
+        /// <summary>
+        ///     新增MediaTask信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void AddMediatask(MediaTaskEntity dto);
+
+        void BatchAddMediatask(List<MediaTaskEntity> dto);
+
+        /// <summary>
+        ///     更新MediaTask信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void UpdateMediatask(MediaTaskEntity dto);
+
+        /// <summary>
+        ///    获取MediaTaskEntity信息
+        /// </summary>
+        /// <param name="MediaTaskId">主键</param>
+        MediaTaskEntity GetMediatask(Guid MediaTaskId);
+
+        /// <summary>
+        ///    根据MediaTaskIds数组获取MediaTask信息列表
+        /// </summary>
+        /// <param name="MediaTaskIds">主键集合</param>
+        /// <returns>MediaTaskEntity信息列表</returns>
+        List<MediaTaskEntity> GetMediatasks(Guid[] MediaTaskIds);
+
+        /// <summary>
+        ///  通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="isCache"></param>
+        /// <returns>MediaTaskEntity信息列表</returns>
+        List<MediaTaskEntity> GetMediataskDtosByPara(MediaTaskQO queryEntity, Boolean isCache);
+
+        /// <summary>
+        ///  分页通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="isCache"></param>
+        /// <returns>MediaTaskEntity信息列表</returns>
+        List<MediaTaskEntity> GetMediataskDtosByParaForPage(MediaTaskQO queryEntity,
+            Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache);
+
+        #endregion
+
     }
 }

@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using InstagramPhotos.Utility.CommonQuery;
 
-namespace InstagramPhotos.Media.QueryModel
+namespace InstagramPhotos.QueryModel.Sys
 {
     /// <summary>
-    /// MediaQO
+    /// LogInfoQO
     /// </summary>
-    public class MediaQO : IQueryEntity
+    public class LogInfoQO : IQueryEntity
     {
 
         /// <summary>
-        /// MediaQO 构造函数
+        /// LogInfoQO 构造函数
         /// </summary>
-        public MediaQO()
+        public LogInfoQO()
         { }
 
 
-        private string tablename = "Fct_Media";
+        private string tablename = "Fct_Sys_LogInfo";
         /// <summary>
         /// 表名
         /// </summary>
@@ -32,7 +32,7 @@ namespace InstagramPhotos.Media.QueryModel
         /// </summary>
         protected override string IdName
         {
-            get { return "MediaID"; }
+            get { return "LogId"; }
         }
 
         public override List<QueryParamater> QueryPars { get; set; }
@@ -45,77 +45,89 @@ namespace InstagramPhotos.Media.QueryModel
         public enum QueryEnums
         {
             /// <summary>
-            /* 1: 媒体Id*/
+            /* 1: 日志Id*/
             /// </summary>
-            MediaID,
+            LogId,
             /// <summary>
-            /* 2: 媒体编号*/
+            /* 2: 应用类型 1 Web  2 Api 3 GaeaService*/
             /// </summary>
-            MediaCode,
+            AppType,
             /// <summary>
-            /* 3: 媒体名称*/
+            /* 3: 应用名称*/
             /// </summary>
-            MediaName,
+            AppName,
             /// <summary>
-            /* 4: 标签Id*/
+            /* 4: 程序集类名*/
             /// </summary>
-            TagId,
+            ClassFullName,
             /// <summary>
-            /* 5: 媒体资源来自的Ins用户*/
+            /* 5: 方法名*/
             /// </summary>
-            FromInsUser,
+            MethodName,
             /// <summary>
-            /* 6: 资源完整地址*/
+            /* 6: 机器名*/
             /// </summary>
-            Url,
+            MachineName,
             /// <summary>
-            /* 7: 资源相对站点根目录的地址*/
+            /* 7: 当前进程名*/
             /// </summary>
-            RelativeAddress,
+            ProcessName,
             /// <summary>
-            /* 8: 资源存放的物理地址*/
+            /* 8: 主机名称*/
             /// </summary>
-            PhycialAddress,
+            HoustName,
             /// <summary>
-            /* 9: 资源大小(KB)*/
+            /* 9: 主机IP*/
             /// </summary>
-            Size,
+            HoustIp,
             /// <summary>
-            /* 10: 资源下载开始时间*/
+            /* 10: 客户端地址*/
             /// </summary>
-            Download_Start,
+            ClientAddress,
             /// <summary>
-            /* 11: 资源下载结束时间*/
+            /* 11: 标签*/
             /// </summary>
-            Download_End,
+            Tag,
             /// <summary>
-            /* 12: 下载是否成功 0失败 1成功*/
+            /* 12: 操作人名*/
             /// </summary>
-            Download_Ok,
+            OpName,
             /// <summary>
-            /* 13: */
+            /* 13: 日志级别*/
             /// </summary>
-            SortValue,
+            Level,
             /// <summary>
-            /* 14: 是否禁用 0正常 1禁用*/
+            /* 14: 输入内容*/
             /// </summary>
-            Disabled,
+            Input,
             /// <summary>
-            /* 15: 创建人*/
+            /* 15: 输出内容*/
             /// </summary>
-            Rec_CreateBy,
+            Output,
             /// <summary>
-            /* 16: 创建时间*/
+            /* 16: */
+            /// </summary>
+            ResponseTime,
+            /// <summary>
+            /* 17: 消息提示*/
+            /// </summary>
+            Message,
+            /// <summary>
+            /* 18: 堆栈信息*/
+            /// </summary>
+            StackTrace,
+            /// <summary>
+            /* 19: 备注*/
+            /// </summary>
+            Remark,
+            /// <summary>
+            /* 20: 创建时间*/
             /// </summary>
             Rec_CreateTime,
             /// <summary>
-            /* 17: 修改人*/
+            /* 21: 创建人名称*/
             /// </summary>
-            Rec_ModifyBy,
-            /// <summary>
-            /* 18: 修改时间*/
-            /// </summary>
-            Rec_ModifyTime,
+            Rec_CreateBy,
         }
         #endregion
 

@@ -11,7 +11,7 @@ namespace InstagramPhotos.Utility.Data
         public RepositoryBase()
         {
             //this.dbkey = DbKeyConst.WMS_DBKey;
-            this.dbkey = ExtendDBType.YGPS_QMS.ToString();
+            this.dbkey = ExtendDBType.InstagramPhotos.ToString();
         }
 
         public RepositoryBase(ExtendDBType dbType)

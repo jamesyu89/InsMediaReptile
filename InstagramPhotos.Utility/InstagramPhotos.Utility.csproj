@@ -7,8 +7,8 @@
     <ProjectGuid>{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YGPS.QMS.Utility</RootNamespace>
-    <AssemblyName>YGPS.QMS.Utility</AssemblyName>
+    <RootNamespace>InstagramPhotos.Utility</RootNamespace>
+    <AssemblyName>InstagramPhotos.Utility</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

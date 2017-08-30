@@ -42,13 +42,16 @@
   <ItemGroup>
     <Compile Include="InsUser\InsUserType.cs" />
     <Compile Include="Media\MediaQO.cs" />
+    <Compile Include="Media\MediaTaskQO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sys\LogInfoQO.cs" />
+    <Compile Include="Sys\VersionInfoQO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tag\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YGPS.QMS.Utility\InstagramPhotos.Utility.csproj">
+    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
       <Project>{1ff0e241-38a7-4154-bc1c-45ac437aeea9}</Project>
       <Name>InstagramPhotos.Utility</Name>
     </ProjectReference>

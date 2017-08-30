@@ -50,6 +50,20 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
+      <Project>{1ff0e241-38a7-4154-bc1c-45ac437aeea9}</Project>
+      <Name>InstagramPhotos.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.BLL\Service.BLL.csproj">
+      <Project>{f6c7cde2-f51d-44ff-aa0b-e603bb65d3c4}</Project>
+      <Name>Service.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.Interface\Service.Interface.csproj">
+      <Project>{067F53F2-2FA9-4968-A73B-869F1DC09144}</Project>
+      <Name>Service.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

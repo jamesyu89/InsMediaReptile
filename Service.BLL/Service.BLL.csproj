@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,24 +44,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Media\Mapping\Extension.cs" />
+    <Compile Include="Media\MediaCommon.cs" />
+    <Compile Include="Media\MediaHelper.cs" />
+    <Compile Include="Media\MediaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\InstagramPhotos.Domain\InstagramPhotos.Domain.csproj">
+      <Project>{ACF54B68-0BCA-4ED6-8102-CD084A173487}</Project>
+      <Name>InstagramPhotos.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Repository\InstagramPhotos.Repository.csproj">
+      <Project>{0D155A76-955E-4BCF-A8FF-F03A8EE9319D}</Project>
+      <Name>InstagramPhotos.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryModel\QueryModel.csproj">
+      <Project>{5E952773-9AD4-43F8-B1CC-80AA1CBFD9B7}</Project>
+      <Name>QueryModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service.Interface\Service.Interface.csproj">
       <Project>{067f53f2-2fa9-4968-a73b-869f1dc09144}</Project>
       <Name>Service.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Service.csproj">
-      <Project>{cb22b79b-5240-44c1-b1a2-5294bb16f9c4}</Project>
-      <Name>Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YGPS.QMS.Utility\InstagramPhotos.Utility.csproj">
+    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
       <Project>{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}</Project>
       <Name>InstagramPhotos.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{A6966944-1CDC-4D42-ABBF-72D240524B2E}</Project>
+      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="InsUser\" />
+    <Folder Include="Sys\" />
+    <Folder Include="Tag\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,6 +45,8 @@
     <Compile Include="Media\IMediaHelper.cs" />
     <Compile Include="Media\IMediaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sys\ISysHelper.cs" />
+    <Compile Include="Sys\ISysService.cs" />
     <Compile Include="Tag\ITagHelper.cs" />
     <Compile Include="Tag\ITagService.cs" />
   </ItemGroup>

@@ -41,7 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Media\MediaEntity.cs" />
+    <Compile Include="Media\MediaTaskEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Sys\LogInfoEntity.cs" />
+    <Compile Include="Sys\LogSimpleInfoEntity.cs" />
+    <Compile Include="Sys\SysEnums.cs" />
+    <Compile Include="Sys\VersionInfoEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="InsUser\" />

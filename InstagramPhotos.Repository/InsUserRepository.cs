@@ -1,6 +1,9 @@
 ﻿using InstagramPhotos.Media.DomainModel;
+using InstagramPhotos.Utility.Data;
+using InstagramPhotos.Utility.Log;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -8,8 +11,23 @@ using System.Threading.Tasks;
 
 namespace InstagramPhotos.Repository
 {
-    public class InsUserRepository
+    public class InsUserRepository: RepositoryBase
     {
+        #region Members
+        private static readonly DbSettings db = DbSettings.MSSQL;
+        #endregion
+
+        #region Ctor. && Init
+
+        public InsUserRepository()
+        {
+            GetDBKey(ExtendDBType.InstagramPhotos);
+        }
+
+        #endregion
+
+        #region Auto Repository
+
         #region auto InsUserType
 
         /// <summary>
@@ -207,5 +225,6 @@ namespace InstagramPhotos.Repository
 
         #endregion
 
+        #endregion
     }
 }

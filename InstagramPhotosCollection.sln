@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 Solution Items", "07 Sol
 		readme.txt = readme.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebApplication1\WebAPI.csproj", "{458496E9-35FE-40D7-A61D-85BD9F7FAB25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{458496E9-35FE-40D7-A61D-85BD9F7FAB25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryModel", "QueryModel\QueryModel.csproj", "{5E952773-9AD4-43F8-B1CC-80AA1CBFD9B7}"
 EndProject
@@ -42,7 +42,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Domain", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Repository", "InstagramPhotos.Repository\InstagramPhotos.Repository.csproj", "{0D155A76-955E-4BCF-A8FF-F03A8EE9319D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Utility", "YGPS.QMS.Utility\InstagramPhotos.Utility.csproj", "{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Utility", "InstagramPhotos.Utility\InstagramPhotos.Utility.csproj", "{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Task.Server", "InstagramPhotos.Task.Server\InstagramPhotos.Task.Server.csproj", "{B255F300-9315-45DE-83BE-AB12E7DB859D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Task.Consoles", "InstagramPhotos.Task.Console\InstagramPhotos.Task.Consoles.csproj", "{F9284E10-415F-49E9-92D2-FB91CD09086B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +98,14 @@ Global
 		{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B255F300-9315-45DE-83BE-AB12E7DB859D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B255F300-9315-45DE-83BE-AB12E7DB859D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B255F300-9315-45DE-83BE-AB12E7DB859D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B255F300-9315-45DE-83BE-AB12E7DB859D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9284E10-415F-49E9-92D2-FB91CD09086B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9284E10-415F-49E9-92D2-FB91CD09086B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9284E10-415F-49E9-92D2-FB91CD09086B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9284E10-415F-49E9-92D2-FB91CD09086B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,5 +122,7 @@ Global
 		{ACF54B68-0BCA-4ED6-8102-CD084A173487} = {F9E7FFA5-F02D-413C-8B2F-2A12D0619D76}
 		{0D155A76-955E-4BCF-A8FF-F03A8EE9319D} = {F9E7FFA5-F02D-413C-8B2F-2A12D0619D76}
 		{1FF0E241-38A7-4154-BC1C-45AC437AEEA9} = {22925D67-BD75-4AC9-AAA9-AE4CFB06CD02}
+		{B255F300-9315-45DE-83BE-AB12E7DB859D} = {B9DA10C2-3D88-4FA1-B62E-C5BB59687771}
+		{F9284E10-415F-49E9-92D2-FB91CD09086B} = {B9DA10C2-3D88-4FA1-B62E-C5BB59687771}
 	EndGlobalSection
 EndGlobal

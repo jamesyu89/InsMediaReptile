@@ -42,21 +42,26 @@ namespace InstagramPhotos.Task.Consoles
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine(Environment.NewLine);
 
-            //移交控制权
-
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
+
+            //移交控制权
             while (true)
             {
                 Console.WriteLine("=================输入Instagram用户名即可================");
                 var name = Console.ReadLine();
+                if (string.IsNullOrEmpty(name))
+                {
+                    Console.WriteLine("无效的字符");
+                    continue;
+                }
                 MediaQueueHelper.Instance.AddQueue("jpg,png,gif,mp4,mov", @"http(s?):\/\/\w+(.)\w+(.)+\/.+\w+", name);
                 Console.WriteLine($"正在加入到处理队列...");
-
-                Console.WriteLine($"前面还有{MediaQueueHelper.Instance.ListCount}个任务等待处理...");
+                Console.WriteLine($"队列正在处理任务...");
+                Console.WriteLine($"前面还有{(MediaQueueHelper.Instance.ListCount == 0 ? 0 : MediaQueueHelper.Instance.ListCount - 1)}个任务等待处理...");
                 Console.WriteLine($"========================================================");
                 Console.WriteLine($"========================================================");
             }
-            
+
         }
 
         //控制台退出时

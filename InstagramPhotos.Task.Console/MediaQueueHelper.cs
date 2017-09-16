@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace InstagramPhotos.Task.Consoles
@@ -28,7 +30,7 @@ namespace InstagramPhotos.Task.Consoles
         {
             get
             {
-                return DefaultPath + $"/{InsName}.html";
+                return DefaultPath + $"\\{InsName}.html";
             }
         }
         /// <summary>
@@ -46,7 +48,7 @@ namespace InstagramPhotos.Task.Consoles
         {
             get
             {
-                return Environment.CurrentDirectory;
+                return Environment.CurrentDirectory + "\\" + this.InsName;
             }
         }
     }
@@ -56,9 +58,6 @@ namespace InstagramPhotos.Task.Consoles
     /// </summary>
     public class MediaQueueHelper
     {
-        //#region 解决发布时含有优质媒体时，前台页面卡住的现象  
-        //原理：利用生产者消费者模式进行入列出列操作  
-
         public readonly static MediaQueueHelper Instance = new MediaQueueHelper();
         private MediaQueueHelper()
         { }
@@ -84,6 +83,18 @@ namespace InstagramPhotos.Task.Consoles
                 MetaTypeList = metaTypeList,
                 RegexList = regexList,
                 Url = $"https://www.instagram.com/{insName}"
+            };
+            ListQueue.Enqueue(queueinfo);
+        }
+
+        public void AddQueue(string url)
+        {
+            MediaInfo queueinfo = new MediaInfo
+            {
+                InsName = "",
+                MetaTypeList = url.Substring(url.IndexOf('.', 0)),//.jpg、.png
+                RegexList = "",
+                Url = url
             };
             ListQueue.Enqueue(queueinfo);
         }
@@ -140,7 +151,11 @@ namespace InstagramPhotos.Task.Consoles
                     //直到request.GetResponse()程序才开始向目标网页发送Post请求
                     Stream responseStream = response.GetResponseStream();
                     //创建本地文件写入流
-                    Stream stream = new FileStream(model.FileFullName, FileMode.Create);
+                    if (!Directory.Exists(model.DefaultPath))
+                    {
+                        Directory.CreateDirectory(model.DefaultPath);
+                    }
+                    Stream stream = new FileStream(model.FileFullName, FileMode.OpenOrCreate);
                     byte[] bArr = new byte[1024];
                     int size = responseStream.Read(bArr, 0, (int)bArr.Length);
                     while (size > 0)
@@ -152,7 +167,59 @@ namespace InstagramPhotos.Task.Consoles
                     responseStream.Close();
 
                     //todo:解析文件，生成任务
-                    
+                    //文件存放位置
+                    var path = Environment.CurrentDirectory + $"\\{model.InsName}";
+                    var directoryInfo = new DirectoryInfo(path);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    //解析出下载资源数
+                    StreamReader reader = new StreamReader(new FileStream(model.FileFullName, FileMode.Open));
+                    var html = reader.ReadToEnd();
+                    reader.Close();
+                    var reg = new Regex("\"thumbnail_src\"\\s*:\\s*\"(?<media>http(s)?:\\/\\/\\S+.(jpg|png|mp4|flv))\"");
+                    var matchs = reg.Matches(html);
+
+                    if (matchs == null || matchs.Count == 0)
+                        return;
+
+                    //生成下载任务，并保存到指定目录
+                    Parallel.For(0, matchs.Count, (i) =>
+                    {
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            try
+                            {
+                                Console.WriteLine("[正在下载资源：" + matchs[i].Groups["media"].Value + "]");
+                                // 设置参数
+                                var httpUrl = matchs[i].Groups["media"].Value;
+                                HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
+                                //发送请求并获取相应回应数据
+                                HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
+                                //直到request.GetResponse()程序才开始向目标网页发送Post请求
+                                Stream rps = rp.GetResponseStream();
+                                //创建本地文件写入流
+                                var fileType = httpUrl.Substring(httpUrl.LastIndexOf('.'));
+                                Stream st = new FileStream(path + "\\" + Guid.NewGuid() + fileType, FileMode.Create);
+                                byte[] bar = new byte[1024];
+                                int sz = rps.Read(bar, 0, (int)bar.Length);
+                                while (sz > 0)
+                                {
+                                    st.Write(bar, 0, sz);
+                                    sz = rps.Read(bar, 0, (int)bar.Length);
+                                }
+                                st.Close();
+                                rps.Close();
+                                Console.WriteLine("[资源下载成功！]");
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                        });
+                    });
                 }
                 catch (Exception ex)
                 {

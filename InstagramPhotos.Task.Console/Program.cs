@@ -47,7 +47,7 @@ namespace InstagramPhotos.Task.Consoles
             //移交控制权
             while (true)
             {
-                Console.WriteLine("=================输入Instagram用户名即可================");
+                ShowInput();
                 var name = Console.ReadLine();
                 if (string.IsNullOrEmpty(name))
                 {
@@ -102,6 +102,11 @@ namespace InstagramPhotos.Task.Consoles
                 }
                 mediaService.BatchAddMediatask(mediaList);
             }
+        }
+
+        static void ShowInput()
+        {
+            Console.WriteLine("=================输入Instagram用户名即可================");
         }
     }
 }

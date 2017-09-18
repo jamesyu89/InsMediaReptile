@@ -144,29 +144,9 @@ namespace InstagramPhotos.Task.Consoles
                 {
                     //从队列中取出  
                     MediaInfo model = ListQueue.Dequeue();
-                    // 设置参数
-                    HttpWebRequest request = WebRequest.Create(model.Url) as HttpWebRequest;
-                    //发送请求并获取相应回应数据
-                    HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                    //直到request.GetResponse()程序才开始向目标网页发送Post请求
-                    Stream responseStream = response.GetResponseStream();
-                    //创建本地文件写入流
-                    if (!Directory.Exists(model.DefaultPath))
-                    {
-                        Directory.CreateDirectory(model.DefaultPath);
-                    }
-                    Stream stream = new FileStream(model.FileFullName, FileMode.OpenOrCreate);
-                    byte[] bArr = new byte[1024];
-                    int size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                    while (size > 0)
-                    {
-                        stream.Write(bArr, 0, size);
-                        size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                    }
-                    stream.Close();
-                    responseStream.Close();
 
-                    //todo:解析文件，生成任务
+                    SaveNetFile(model.DefaultPath, model.Url, model.FileFullName);
+
                     //文件存放位置
                     var path = Environment.CurrentDirectory + $"\\{model.InsName}";
                     var directoryInfo = new DirectoryInfo(path);
@@ -200,9 +180,19 @@ namespace InstagramPhotos.Task.Consoles
                                 HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
                                 //直到request.GetResponse()程序才开始向目标网页发送Post请求
                                 Stream rps = rp.GetResponseStream();
+
+                                //网络资源文件是否已下载
+                                var fileReg = new Regex("(\\d+_){3}\\w*.(jpg|jpeg|png|mp4|flv|gif)");
+                                var sourceFileName = fileReg.Match(httpUrl).Value;
+                                //校验目标目录中的文件是否已存在，如果存在则跳过，否则下载
+                                if (File.Exists(sourceFileName))
+                                {
+                                    Console.WriteLine("[此资源已下载，跳过]!");
+                                    return;
+                                }
+
                                 //创建本地文件写入流
-                                var fileType = httpUrl.Substring(httpUrl.LastIndexOf('.'));
-                                Stream st = new FileStream(path + "\\" + Guid.NewGuid() + fileType, FileMode.Create);
+                                Stream st = new FileStream(path + $"\\{sourceFileName}" , FileMode.Create);
                                 byte[] bar = new byte[1024];
                                 int sz = rps.Read(bar, 0, (int)bar.Length);
                                 while (sz > 0)
@@ -212,7 +202,7 @@ namespace InstagramPhotos.Task.Consoles
                                 }
                                 st.Close();
                                 rps.Close();
-                                Console.WriteLine("[资源下载成功！]");
+                                Console.WriteLine("[资源下载完成！]");
                             }
                             catch (Exception)
                             {
@@ -226,6 +216,37 @@ namespace InstagramPhotos.Task.Consoles
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// 下载网络文件
+        /// </summary>
+        /// <param name="defaultPath">本地默认存放目录</param>
+        /// <param name="httpUrl">资源url</param>
+        /// <param name="phycialPath">文件物理路径</param>
+        private void SaveNetFile(string defaultPath,string httpUrl,string phycialPath)
+        {
+            // 设置参数
+            HttpWebRequest request = WebRequest.Create(httpUrl) as HttpWebRequest;
+            //发送请求并获取相应回应数据
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            //直到request.GetResponse()程序才开始向目标网页发送Post请求
+            Stream responseStream = response.GetResponseStream();
+            //创建本地文件写入流
+            if (!Directory.Exists(defaultPath))
+            {
+                Directory.CreateDirectory(defaultPath);
+            }
+            Stream stream = new FileStream(phycialPath, FileMode.OpenOrCreate);
+            byte[] bArr = new byte[1024];
+            int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            while (size > 0)
+            {
+                stream.Write(bArr, 0, size);
+                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            }
+            stream.Close();
+            responseStream.Close();
         }
     }
 }

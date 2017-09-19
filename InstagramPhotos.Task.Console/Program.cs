@@ -5,6 +5,7 @@ using Service.BLL;
 using Service.Interface.Media;
 using System;
 using System.Collections.Generic;
+using ViewModel;
 
 namespace InstagramPhotos.Task.Consoles
 {

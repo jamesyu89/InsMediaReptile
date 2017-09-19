@@ -1,5 +1,7 @@
 ﻿using InstagramPhotos.Media.QueryModel;
 using InstagramPhotos.Media.ViewModel;
+using InstagramPhotos.QueryModel;
+using InstagramPhotos.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +110,56 @@ namespace Service.Interface.Media
         /// <param name="isCache"></param>
         /// <returns>MediaTaskEntity信息列表</returns>
         List<MediaTaskEntity> GetMediataskDtosByParaForPage(MediaTaskQO queryEntity,
+            Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache);
+
+        #endregion
+
+        #region auto Download
+
+        /// <summary>
+        ///     新增Download信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void AddDownload(DownloadEntity dto);
+
+        /// <summary>
+        ///     更新Download信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void UpdateDownload(DownloadEntity dto);
+
+        /// <summary>
+        ///    获取DownloadEntity信息
+        /// </summary>
+        /// <param name="DownloadId">主键</param>
+        DownloadEntity GetDownload(Guid DownloadId);
+
+        /// <summary>
+        ///    根据DownloadIds数组获取Download信息列表
+        /// </summary>
+        /// <param name="DownloadIds">主键集合</param>
+        /// <returns>DownloadEntity信息列表</returns>
+        List<DownloadEntity> GetDownloads(Guid[] DownloadIds);
+
+        /// <summary>
+        ///  通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadEntity信息列表</returns>
+        List<DownloadEntity> GetDownloadDtosByPara(DownloadQO queryEntity, Boolean isCache);
+
+        /// <summary>
+        ///  分页通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadEntity信息列表</returns>
+        List<DownloadEntity> GetDownloadDtosByParaForPage(DownloadQO queryEntity,
             Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache);
 
         #endregion

@@ -7,56 +7,14 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using ViewModel;
 
 namespace InstagramPhotos.Task.Consoles
 {
     /// <summary>
-    /// 队列临时类  
-    /// </summary>
-    public class MediaInfo
-    {
-        /// <summary>
-        /// Ins用户名
-        /// </summary>
-        public string InsName { get; set; }
-        /// <summary>
-        /// 资源文件网络路径
-        /// </summary>
-        public string Url { get; set; }
-        /// <summary>
-        /// 要保存到文件(html)的(包含路径的)全名
-        /// </summary>
-        public string FileFullName
-        {
-            get
-            {
-                return DefaultPath + $"\\{InsName}.html";
-            }
-        }
-        /// <summary>
-        /// 文件资源类型,逗号隔开
-        /// </summary>
-        public string MetaTypeList { get; set; }
-        /// <summary>
-        /// 匹配资源的正则表达式,逗号隔开
-        /// </summary>
-        public string RegexList { get; set; }
-        /// <summary>
-        /// 默认路径
-        /// </summary>
-        public string DefaultPath
-        {
-            get
-            {
-                return Environment.CurrentDirectory + "\\" + this.InsName;
-            }
-        }
-    }
-
-    /// <summary>
     /// 队列处理类
     /// </summary>
-    public class MediaQueueHelper
+    public partial class MediaQueueHelper
     {
         public readonly static MediaQueueHelper Instance = new MediaQueueHelper();
         private MediaQueueHelper()
@@ -145,7 +103,7 @@ namespace InstagramPhotos.Task.Consoles
                     //从队列中取出  
                     MediaInfo model = ListQueue.Dequeue();
 
-                    SaveNetFile(model.DefaultPath, model.Url, model.FileFullName);
+                    SaveFromExtraFile(model.Url, model.InsName);
 
                     //文件存放位置
                     var path = Environment.CurrentDirectory + $"\\{model.InsName}";
@@ -166,16 +124,16 @@ namespace InstagramPhotos.Task.Consoles
                         return;
 
                     //生成下载任务，并保存到指定目录
-                    Parallel.For(0, matchs.Count, (i) =>
-                    {
-                        System.Threading.Tasks.Task.Run(() =>
-                        {
-                            try
-                            {
-                                Console.WriteLine("[正在下载资源：" + matchs[i].Groups["media"].Value + "]");
+                    var result = Parallel.For(0, matchs.Count, (i) =>
+                     {
+                         System.Threading.Tasks.Task.Run(() =>
+                         {
+                             try
+                             {
+                                 Console.WriteLine("[正在下载资源：" + matchs[i].Groups["media"].Value + "]");
                                 // 设置参数
                                 var httpUrl = matchs[i].Groups["media"].Value;
-                                HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
+                                 HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
                                 //发送请求并获取相应回应数据
                                 HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
                                 //直到request.GetResponse()程序才开始向目标网页发送Post请求
@@ -183,33 +141,37 @@ namespace InstagramPhotos.Task.Consoles
 
                                 //网络资源文件是否已下载
                                 var fileReg = new Regex("(\\d+_){3}\\w*.(jpg|jpeg|png|mp4|flv|gif)");
-                                var sourceFileName = fileReg.Match(httpUrl).Value;
+                                 var sourceFileName = fileReg.Match(httpUrl).Value;
                                 //校验目标目录中的文件是否已存在，如果存在则跳过，否则下载
                                 if (File.Exists(sourceFileName))
-                                {
-                                    Console.WriteLine("[此资源已下载，跳过]!");
-                                    return;
-                                }
+                                 {
+                                     Console.WriteLine("[此资源已下载，跳过]!");
+                                     return;
+                                 }
 
                                 //创建本地文件写入流
-                                Stream st = new FileStream(path + $"\\{sourceFileName}" , FileMode.Create);
-                                byte[] bar = new byte[1024];
-                                int sz = rps.Read(bar, 0, (int)bar.Length);
-                                while (sz > 0)
-                                {
-                                    st.Write(bar, 0, sz);
-                                    sz = rps.Read(bar, 0, (int)bar.Length);
-                                }
-                                st.Close();
-                                rps.Close();
-                                Console.WriteLine("[资源下载完成！]");
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        });
-                    });
+                                Stream st = new FileStream(path + $"\\{sourceFileName}", FileMode.Create);
+                                 byte[] bar = new byte[1024];
+                                 int sz = rps.Read(bar, 0, (int)bar.Length);
+                                 while (sz > 0)
+                                 {
+                                     st.Write(bar, 0, sz);
+                                     sz = rps.Read(bar, 0, (int)bar.Length);
+                                 }
+                                 st.Close();
+                                 rps.Close();
+                                 Console.WriteLine("[资源下载完成！]");
+                             }
+                             catch (Exception)
+                             {
+                                 throw;
+                             }
+                         });
+                     });
+                    if (result.IsCompleted)
+                    {
+                        Console.WriteLine("=================输入Instagram用户名即可================");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -224,7 +186,7 @@ namespace InstagramPhotos.Task.Consoles
         /// <param name="defaultPath">本地默认存放目录</param>
         /// <param name="httpUrl">资源url</param>
         /// <param name="phycialPath">文件物理路径</param>
-        private void SaveNetFile(string defaultPath,string httpUrl,string phycialPath)
+        private void SaveNetFile(string defaultPath, string httpUrl, string phycialPath)
         {
             // 设置参数
             HttpWebRequest request = WebRequest.Create(httpUrl) as HttpWebRequest;

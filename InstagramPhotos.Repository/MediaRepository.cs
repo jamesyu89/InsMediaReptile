@@ -1,4 +1,5 @@
-﻿using InstagramPhotos.Media.DomainModel;
+﻿using InstagramPhotos.DomainModel;
+using InstagramPhotos.Media.DomainModel;
 using InstagramPhotos.Utility.Data;
 using InstagramPhotos.Utility.Log;
 using System;
@@ -460,6 +461,194 @@ namespace InstagramPhotos.Repository
         }
 
         #endregion
+
+        #region auto Download
+
+        /// <summary>
+        ///     新增Download信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public void AddDownload(DownloadDO entity, DbTransaction tran = null)
+        {
+            var data = new[]
+            {
+                DownloadDO.ColumnEnum.DownloadId.ToString(),
+                DownloadDO.ColumnEnum.HttpUrl.ToString(),
+                DownloadDO.ColumnEnum.SortValue.ToString(),
+                DownloadDO.ColumnEnum.Disabled.ToString(),
+                DownloadDO.ColumnEnum.Rec_CreateBy.ToString(),
+                DownloadDO.ColumnEnum.Rec_CreateTime.ToString(),
+                DownloadDO.ColumnEnum.Rec_ModifyBy.ToString(),
+                DownloadDO.ColumnEnum.Rec_ModifyTime.ToString()
+            };
+            if (tran == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.InsertObject(conn, entity, GetTableName(DownloadDO.TableName), db, data);
+                }
+            }
+            else
+                DBTools.InsertObjectWithTrans(tran.Connection, entity, GetTableName(DownloadDO.TableName), db, tran, data);
+        }
+
+        /// <summary>
+        ///     批量新增Download信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void AddDownloadList(List<DownloadDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"INSERT INTO {0} SELECT
+				T.ts.value('@DownloadId', 'uniqueidentifier') as DownloadId,
+				T.ts.value('@HttpUrl', 'nvarchar(400)') as HttpUrl,
+				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts)", GetTableName(DownloadDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+
+        /// <summary>
+        ///    更新Download信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public Boolean UpdateDownload(DownloadDO entity, DbTransaction tran = null)
+        {
+            try
+            {
+                if (tran == null)
+                    using (DbConnection conn = GetConn())
+                    {
+                        DBTools.UpdateObject(conn, entity, GetTableName(DownloadDO.TableName), new[] { DownloadDO.IdName }, db);
+                    }
+                else
+                    DBTools.UpdateObjectWithTrans(tran.Connection, entity, GetTableName(DownloadDO.TableName), new[] { DownloadDO.IdName }, db, tran);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     批量更新Download信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void UpdateDownloadList(List<DownloadDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"DECLARE @TBL TABLE(
+				[DownloadId] uniqueidentifier NOT NULL ,
+				[HttpUrl] nvarchar(400) NULL ,
+				[SortValue] nvarchar(36) NULL ,
+				[Disabled] int NULL ,
+				[Rec_CreateBy] uniqueidentifier NULL ,
+				[Rec_CreateTime] datetime NULL ,
+				[Rec_ModifyBy] uniqueidentifier NULL ,
+				[Rec_ModifyTime] datetime NULL )
+
+
+				INSERT INTO @TBL SELECT
+				T.ts.value('@DownloadId', 'uniqueidentifier') as DownloadId,
+				T.ts.value('@HttpUrl', 'nvarchar(400)') as HttpUrl,
+				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts);
+
+
+				UPDATE {0} SET  
+				[HttpUrl] = B.HttpUrl,
+				[SortValue] = B.SortValue,
+				[Disabled] = B.Disabled,
+				[Rec_CreateBy] = B.Rec_CreateBy,
+				[Rec_CreateTime] = B.Rec_CreateTime,
+				[Rec_ModifyBy] = B.Rec_ModifyBy,
+				[Rec_ModifyTime] = B.Rec_ModifyTime
+				FROM {0} A,@TBL B WHERE A.DownloadId=B.DownloadId ", GetTableName(DownloadDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+        /// <summary>
+        ///    获取Download信息
+        /// </summary>
+        /// <param name="DownloadId">主键</param>
+        public DownloadDO GetDownload(Guid DownloadId)
+        {
+            var cmd = new CmdParams { { "@DownloadId", DownloadId } };
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE DownloadId=@DownloadId", GetTableName(DownloadDO.TableName));
+            using (DbConnection conn = GetConn())
+            {
+                return DBTools.ExecuteReader<DownloadDO>(conn, sql, cmd);
+            }
+        }
+
+        /// <summary>
+        ///    根据DownloadIds数组获取Download信息列表
+        /// </summary>
+        /// <param name="DownloadIds">主键集合</param>
+        /// <returns>Download信息列表</returns>
+        public Dictionary<Guid, DownloadDO> GetDownloads(IEnumerable<Guid> DownloadIds)
+        {
+            Guid[] downloadids = DownloadIds as Guid[] ?? DownloadIds.ToArray();
+            if (!downloadids.Any()) return null;
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE DownloadId in ('{1}')",
+                GetTableName(DownloadDO.TableName), downloadids.Distinct().ToCSV("','"));
+            using (DbConnection conn = GetConn())
+            {
+                IEnumerable<DownloadDO> result = DBTools.ReadCollection<DownloadDO>(conn, sql, null);
+                return result.ToDictionary(i => i.DownloadId);
+            }
+        }
+
+        #endregion
+
 
         #endregion
 

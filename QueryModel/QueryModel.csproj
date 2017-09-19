@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InsUser\InsUserType.cs" />
+    <Compile Include="Media\DownloadQO.cs" />
     <Compile Include="Media\MediaQO.cs" />
     <Compile Include="Media\MediaTaskQO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

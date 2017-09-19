@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Service.BLL.Media.Mapping;
 using Service.Interface.Media;
+using InstagramPhotos.ViewModel;
+using InstagramPhotos.QueryModel;
+using InstagramPhotos.DomainModel;
 
 namespace Service.BLL.Media
 {
@@ -187,6 +190,89 @@ namespace Service.BLL.Media
             var list = new List<MediaTaskDO>();
             dto.ForEach(d => list.Add(d.ConvertToModel()));
             new MediaRepository().AddMediataskList(list);
+        }
+
+        #endregion
+
+        #region auto Download
+
+        /// <summary>
+        ///     新增Download信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        public void AddDownload(DownloadEntity dto)
+        {
+            DownloadDO info = dto.ConvertToModel();
+            new MediaRepository().AddDownload(info);
+        }
+
+        /// <summary>
+        ///     更新Download信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        public void UpdateDownload(DownloadEntity dto)
+        {
+            DownloadDO info = dto.ConvertToModel();
+            new MediaRepository().UpdateDownload(info);
+            MediaCommon.cache_Download.Remove(info.DownloadId);
+        }
+
+        /// <summary>
+        ///    获取Download信息
+        /// </summary>
+        /// <param name="DownloadId">主键</param>
+        public DownloadEntity GetDownload(Guid DownloadId)
+        {
+            DownloadDO dto = MediaCommon.cache_Download.GetFromDB(DownloadId, new MediaRepository().GetDownload);
+            return dto.ConvertToDto();
+        }
+
+        /// <summary>
+        ///    根据DownloadIds数组获取Download信息列表
+        /// </summary>
+        /// <param name="DownloadIds">主键集合</param>
+        /// <returns>Download信息列表</returns>
+        public List<DownloadEntity> GetDownloads(Guid[] DownloadIds)
+        {
+            return
+                MediaCommon.cache_Download.GetFromDB(DownloadIds, new MediaRepository().GetDownloads)
+                    .Select(m => m.ConvertToDto())
+                    .ToList();
+        }
+
+        /// <summary>
+        ///  通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadEntity信息列表</returns>
+        public List<DownloadEntity> GetDownloadDtosByPara(DownloadQO queryEntity, Boolean isCache)
+        {
+            var qm = new QueryHelper(new MediaRepository());
+            List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, isCache);
+            if (ids == null || ids.Count == 0)
+                return new List<DownloadEntity>();
+            return GetDownloads(ids.ToArray());
+        }
+
+        /// <summary>
+        ///  分页通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadEntity信息列表</returns>
+        public List<DownloadEntity> GetDownloadDtosByParaForPage(DownloadQO queryEntity,
+            Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache)
+        {
+            var qm = new QueryHelper(new MediaRepository());
+            List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, pageIndex, pageSize, out totalCount, out pageCount, isCache);
+            if (ids == null || ids.Count == 0)
+                return new List<DownloadEntity>();
+            return GetDownloads(ids.ToArray());
         }
 
         #endregion

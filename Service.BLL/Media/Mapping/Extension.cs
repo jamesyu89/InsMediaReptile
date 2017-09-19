@@ -1,6 +1,8 @@
 ﻿using EmitMapper;
+using InstagramPhotos.DomainModel;
 using InstagramPhotos.Media.DomainModel;
 using InstagramPhotos.Media.ViewModel;
+using InstagramPhotos.ViewModel;
 
 namespace Service.BLL.Media.Mapping
 {
@@ -38,6 +40,24 @@ namespace Service.BLL.Media.Mapping
         public static MediaTaskDO ConvertToModel(this MediaTaskEntity entity)
         {
             return mapper_MediaTaskEntity_2_MediaTaskDO.Map(entity);
+        }
+
+        #endregion
+
+        #region DownLoad
+
+        private static readonly ObjectsMapper<DownloadEntity, DownloadDO> mapper_DownloadEntity_2_DownloadDO = ObjectMapperManager.DefaultInstance.GetMapper<DownloadEntity, DownloadDO>();
+
+        private static readonly ObjectsMapper<DownloadDO, DownloadEntity> mapper_DownloadDO_2_DownloadEntity = ObjectMapperManager.DefaultInstance.GetMapper<DownloadDO, DownloadEntity>();
+
+        public static DownloadEntity ConvertToDto(this DownloadDO model)
+        {
+            return mapper_DownloadDO_2_DownloadEntity.Map(model);
+        }
+
+        public static DownloadDO ConvertToModel(this DownloadEntity entity)
+        {
+            return mapper_DownloadEntity_2_DownloadDO.Map(entity);
         }
 
         #endregion

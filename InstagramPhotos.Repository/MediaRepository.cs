@@ -475,6 +475,7 @@ namespace InstagramPhotos.Repository
             {
                 DownloadDO.ColumnEnum.DownloadId.ToString(),
                 DownloadDO.ColumnEnum.HttpUrl.ToString(),
+                DownloadDO.ColumnEnum.DirName.ToString(),
                 DownloadDO.ColumnEnum.SortValue.ToString(),
                 DownloadDO.ColumnEnum.Disabled.ToString(),
                 DownloadDO.ColumnEnum.Rec_CreateBy.ToString(),
@@ -512,6 +513,7 @@ namespace InstagramPhotos.Repository
             var sql = string.Format(@"INSERT INTO {0} SELECT
 				T.ts.value('@DownloadId', 'uniqueidentifier') as DownloadId,
 				T.ts.value('@HttpUrl', 'nvarchar(400)') as HttpUrl,
+				T.ts.value('@DirName', 'nvarchar(400)') as DirName,
 				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
 				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
 				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
@@ -575,6 +577,7 @@ namespace InstagramPhotos.Repository
             var sql = string.Format(@"DECLARE @TBL TABLE(
 				[DownloadId] uniqueidentifier NOT NULL ,
 				[HttpUrl] nvarchar(400) NULL ,
+				[DirName] nvarchar(400) NULL ,
 				[SortValue] nvarchar(36) NULL ,
 				[Disabled] int NULL ,
 				[Rec_CreateBy] uniqueidentifier NULL ,
@@ -586,6 +589,7 @@ namespace InstagramPhotos.Repository
 				INSERT INTO @TBL SELECT
 				T.ts.value('@DownloadId', 'uniqueidentifier') as DownloadId,
 				T.ts.value('@HttpUrl', 'nvarchar(400)') as HttpUrl,
+				T.ts.value('@DirName', 'nvarchar(400)') as DirName,
 				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
 				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
 				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
@@ -597,6 +601,7 @@ namespace InstagramPhotos.Repository
 
 				UPDATE {0} SET  
 				[HttpUrl] = B.HttpUrl,
+				[DirName] = B.DirName,
 				[SortValue] = B.SortValue,
 				[Disabled] = B.Disabled,
 				[Rec_CreateBy] = B.Rec_CreateBy,
@@ -648,6 +653,7 @@ namespace InstagramPhotos.Repository
         }
 
         #endregion
+
 
 
         #endregion

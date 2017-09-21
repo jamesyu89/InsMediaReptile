@@ -17,53 +17,61 @@ namespace InstagramPhotos.Task.Consoles
         {
             //初始化缓存引擎
             KVStoreManager.SetEngine(new KVStoreEngine());
-
-            Console.WriteLine("========================================================");
-            Console.WriteLine("正在初始化...");
-            Console.WriteLine("检查上次程序退出时队列剩余未被执行的任务...");
-            var mediaTaskQo = new MediaTaskQO();
-            mediaTaskQo.Equal(MediaTaskQO.QueryEnums.Disabled, false);
-            var mediaResult = mediaService.GetMediataskDtosByPara(mediaTaskQo, true);
-            var taskRemainCount = mediaResult != null ? mediaResult.Count : 0;
-            Console.WriteLine($"剩余未被执行的任务数为{taskRemainCount}...");
-            if (taskRemainCount > 0)
-            {
-                Console.WriteLine("正在将任务添加至队列中....");
-                mediaResult.ForEach(m =>
-                {
-                    MediaQueueHelper.Instance.AddQueue(m.FileFullName, m.MetaTypeList, m.RegexList);
-                });
-                Console.WriteLine("添加完成....");
-            }
-            Console.WriteLine("处理队列中....");
-
-            MediaQueueHelper.Instance.Start();
-
-            Console.WriteLine("初始化结束...");
-            Console.WriteLine(Environment.NewLine);
-            Console.WriteLine(Environment.NewLine);
-
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
 
-            //移交控制权
             while (true)
             {
-                ShowInput();
-                var name = Console.ReadLine();
-                if (string.IsNullOrEmpty(name))
+                Console.WriteLine("是否立即扫描数据库并开始下载资源(y/n)?");
+                var k = Console.ReadLine();
+                if (k.ToUpper() == "Y")
                 {
-                    Console.WriteLine("无效的字符");
-                    continue;
+                    Console.WriteLine("========================================================");
+                    Console.WriteLine("正在初始化...");
+                    Console.WriteLine("检查需要被执行的任务...");
+                    var mediaTaskQo = new MediaTaskQO();
+                    mediaTaskQo.Equal(MediaTaskQO.QueryEnums.Disabled, 0);
+                    var mediaResult = mediaService.GetMediataskDtosByPara(mediaTaskQo, false);
+                    var taskRemainCount = mediaResult != null ? mediaResult.Count : 0;
+                    Console.WriteLine($"当前任务数为{taskRemainCount}...");
+                    if (taskRemainCount > 0)
+                    {
+                        Console.WriteLine("正在将任务添加至队列中....");
+                        mediaResult.ForEach(m =>
+                        {
+                            MediaQueueHelper.Instance.AddQueue(m.Url,m.MediaTaskId);
+                        });
+                        Console.WriteLine("添加完成....");
+                    }
+                    Console.WriteLine("初始化结束...");
+                    Console.WriteLine("处理队列中....");
+                    MediaQueueHelper.Instance.Start();
+                    Console.WriteLine(Environment.NewLine);
+                    Console.WriteLine(Environment.NewLine);
                 }
-                MediaQueueHelper.Instance.AddQueue("jpg,png,gif,mp4,mov", @"http(s?):\/\/\w+(.)\w+(.)+\/.+\w+", name);
-                Console.WriteLine($"正在加入到处理队列...");
-                Console.WriteLine($"队列正在处理任务...");
-                Console.WriteLine($"前面还有{(MediaQueueHelper.Instance.ListCount == 0 ? 0 : MediaQueueHelper.Instance.ListCount - 1)}个任务等待处理...");
-                Console.WriteLine($"========================================================");
-                Console.WriteLine($"========================================================");
             }
 
+            //移交控制权
+            //while (true)
+            //{
+            //    ShowInput();
+            //    var name = Console.ReadLine();
+            //    if (string.IsNullOrEmpty(name))
+            //    {
+            //        Console.WriteLine("无效的字符");
+            //        continue;
+            //    }
+            //    MediaQueueHelper.Instance.AddQueue("jpg,png,gif,mp4,mov", @"http(s?):\/\/\w+(.)\w+(.)+\/.+\w+", name);
+            //    Console.WriteLine($"正在加入到处理队列...");
+            //    Console.WriteLine($"队列正在处理任务...");
+            //    Console.WriteLine($"前面还有{(MediaQueueHelper.Instance.ListCount == 0 ? 0 : MediaQueueHelper.Instance.ListCount - 1)}个任务等待处理...");
+            //    Console.WriteLine($"========================================================");
+            //    Console.WriteLine($"========================================================");
+            //}
         }
+
+
+
+
 
         //控制台退出时
         static void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -103,11 +111,6 @@ namespace InstagramPhotos.Task.Consoles
                 }
                 mediaService.BatchAddMediatask(mediaList);
             }
-        }
-
-        static void ShowInput()
-        {
-            Console.WriteLine("=================输入Instagram用户名即可================");
         }
     }
 }

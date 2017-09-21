@@ -139,7 +139,7 @@ namespace Service.Interface.Media
         /// </summary>
         /// <param name="DownloadIds">主键集合</param>
         /// <returns>DownloadEntity信息列表</returns>
-        List<DownloadEntity> GetDownloads(Guid[] DownloadIds);
+        List<DownloadEntity> GetDownloads(Guid[] DownloadIds,bool iscache);
 
         /// <summary>
         ///  通用查询

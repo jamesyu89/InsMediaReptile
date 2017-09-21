@@ -46,27 +46,31 @@ namespace InstagramPhotos.DomainModel
         /// </summary>
         public string HttpUrl { get; set; }
         /// <summary>
-        /* 3: 排序值*/
+        /* 3: */
+        /// </summary>
+        public string DirName { get; set; }
+        /// <summary>
+        /* 4: 排序值*/
         /// </summary>
         public string SortValue { get; set; }
         /// <summary>
-        /* 4: 是否禁用 0正常 1禁用*/
+        /* 5: 是否禁用 0正常 1禁用*/
         /// </summary>
         public int? Disabled { get; set; }
         /// <summary>
-        /* 5: 创建人*/
+        /* 6: 创建人*/
         /// </summary>
         public Guid? Rec_CreateBy { get; set; }
         /// <summary>
-        /* 6: 创建时间*/
+        /* 7: 创建时间*/
         /// </summary>
         public DateTime? Rec_CreateTime { get; set; }
         /// <summary>
-        /* 7: 修改人*/
+        /* 8: 修改人*/
         /// </summary>
         public Guid? Rec_ModifyBy { get; set; }
         /// <summary>
-        /* 8: 修改时间*/
+        /* 9: 修改时间*/
         /// </summary>
         public DateTime? Rec_ModifyTime { get; set; }
         #region 列名
@@ -77,35 +81,39 @@ namespace InstagramPhotos.DomainModel
         public enum ColumnEnum
         {
             /// <summary>
-            /* 9: */
+            /* 10: */
             /// </summary>
             DownloadId,
             /// <summary>
-            /* 10: */
+            /* 11: */
             /// </summary>
             HttpUrl,
             /// <summary>
-            /* 11: 排序值*/
+            /* 12: */
+            /// </summary>
+            DirName,
+            /// <summary>
+            /* 13: 排序值*/
             /// </summary>
             SortValue,
             /// <summary>
-            /* 12: 是否禁用 0正常 1禁用*/
+            /* 14: 是否禁用 0正常 1禁用*/
             /// </summary>
             Disabled,
             /// <summary>
-            /* 13: 创建人*/
+            /* 15: 创建人*/
             /// </summary>
             Rec_CreateBy,
             /// <summary>
-            /* 14: 创建时间*/
+            /* 16: 创建时间*/
             /// </summary>
             Rec_CreateTime,
             /// <summary>
-            /* 15: 修改人*/
+            /* 17: 修改人*/
             /// </summary>
             Rec_ModifyBy,
             /// <summary>
-            /* 16: 修改时间*/
+            /* 18: 修改时间*/
             /// </summary>
             Rec_ModifyTime,
         }

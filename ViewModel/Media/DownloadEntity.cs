@@ -30,27 +30,31 @@ namespace InstagramPhotos.ViewModel
         /// </summary>
         public string HttpUrl { get; set; }
         /// <summary>
-        /* 3: 排序值*/
+        /* 3: */
+        /// </summary>
+        public string DirName { get; set; }
+        /// <summary>
+        /* 4: 排序值*/
         /// </summary>
         public string SortValue { get; set; }
         /// <summary>
-        /* 4: 是否禁用 0正常 1禁用*/
+        /* 5: 是否禁用 0正常 1禁用*/
         /// </summary>
         public int? Disabled { get; set; }
         /// <summary>
-        /* 5: 创建人*/
+        /* 6: 创建人*/
         /// </summary>
         public Guid? Rec_CreateBy { get; set; }
         /// <summary>
-        /* 6: 创建时间*/
+        /* 7: 创建时间*/
         /// </summary>
         public DateTime? Rec_CreateTime { get; set; }
         /// <summary>
-        /* 7: 修改人*/
+        /* 8: 修改人*/
         /// </summary>
         public Guid? Rec_ModifyBy { get; set; }
         /// <summary>
-        /* 8: 修改时间*/
+        /* 9: 修改时间*/
         /// </summary>
         public DateTime? Rec_ModifyTime { get; set; }
 

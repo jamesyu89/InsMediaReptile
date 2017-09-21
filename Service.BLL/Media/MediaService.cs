@@ -232,12 +232,27 @@ namespace Service.BLL.Media
         /// </summary>
         /// <param name="DownloadIds">主键集合</param>
         /// <returns>Download信息列表</returns>
-        public List<DownloadEntity> GetDownloads(Guid[] DownloadIds)
+        public List<DownloadEntity> GetDownloads(Guid[] DownloadIds,bool iscache)
         {
-            return
+            if (iscache)
+            {
+                return
                 MediaCommon.cache_Download.GetFromDB(DownloadIds, new MediaRepository().GetDownloads)
                     .Select(m => m.ConvertToDto())
                     .ToList();
+            }
+            var d= new MediaRepository().GetDownloads(DownloadIds);
+            var list = new List<DownloadEntity>();
+
+            if (d!=null && d.Any())
+            {
+                foreach (KeyValuePair<Guid,DownloadDO> item in d)
+                {
+                    list.Add(item.Value.ConvertToDto())
+ ;                }
+
+            }
+            return list;
         }
 
         /// <summary>
@@ -252,7 +267,7 @@ namespace Service.BLL.Media
             List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, isCache);
             if (ids == null || ids.Count == 0)
                 return new List<DownloadEntity>();
-            return GetDownloads(ids.ToArray());
+            return GetDownloads(ids.ToArray(), isCache);
         }
 
         /// <summary>
@@ -272,7 +287,7 @@ namespace Service.BLL.Media
             List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, pageIndex, pageSize, out totalCount, out pageCount, isCache);
             if (ids == null || ids.Count == 0)
                 return new List<DownloadEntity>();
-            return GetDownloads(ids.ToArray());
+            return GetDownloads(ids.ToArray(),isCache);
         }
 
         #endregion

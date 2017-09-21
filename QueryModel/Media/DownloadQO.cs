@@ -53,27 +53,31 @@ namespace InstagramPhotos.QueryModel
             /// </summary>
             HttpUrl,
             /// <summary>
-            /* 3: 排序值*/
+            /* 3: */
+            /// </summary>
+            DirName,
+            /// <summary>
+            /* 4: 排序值*/
             /// </summary>
             SortValue,
             /// <summary>
-            /* 4: 是否禁用 0正常 1禁用*/
+            /* 5: 是否禁用 0正常 1禁用*/
             /// </summary>
             Disabled,
             /// <summary>
-            /* 5: 创建人*/
+            /* 6: 创建人*/
             /// </summary>
             Rec_CreateBy,
             /// <summary>
-            /* 6: 创建时间*/
+            /* 7: 创建时间*/
             /// </summary>
             Rec_CreateTime,
             /// <summary>
-            /* 7: 修改人*/
+            /* 8: 修改人*/
             /// </summary>
             Rec_ModifyBy,
             /// <summary>
-            /* 8: 修改时间*/
+            /* 9: 修改时间*/
             /// </summary>
             Rec_ModifyTime,
         }

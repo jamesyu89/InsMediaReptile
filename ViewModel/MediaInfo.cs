@@ -47,5 +47,8 @@ namespace ViewModel
                 return Environment.CurrentDirectory + "\\" + this.InsName;
             }
         }
+
+        public Guid TaskId { get; set; }
+
     }
 }

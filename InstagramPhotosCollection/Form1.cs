@@ -137,7 +137,7 @@ namespace InstagramPhotos
                     #endregion
 
                     #region 执行下载任务，并保存到指定目录
-                    
+
                     for (int i = 0; i < downloadTasks.Count; i++)
                     {
                         try
@@ -219,10 +219,18 @@ namespace InstagramPhotos
         /// 打印消息到界面上
         /// </summary>
         /// <param name="message"></param>
-        public void Print(string message)
+        public void Print(string message, bool showLeft = true)
         {
-            Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
-            richTextBox1.Invoke(printMessage, message);
+            if (showLeft)
+            {
+                Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
+                richTextBox1.Invoke(printMessage, message);
+            }
+            else
+            {
+                Action<string> printMessage = (s) => richTextBox2.AppendText(s + Environment.NewLine);
+                richTextBox2.Invoke(printMessage, message);
+            }
         }
 
         #endregion

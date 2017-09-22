@@ -111,7 +111,7 @@ namespace InstagramPhotos
                                 downloadTasks = mediaService.GetDownloadDtosByPara(downQo, false);
                                 if (downloadTasks == null || !downloadTasks.Any())
                                 {
-                                    Print("当前批次下载任务已完成，等待10秒继续扫描待下载的任务...".Log(),false);
+                                    Print("当前批次下载任务已完成，等待10秒继续扫描待下载的任务...".Log(), false);
                                     Thread.Sleep(10000);
                                     continue;
                                 }
@@ -204,7 +204,7 @@ namespace InstagramPhotos
                             break;
                         }
                     }
-                    Print($"当前批次下载任务已完成，等待10秒继续扫描待下载的任务...[{DateTime.Now}]".Log(),false);
+                    Print($"当前批次下载任务已完成，等待10秒继续扫描待下载的任务...[{DateTime.Now}]".Log(), false);
                     Thread.Sleep(10000);
 
                     #endregion
@@ -226,6 +226,71 @@ namespace InstagramPhotos
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
             richTextBox2.ScrollToCaret();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 注意判断关闭事件reason来源于窗体按钮，否则用菜单退出时无法退出!
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                //取消"关闭窗口"事件
+                e.Cancel = true; // 取消关闭窗体 
+
+                //使关闭时窗口向右下角缩小的效果
+                this.WindowState = FormWindowState.Minimized;
+                this.notifyIcon1.Visible = true;
+                //this.m_cartoonForm.CartoonClose();
+                this.Hide();
+                return;
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.Visible)
+            {
+                this.WindowState = FormWindowState.Minimized;
+                this.notifyIcon1.Visible = true;
+                this.Hide();
+            }
+            else
+            {
+                this.Visible = true;
+                this.WindowState = FormWindowState.Normal;
+                this.Activate();
+            }
+        }
+
+        private void toolStripMenuItemMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.notifyIcon1.Visible = true;
+            this.Hide();
+        }
+
+        private void toolStripMenuItemMaximize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            this.notifyIcon1.Visible = true;
+            this.Show();
+        }
+
+        private void toolStripMenuItemNormal_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.notifyIcon1.Visible = true;
+            this.Show();
+        }
+
+        private void toolStripMenuItemQuit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定要退出？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                this.notifyIcon1.Visible = false;
+                this.Close();
+                this.Dispose();
+                Environment.Exit(Environment.ExitCode);
+            }
         }
 
         #endregion
@@ -250,8 +315,7 @@ namespace InstagramPhotos
             }
         }
 
-        #endregion
 
-        
+        #endregion
     }
 }

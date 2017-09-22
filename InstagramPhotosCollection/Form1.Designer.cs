@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
@@ -37,7 +39,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemMinimize = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemMaximize = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNormal = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -136,11 +146,66 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Text = "Instagram爬虫";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemMinimize,
+            this.toolStripMenuItemMaximize,
+            this.toolStripMenuItemNormal,
+            this.toolStripMenuItemQuit});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(989, 25);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItemMinimize
+            // 
+            this.toolStripMenuItemMinimize.Name = "toolStripMenuItemMinimize";
+            this.toolStripMenuItemMinimize.Size = new System.Drawing.Size(56, 21);
+            this.toolStripMenuItemMinimize.Text = "最小化";
+            this.toolStripMenuItemMinimize.Click += new System.EventHandler(this.toolStripMenuItemMinimize_Click);
+            // 
+            // toolStripMenuItemMaximize
+            // 
+            this.toolStripMenuItemMaximize.Name = "toolStripMenuItemMaximize";
+            this.toolStripMenuItemMaximize.Size = new System.Drawing.Size(56, 21);
+            this.toolStripMenuItemMaximize.Text = "最大化";
+            this.toolStripMenuItemMaximize.Click += new System.EventHandler(this.toolStripMenuItemMaximize_Click);
+            // 
+            // toolStripMenuItemNormal
+            // 
+            this.toolStripMenuItemNormal.Name = "toolStripMenuItemNormal";
+            this.toolStripMenuItemNormal.Size = new System.Drawing.Size(44, 21);
+            this.toolStripMenuItemNormal.Text = "还原";
+            this.toolStripMenuItemNormal.Click += new System.EventHandler(this.toolStripMenuItemNormal_Click);
+            // 
+            // toolStripMenuItemQuit
+            // 
+            this.toolStripMenuItemQuit.Name = "toolStripMenuItemQuit";
+            this.toolStripMenuItemQuit.Size = new System.Drawing.Size(44, 21);
+            this.toolStripMenuItemQuit.Text = "退出";
+            this.toolStripMenuItemQuit.Click += new System.EventHandler(this.toolStripMenuItemQuit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 755);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
@@ -148,10 +213,13 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "微博社交爬虫v1.0";
+            this.Text = "Instagram爬虫v1.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,6 +236,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMinimize;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMaximize;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNormal;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemQuit;
     }
 }
 

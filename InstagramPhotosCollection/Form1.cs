@@ -72,9 +72,9 @@ namespace InstagramPhotos
                     }
                     else
                     {
-                        if (DefineMessageQueue.Instance().ItemQueue.Count > 0)
+                        if (DefineMessageQueue.ItemQueue.Count > 0)
                         {
-                            var message = DefineMessageQueue.Instance().OutFromQueue();
+                            var message = DefineMessageQueue.OutFromQueue();
                             Print(message + Environment.NewLine);
                         }
                     }

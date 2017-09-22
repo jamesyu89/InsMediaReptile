@@ -36,7 +36,7 @@ namespace InstagramPhotos.Framework.Common
             });
             if (addToQueue)
             {
-                DefineMessageQueue.Instance().AddToQueue(str);
+                DefineMessageQueue.AddToQueue(str);
             }
             return str;
         }

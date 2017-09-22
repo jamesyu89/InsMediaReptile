@@ -4,11 +4,6 @@ using InstagramPhotos.Utility.Queue.JnsMessageCenter;
 using LightInject;
 using Service.BLL.Media;
 using Service.Interface.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.BLL
 {

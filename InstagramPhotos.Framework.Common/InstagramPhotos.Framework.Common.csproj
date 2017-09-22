@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AFE13F4C-3346-4FD0-A11B-171F962ADCDC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{457250C1-6FA2-4B01-B629-300FCAB0388E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InstagramPhotos.Task.Download</RootNamespace>
-    <AssemblyName>InstagramPhotos.Task.Download</AssemblyName>
+    <RootNamespace>InstagramPhotos.Framework.Common</RootNamespace>
+    <AssemblyName>InstagramPhotos.Framework.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,51 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="StringLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\InstagramPhotos.Domain\InstagramPhotos.Domain.csproj">
-      <Project>{acf54b68-0bca-4ed6-8102-cd084a173487}</Project>
-      <Name>InstagramPhotos.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InstagramPhotos.Framework.Common\InstagramPhotos.Framework.Common.csproj">
-      <Project>{457250c1-6fa2-4b01-b629-300fcab0388e}</Project>
-      <Name>InstagramPhotos.Framework.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InstagramPhotos.Repository\InstagramPhotos.Repository.csproj">
-      <Project>{0d155a76-955e-4bcf-a8ff-f03a8ee9319d}</Project>
-      <Name>InstagramPhotos.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InstagramPhotos.Task.Console\InstagramPhotos.Task.Consoles.csproj">
-      <Project>{F9284E10-415F-49E9-92D2-FB91CD09086B}</Project>
-      <Name>InstagramPhotos.Task.Consoles</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
-      <Project>{1ff0e241-38a7-4154-bc1c-45ac437aeea9}</Project>
-      <Name>InstagramPhotos.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QueryModel\QueryModel.csproj">
-      <Project>{5E952773-9AD4-43F8-B1CC-80AA1CBFD9B7}</Project>
-      <Name>QueryModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service.BLL\Service.BLL.csproj">
-      <Project>{f6c7cde2-f51d-44ff-aa0b-e603bb65d3c4}</Project>
-      <Name>Service.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Service.Interface\Service.Interface.csproj">
-      <Project>{067f53f2-2fa9-4968-a73b-869f1dc09144}</Project>
+      <Project>{067F53F2-2FA9-4968-A73B-869F1DC09144}</Project>
       <Name>Service.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
-      <Project>{cb22b79b-5240-44c1-b1a2-5294bb16f9c4}</Project>
+      <Project>{CB22B79B-5240-44C1-B1A2-5294BB16F9C4}</Project>
       <Name>Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
-      <Project>{a6966944-1cdc-4d42-abbf-72d240524b2e}</Project>
+      <Project>{A6966944-1CDC-4D42-ABBF-72D240524B2E}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>

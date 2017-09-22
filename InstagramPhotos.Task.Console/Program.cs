@@ -1,4 +1,5 @@
-﻿using InstagramPhotos.Media.QueryModel;
+﻿using InstagramPhotos.Framework.Common;
+using InstagramPhotos.Media.QueryModel;
 using InstagramPhotos.Media.ViewModel;
 using InstagramPhotos.Utility.KVStore;
 using InstagramPhotos.ViewModel;
@@ -9,12 +10,13 @@ using System.Collections.Generic;
 using System.Text;
 using ViewModel;
 
+
 namespace InstagramPhotos.Task.Consoles
 {
     class Program
     {
         static readonly IMediaService mediaService = ServiceFactory.GetInstance<IMediaService>();
-
+        private readonly static Guid sys = Guid.Parse("3102A7AC-35DF-4C9C-8A11-CE9501EBE300");
         static void Main(string[] args)
         {
             //初始化缓存引擎
@@ -49,13 +51,6 @@ namespace InstagramPhotos.Task.Consoles
                 }
             }
         }
-
-        private static void AddLog(string message)
-        {
-            mediaService.AddDownloadlog(new DownloadLogEntity { Level = 0, Message = message });
-        }
-
-
 
         //控制台退出时
         static void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -95,19 +90,6 @@ namespace InstagramPhotos.Task.Consoles
                 }
                 mediaService.BatchAddMediatask(mediaList);
             }
-        }
-    }
-
-    /// <summary>
-    /// 扩展日志的内容写入
-    /// </summary>
-    public static class StringLog
-    {
-        static readonly IMediaService mediaService = ServiceFactory.GetInstance<IMediaService>();
-        public static string Log(this string str)
-        {
-            mediaService.AddDownloadlog(new DownloadLogEntity { Level = 0, Message = str });
-            return str;
         }
     }
 }

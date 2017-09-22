@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Task.Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Task.Download", "InstagramPhotos.Task.Download\InstagramPhotos.Task.Download.csproj", "{AFE13F4C-3346-4FD0-A11B-171F962ADCDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstagramPhotos.Framework.Common", "InstagramPhotos.Framework.Common\InstagramPhotos.Framework.Common.csproj", "{457250C1-6FA2-4B01-B629-300FCAB0388E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,10 @@ Global
 		{AFE13F4C-3346-4FD0-A11B-171F962ADCDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE13F4C-3346-4FD0-A11B-171F962ADCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFE13F4C-3346-4FD0-A11B-171F962ADCDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{457250C1-6FA2-4B01-B629-300FCAB0388E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457250C1-6FA2-4B01-B629-300FCAB0388E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457250C1-6FA2-4B01-B629-300FCAB0388E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457250C1-6FA2-4B01-B629-300FCAB0388E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,5 +130,6 @@ Global
 		{1FF0E241-38A7-4154-BC1C-45AC437AEEA9} = {22925D67-BD75-4AC9-AAA9-AE4CFB06CD02}
 		{F9284E10-415F-49E9-92D2-FB91CD09086B} = {B9DA10C2-3D88-4FA1-B62E-C5BB59687771}
 		{AFE13F4C-3346-4FD0-A11B-171F962ADCDC} = {B9DA10C2-3D88-4FA1-B62E-C5BB59687771}
+		{457250C1-6FA2-4B01-B629-300FCAB0388E} = {B9DA10C2-3D88-4FA1-B62E-C5BB59687771}
 	EndGlobalSection
 EndGlobal

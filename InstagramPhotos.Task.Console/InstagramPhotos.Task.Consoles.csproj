@@ -94,6 +94,10 @@
       <Project>{acf54b68-0bca-4ed6-8102-cd084a173487}</Project>
       <Name>InstagramPhotos.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Framework.Common\InstagramPhotos.Framework.Common.csproj">
+      <Project>{457250c1-6fa2-4b01-b629-300fcab0388e}</Project>
+      <Name>InstagramPhotos.Framework.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
       <Project>{1ff0e241-38a7-4154-bc1c-45ac437aeea9}</Project>
       <Name>InstagramPhotos.Utility</Name>

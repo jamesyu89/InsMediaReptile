@@ -1,4 +1,5 @@
-﻿using InstagramPhotos.QueryModel;
+﻿using InstagramPhotos.Framework.Common;
+using InstagramPhotos.QueryModel;
 using InstagramPhotos.Task.Consoles;
 using InstagramPhotos.Utility.KVStore;
 using Service.BLL;
@@ -114,7 +115,7 @@ namespace InstagramPhotos.Task.Download
                         }
                         st.Close();
                         rps.Close();
-                        Console.WriteLine("[资源下载完成！]");
+                        Console.WriteLine("[资源下载完成！]".Log());
                         downloadTasks[i].Disabled = 1;
                         downloadTasks[i].Rec_ModifyBy = sys;
                         downloadTasks[i].Rec_ModifyTime = DateTime.Now;

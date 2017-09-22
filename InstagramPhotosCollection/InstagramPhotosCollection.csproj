@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +78,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InstagramPhotos.Domain\InstagramPhotos.Domain.csproj">
+      <Project>{acf54b68-0bca-4ed6-8102-cd084a173487}</Project>
+      <Name>InstagramPhotos.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Framework.Common\InstagramPhotos.Framework.Common.csproj">
+      <Project>{457250c1-6fa2-4b01-b629-300fcab0388e}</Project>
+      <Name>InstagramPhotos.Framework.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Repository\InstagramPhotos.Repository.csproj">
+      <Project>{0d155a76-955e-4bcf-a8ff-f03a8ee9319d}</Project>
+      <Name>InstagramPhotos.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Task.Console\InstagramPhotos.Task.Consoles.csproj">
+      <Project>{F9284E10-415F-49E9-92D2-FB91CD09086B}</Project>
+      <Name>InstagramPhotos.Task.Consoles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstagramPhotos.Utility\InstagramPhotos.Utility.csproj">
+      <Project>{1FF0E241-38A7-4154-BC1C-45AC437AEEA9}</Project>
+      <Name>InstagramPhotos.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryModel\QueryModel.csproj">
+      <Project>{5e952773-9ad4-43f8-b1cc-80aa1cbfd9b7}</Project>
+      <Name>QueryModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.BLL\Service.BLL.csproj">
+      <Project>{f6c7cde2-f51d-44ff-aa0b-e603bb65d3c4}</Project>
+      <Name>Service.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.Interface\Service.Interface.csproj">
+      <Project>{067F53F2-2FA9-4968-A73B-869F1DC09144}</Project>
+      <Name>Service.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{CB22B79B-5240-44C1-B1A2-5294BB16F9C4}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{a6966944-1cdc-4d42-abbf-72d240524b2e}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

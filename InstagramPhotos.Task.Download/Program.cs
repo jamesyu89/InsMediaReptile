@@ -1,6 +1,5 @@
 ﻿using InstagramPhotos.Framework.Common;
 using InstagramPhotos.QueryModel;
-using InstagramPhotos.Task.Consoles;
 using InstagramPhotos.Utility.KVStore;
 using Service.BLL;
 using Service.Interface.Media;
@@ -9,9 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace InstagramPhotos.Task.Download
 {

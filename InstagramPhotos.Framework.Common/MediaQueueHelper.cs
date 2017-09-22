@@ -6,7 +6,7 @@ using System.Threading;
 using ViewModel;
 using InstagramPhotos.Framework.Common;
 
-namespace InstagramPhotos.Task.Consoles
+namespace InstagramPhotos.Framework.Common
 {
     /// <summary>
     /// 队列处理类
@@ -84,7 +84,7 @@ namespace InstagramPhotos.Task.Consoles
                     else
                     {
                         Thread.Sleep(3000);
-                        "当前任务全部解析已完成".Log();
+                        "当前任务全部解析已完成".Log(true);
                     }
                 }
             });

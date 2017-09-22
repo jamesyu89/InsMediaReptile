@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstagramPhotos.Utility.KVStore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace InstagramPhotos
         [STAThread]
         static void Main()
         {
+            KVStoreManager.SetEngine(new KVStoreEngine());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

@@ -1,19 +1,14 @@
-﻿using HtmlAgilityPack;
-using InstagramPhotos.Media.ViewModel;
-using InstagramPhotos.ViewModel;
+﻿using InstagramPhotos.ViewModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 using Service.BLL;
 using Service.Interface.Media;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace InstagramPhotos.Task.Consoles
+namespace InstagramPhotos.Framework.Common
 {
     /// <summary>
     /// 媒体文件的下载与资源解析队列类
@@ -32,11 +27,11 @@ namespace InstagramPhotos.Task.Consoles
         {
             using (var driver = new PhantomJSDriver(GetPhantomJSDriverService()))
             {
-                Console.WriteLine("正在加载地址：" + url + "...");
+                $"正在加载地址：{url}...".Log(true);
                 driver.Navigate().GoToUrl(url);
                 //最大化窗口
                 MaxBrowser(driver);
-                Console.WriteLine("正在调整浏览器窗体大小...");
+                "正在调整浏览器窗体大小...".Log(true);
                 //第1次加载更多
                 //用户的分享超过一屏时
                 IWebElement moreShare = null;
@@ -46,40 +41,40 @@ namespace InstagramPhotos.Task.Consoles
                 }
                 catch
                 {
-                    Console.WriteLine("该用户可分享的内容少于一屏，跳过流程解析...");
+                    "该用户可分享的内容少于一屏，跳过流程解析...".Log(true);
                 }
                 if (moreShare != null)
                 {
-                    Console.WriteLine("正在点击页面的“更多”按钮...");
+                    "正在点击页面的“更多”按钮...".Log(true);
                     driver.FindElement(By.LinkText("更多")).Click();
                     System.Threading.Thread.Sleep(2000);
-                    Console.WriteLine("正在加载第二页内容...");
-                    Console.WriteLine("第二页内容加载完成...");
+                    "正在加载第二页内容...".Log(true);
+                    "第二页内容加载完成...".Log(true);
                     //获取需要滚动加载的次数
-                    Console.WriteLine("正在计算全部需要加载的页数...");
+                    "正在计算全部需要加载的页数...".Log(true);
                     var cardCount = int.Parse(driver.FindElements(By.CssSelector("._fd86t")).First().Text.Replace(",", ""));
                     var scrollCount = cardCount / 12 == 0 ? cardCount / 12 : (cardCount / 12) + 1;
-                    Console.WriteLine($"计算完成，全部需要加载{scrollCount}页...");
+                    $"计算完成，全部需要加载{scrollCount}页...".Log(true);
                     //默认滚动条移动到y轴3000的位置
                     var initialC = 3000;
                     var i = 0;
-                    Console.WriteLine("开始执行脚本，滚动鼠标...");
+                    "开始执行脚本，滚动鼠标...".Log(true);
                     do
                     {
                         //if (i > 20)//预设只滚动20次，太多次容易卡顿
                         //    break;
-                        Console.WriteLine($"第{i + 1}次滚动...");
+                        $"第{i + 1}次滚动...".Log(true);
                         ((IJavaScriptExecutor)driver).ExecuteScript($"scrollTo(0,{initialC});");
                         System.Threading.Thread.Sleep(1000 + (i * 50));
                         i++;
                         initialC += 500;//每次递增滚动500的距离
                     } while (i < scrollCount);
                 }
-                Console.WriteLine("页面所有内容全部加载完成...");
+                "页面所有内容全部加载完成...".Log(true);
 
                 var insDir = url.Substring(url.LastIndexOf('/') + 1);
 
-                Console.WriteLine("正在解析下载的资源...");
+                "正在解析下载的资源...".Log(true);
                 ExtraDownloadSource(driver.PageSource, taskId);
                 return insDir;
             }
@@ -105,7 +100,7 @@ namespace InstagramPhotos.Task.Consoles
                     using (var driver = new PhantomJSDriver(PhantomJSDriverService.CreateDefaultService()))
                     {
                         //解析文件
-                        Console.WriteLine($"正在浏览资源:{url}");
+                        $"正在浏览资源:{url}".Log(true);
                         driver.Navigate().GoToUrl(url);
                         var htmlDetail = driver.PageSource;
                         IList<IWebElement> mediaUrls = new List<IWebElement>();
@@ -115,18 +110,18 @@ namespace InstagramPhotos.Task.Consoles
                             if (img != null)
                             {
                                 mediaUrls.Add(img);
-                                Console.WriteLine("找到资源所在的唯一标签");
+                               "找到资源所在的唯一标签".Log(true);
                             }
                         }
                         catch
                         {
                             mediaUrls = driver.FindElements(By.TagName("img"));
-                            Console.WriteLine("找到资源的img标签");
+                            "找到资源的img标签".Log(true);
                         }
                         foreach (var item in mediaUrls)
                         {
                             var mediaUrl = item.GetAttribute("src");
-                            Console.WriteLine($"上传下载任务：{mediaUrl}");
+                            $"上传下载任务：{mediaUrl}".Log(true);
                             mediaService.AddDownload(new DownloadEntity
                             {
                                 DownloadId = Guid.NewGuid(),
@@ -143,10 +138,10 @@ namespace InstagramPhotos.Task.Consoles
 
                     }
                 }
-                Console.WriteLine("该用户全部任务收集完毕!");
+                "该用户全部任务收集完毕!".Log(true);
                 task.Disabled = 1;
                 mediaService.UpdateMediatask(task);
-                Console.WriteLine("更新用户资源解析任务的状态为已解析...");
+                "更新用户资源解析任务的状态为已解析...".Log(true);
             }
         }
 

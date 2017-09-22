@@ -15,7 +15,14 @@ namespace InstagramPhotos.Framework.Common
     public static class StringLog
     {
         static readonly IMediaService mediaService = ServiceFactory.GetInstance<IMediaService>();
-        public static string Log(this string str)
+
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="str">日志内容</param>
+        /// <param name="addToQueue">是否添加到自定义消息队列</param>
+        /// <returns></returns>
+        public static string Log(this string str, bool addToQueue = false)
         {
             mediaService.AddDownloadlog(new DownloadLogEntity
             {
@@ -27,6 +34,10 @@ namespace InstagramPhotos.Framework.Common
                 Rec_CreateBy = Guid.Parse("3102A7AC-35DF-4C9C-8A11-CE9501EBE300"),
                 Rec_CreateTime = DateTime.Now
             });
+            if (addToQueue)
+            {
+                DefineMessageQueue.Instance().AddToQueue(str);
+            }
             return str;
         }
     }

@@ -2,12 +2,10 @@
 using InstagramPhotos.Media.QueryModel;
 using InstagramPhotos.Media.ViewModel;
 using InstagramPhotos.Utility.KVStore;
-using InstagramPhotos.ViewModel;
 using Service.BLL;
 using Service.Interface.Media;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using ViewModel;
 
 

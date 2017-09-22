@@ -211,6 +211,16 @@ namespace InstagramPhotos
             DownloadCancelToken.Cancel();
         }
 
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox1.ScrollToCaret();
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox2.ScrollToCaret();
+        }
+
         #endregion
 
         #region Methods
@@ -234,5 +244,7 @@ namespace InstagramPhotos
         }
 
         #endregion
+
+        
     }
 }

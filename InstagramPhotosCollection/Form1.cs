@@ -111,7 +111,7 @@ namespace InstagramPhotos
                                 downloadTasks = mediaService.GetDownloadDtosByPara(downQo, false);
                                 if (downloadTasks == null || !downloadTasks.Any())
                                 {
-                                    Print("当前批次下载任务已完成，等待10秒继续扫描待下载的任务...".Log());
+                                    Print("当前批次下载任务已完成，等待10秒继续扫描待下载的任务...".Log(),false);
                                     Thread.Sleep(10000);
                                     continue;
                                 }
@@ -123,13 +123,13 @@ namespace InstagramPhotos
                             }
                             if (i == 4)
                             {
-                                Print("当前程序已重试4次，未正常获取到数据，程序正在退出...".Log());
+                                Print("当前程序已重试4次，未正常获取到数据，程序正在退出...".Log(), false);
                                 Environment.Exit(-1);//退出
                             }
                         }
                         catch (Exception ex)
                         {
-                            Print($"查询下载任务出现异常，异常信息:{ex.Message}，正在进行第{i + 1}次重试...".Log());
+                            Print($"查询下载任务出现异常，异常信息:{ex.Message}，正在进行第{i + 1}次重试...".Log(), false);
                             queryFlag -= 1;
                         }
                     }
@@ -140,64 +140,71 @@ namespace InstagramPhotos
 
                     for (int i = 0; i < downloadTasks.Count; i++)
                     {
-                        try
+                        if (!DownloadCancelToken.IsCancellationRequested)
                         {
-                            Print($"[正在下载资源：{downloadTasks[i].HttpUrl}][{DateTime.Now}]".Log());
-                            // 设置参数
-                            var httpUrl = downloadTasks[i].HttpUrl;
-                            Stream rps = null;
                             try
                             {
-                                HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
-                                HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
-                                rps = rp.GetResponseStream();
+                                Print($"[正在下载资源：{downloadTasks[i].HttpUrl}][{DateTime.Now}]".Log(), false);
+                                // 设置参数
+                                var httpUrl = downloadTasks[i].HttpUrl;
+                                Stream rps = null;
+                                try
+                                {
+                                    HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
+                                    HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
+                                    rps = rp.GetResponseStream();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Print($"下载出现异常：{ex.Message}".Log(), false);
+                                    continue;
+                                }
+
+                                //目标目录
+                                var insDir = Environment.CurrentDirectory + "\\" + downloadTasks[i].DirName;
+                                //创建本地文件写入流
+                                if (!Directory.Exists(insDir))
+                                {
+                                    Directory.CreateDirectory(insDir);
+                                }
+                                //网络资源文件是否已下载
+                                var fileReg = new Regex("(\\d+_){3}\\w*.(jpg|jpeg|png|mp4|flv|gif)");
+                                var sourceFileName = fileReg.Match(httpUrl).Value;
+
+                                //校验目标目录中的文件是否已存在，如果存在则跳过，否则下载
+                                if (File.Exists(insDir + "\\" + sourceFileName))
+                                {
+                                    Print($"[{sourceFileName}][此资源已下载，跳过]!".Log(), false);
+                                    continue;
+                                }
+
+                                Stream st = new FileStream(insDir + $"\\{sourceFileName}", FileMode.Create);
+                                byte[] bar = new byte[1024];
+                                int sz = rps.Read(bar, 0, (int)bar.Length);
+                                while (sz > 0)
+                                {
+                                    st.Write(bar, 0, sz);
+                                    sz = rps.Read(bar, 0, (int)bar.Length);
+                                }
+                                st.Close();
+                                rps.Close();
+                                Print($"[{sourceFileName}][资源下载完成！]".Log(), false);
+                                downloadTasks[i].Disabled = 1;
+                                downloadTasks[i].Rec_ModifyBy = sys;
+                                downloadTasks[i].Rec_ModifyTime = DateTime.Now;
+                                mediaService.UpdateDownload(downloadTasks[i]);
                             }
                             catch (Exception ex)
                             {
-                                Print($"下载出现异常：{ex.Message}".Log());
-                                continue;
+                                ex.Message.Log();
                             }
-
-                            //目标目录
-                            var insDir = Environment.CurrentDirectory + "\\" + downloadTasks[i].DirName;
-                            //创建本地文件写入流
-                            if (!Directory.Exists(insDir))
-                            {
-                                Directory.CreateDirectory(insDir);
-                            }
-                            //网络资源文件是否已下载
-                            var fileReg = new Regex("(\\d+_){3}\\w*.(jpg|jpeg|png|mp4|flv|gif)");
-                            var sourceFileName = fileReg.Match(httpUrl).Value;
-
-                            //校验目标目录中的文件是否已存在，如果存在则跳过，否则下载
-                            if (File.Exists(insDir + "\\" + sourceFileName))
-                            {
-                                Print($"[{sourceFileName}][此资源已下载，跳过]!".Log());
-                                continue;
-                            }
-
-                            Stream st = new FileStream(insDir + $"\\{sourceFileName}", FileMode.Create);
-                            byte[] bar = new byte[1024];
-                            int sz = rps.Read(bar, 0, (int)bar.Length);
-                            while (sz > 0)
-                            {
-                                st.Write(bar, 0, sz);
-                                sz = rps.Read(bar, 0, (int)bar.Length);
-                            }
-                            st.Close();
-                            rps.Close();
-                            Print($"[{sourceFileName}][资源下载完成！]".Log());
-                            downloadTasks[i].Disabled = 1;
-                            downloadTasks[i].Rec_ModifyBy = sys;
-                            downloadTasks[i].Rec_ModifyTime = DateTime.Now;
-                            mediaService.UpdateDownload(downloadTasks[i]);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            ex.Message.Log();
+                            break;
                         }
                     }
-                    Print($"当前批次下载任务已完成，等待10秒继续扫描待下载的任务...[{DateTime.Now}]".Log());
+                    Print($"当前批次下载任务已完成，等待10秒继续扫描待下载的任务...[{DateTime.Now}]".Log(),false);
                     Thread.Sleep(10000);
 
                     #endregion

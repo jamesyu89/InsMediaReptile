@@ -16,7 +16,7 @@ namespace InstagramPhotos.Task.Download
 {
     class Program
     {
-        private readonly Guid sys = Guid.NewGuid();
+        private readonly static Guid sys = Guid.Parse("3102A7AC-35DF-4C9C-8A11-CE9501EBE300");
         private readonly static IMediaService mediaService = ServiceFactory.GetInstance<IMediaService>();
 
         static void Main(string[] args)
@@ -116,6 +116,8 @@ namespace InstagramPhotos.Task.Download
                         rps.Close();
                         Console.WriteLine("[资源下载完成！]");
                         downloadTasks[i].Disabled = 1;
+                        downloadTasks[i].Rec_ModifyBy = sys;
+                        downloadTasks[i].Rec_ModifyTime = DateTime.Now;
                         mediaService.UpdateDownload(downloadTasks[i]);
                     }
                     catch (Exception e)

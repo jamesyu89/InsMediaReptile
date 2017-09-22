@@ -84,13 +84,13 @@ namespace InstagramPhotos.Task.Consoles
                         }
                         catch (Exception ex)
                         {
-                            //(ex.ToString());
+                            ex.Message.Log();
                         }
                     }
                     else
                     {
                         Thread.Sleep(3000);
-                       // Console.WriteLine("别让我闲着！");
+                        "当前任务全部解析已完成".Log();
                     }
                 }
             });
@@ -109,9 +109,9 @@ namespace InstagramPhotos.Task.Consoles
 
                     var insDir = SaveFromExtraFile(model.Url,model.TaskId);
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    throw;
+                    e.Message.Log();
                 }
             }
         }

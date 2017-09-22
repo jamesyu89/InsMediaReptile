@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="MediaInfo.cs" />
     <Compile Include="Media\DownloadEntity.cs" />
+    <Compile Include="Media\DownloadLogEntity.cs" />
     <Compile Include="Media\MediaEntity.cs" />
     <Compile Include="Media\MediaTaskEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

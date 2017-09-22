@@ -90,7 +90,7 @@ namespace InstagramPhotos.Task.Consoles
                     else
                     {
                         Thread.Sleep(3000);
-                        Console.WriteLine("别让我闲着！");
+                       // Console.WriteLine("别让我闲着！");
                     }
                 }
             });

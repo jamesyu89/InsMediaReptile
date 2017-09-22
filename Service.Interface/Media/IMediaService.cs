@@ -164,5 +164,54 @@ namespace Service.Interface.Media
 
         #endregion
 
+        #region auto DownloadLog
+
+        /// <summary>
+        ///     新增DownloadLog信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void AddDownloadlog(DownloadLogEntity dto);
+
+        /// <summary>
+        ///     更新DownloadLog信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        void UpdateDownloadlog(DownloadLogEntity dto);
+
+        /// <summary>
+        ///    获取DownloadLogEntity信息
+        /// </summary>
+        /// <param name="LogId">主键</param>
+        DownloadLogEntity GetDownloadlog(Guid LogId);
+
+        /// <summary>
+        ///    根据LogIds数组获取DownloadLog信息列表
+        /// </summary>
+        /// <param name="LogIds">主键集合</param>
+        /// <returns>DownloadLogEntity信息列表</returns>
+        List<DownloadLogEntity> GetDownloadlogs(Guid[] LogIds);
+
+        /// <summary>
+        ///  通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadLogEntity信息列表</returns>
+        List<DownloadLogEntity> GetDownloadlogDtosByPara(DownloadLogQO queryEntity, Boolean isCache);
+
+        /// <summary>
+        ///  分页通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadLogEntity信息列表</returns>
+        List<DownloadLogEntity> GetDownloadlogDtosByParaForPage(DownloadLogQO queryEntity,
+            Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache);
+
+        #endregion
     }
 }

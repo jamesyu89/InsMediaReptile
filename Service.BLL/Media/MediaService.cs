@@ -292,6 +292,89 @@ namespace Service.BLL.Media
 
         #endregion
 
+        #region auto DownloadLog
+
+        /// <summary>
+        ///     新增DownloadLog信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        public void AddDownloadlog(DownloadLogEntity dto)
+        {
+            DownloadLogDO info = dto.ConvertToModel();
+            new MediaRepository().AddDownloadlog(info);
+        }
+
+        /// <summary>
+        ///     更新DownloadLog信息
+        /// </summary>
+        /// <param name="dto">ViewModel</param>
+        public void UpdateDownloadlog(DownloadLogEntity dto)
+        {
+            DownloadLogDO info = dto.ConvertToModel();
+            new MediaRepository().UpdateDownloadlog(info);
+            MediaCommon.cache_DownloadLog.Remove(info.LogId);
+        }
+
+        /// <summary>
+        ///    获取DownloadLog信息
+        /// </summary>
+        /// <param name="LogId">主键</param>
+        public DownloadLogEntity GetDownloadlog(Guid LogId)
+        {
+            DownloadLogDO dto = MediaCommon.cache_DownloadLog.GetFromDB(LogId, new MediaRepository().GetDownloadlog);
+            return dto.ConvertToDto();
+        }
+
+        /// <summary>
+        ///    根据LogIds数组获取DownloadLog信息列表
+        /// </summary>
+        /// <param name="LogIds">主键集合</param>
+        /// <returns>DownloadLog信息列表</returns>
+        public List<DownloadLogEntity> GetDownloadlogs(Guid[] LogIds)
+        {
+            return
+                MediaCommon.cache_DownloadLog.GetFromDB(LogIds, new MediaRepository().GetDownloadlogs)
+                    .Select(m => m.ConvertToDto())
+                    .ToList();
+        }
+
+        /// <summary>
+        ///  通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadLogEntity信息列表</returns>
+        public List<DownloadLogEntity> GetDownloadlogDtosByPara(DownloadLogQO queryEntity, Boolean isCache)
+        {
+            var qm = new QueryHelper(new MediaRepository());
+            List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, isCache);
+            if (ids == null || ids.Count == 0)
+                return new List<DownloadLogEntity>();
+            return GetDownloadlogs(ids.ToArray());
+        }
+
+        /// <summary>
+        ///  分页通用查询
+        /// </summary>
+        /// <param name="queryEntity"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="isCache"></param>
+        /// <returns>DownloadLogEntity信息列表</returns>
+        public List<DownloadLogEntity> GetDownloadlogDtosByParaForPage(DownloadLogQO queryEntity,
+            Int32 pageIndex, Int32 pageSize, out Int32 totalCount, out Int32 pageCount, Boolean isCache)
+        {
+            var qm = new QueryHelper(new MediaRepository());
+            List<Guid> ids = qm.GetGuidIDsByConditions(queryEntity, pageIndex, pageSize, out totalCount, out pageCount, isCache);
+            if (ids == null || ids.Count == 0)
+                return new List<DownloadLogEntity>();
+            return GetDownloadlogs(ids.ToArray());
+        }
+
+        #endregion
+
         #endregion
     }
 }

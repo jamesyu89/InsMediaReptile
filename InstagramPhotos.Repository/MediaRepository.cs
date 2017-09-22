@@ -654,6 +654,197 @@ namespace InstagramPhotos.Repository
 
         #endregion
 
+        #region auto DownloadLog
+
+        /// <summary>
+        ///     新增DownloadLog信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public void AddDownloadlog(DownloadLogDO entity, DbTransaction tran = null)
+        {
+            var data = new[]
+            {
+                DownloadLogDO.ColumnEnum.LogId.ToString(),
+                DownloadLogDO.ColumnEnum.Message.ToString(),
+                DownloadLogDO.ColumnEnum.Level.ToString(),
+                DownloadLogDO.ColumnEnum.SortValue.ToString(),
+                DownloadLogDO.ColumnEnum.Disabled.ToString(),
+                DownloadLogDO.ColumnEnum.Rec_CreateBy.ToString(),
+                DownloadLogDO.ColumnEnum.Rec_CreateTime.ToString(),
+                DownloadLogDO.ColumnEnum.Rec_ModifyBy.ToString(),
+                DownloadLogDO.ColumnEnum.Rec_ModifyTime.ToString()
+            };
+            if (tran == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.InsertObject(conn, entity, GetTableName(DownloadLogDO.TableName), db, data);
+                }
+            }
+            else
+                DBTools.InsertObjectWithTrans(tran.Connection, entity, GetTableName(DownloadLogDO.TableName), db, tran, data);
+        }
+
+        /// <summary>
+        ///     批量新增DownloadLog信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void AddDownloadlogList(List<DownloadLogDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"INSERT INTO {0} SELECT
+				T.ts.value('@LogId', 'uniqueidentifier') as LogId,
+				CASE WHEN T.ts.value('@Message', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Message', 'uniqueidentifier') END as Message,
+				CASE WHEN T.ts.value('@Level', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Level', 'int') END as Level,
+				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts)", GetTableName(DownloadLogDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+
+        /// <summary>
+        ///    更新DownloadLog信息
+        /// </summary>
+        /// <param name="entity">实体类</param>
+        /// <param name="tran">事物对象</param>
+        public Boolean UpdateDownloadlog(DownloadLogDO entity, DbTransaction tran = null)
+        {
+            try
+            {
+                if (tran == null)
+                    using (DbConnection conn = GetConn())
+                    {
+                        DBTools.UpdateObject(conn, entity, GetTableName(DownloadLogDO.TableName), new[] { DownloadLogDO.IdName }, db);
+                    }
+                else
+                    DBTools.UpdateObjectWithTrans(tran.Connection, entity, GetTableName(DownloadLogDO.TableName), new[] { DownloadLogDO.IdName }, db, tran);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Exception(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     批量更新DownloadLog信息
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <param name="trans">事物对象</param>
+        public void UpdateDownloadlogList(List<DownloadLogDO> entities, DbTransaction trans = null)
+        {
+            var cmd = new ComplexParams
+            {
+                new ComplexParameter
+                {
+                    Key = "@model_list",
+                    DbType = DbType.Xml,
+                    Value = ConvertUtils.ConvertModelListToXML("e", entities)
+                }
+            };
+            var sql = string.Format(@"DECLARE @TBL TABLE(
+				[LogId] uniqueidentifier NOT NULL ,
+				[Message] uniqueidentifier NULL ,
+				[Level] int NULL ,
+				[SortValue] nvarchar(36) NULL ,
+				[Disabled] int NULL ,
+				[Rec_CreateBy] uniqueidentifier NULL ,
+				[Rec_CreateTime] datetime NULL ,
+				[Rec_ModifyBy] uniqueidentifier NULL ,
+				[Rec_ModifyTime] datetime NULL )
+
+
+				INSERT INTO @TBL SELECT
+				T.ts.value('@LogId', 'uniqueidentifier') as LogId,
+				CASE WHEN T.ts.value('@Message', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Message', 'uniqueidentifier') END as Message,
+				CASE WHEN T.ts.value('@Level', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Level', 'int') END as Level,
+				T.ts.value('@SortValue', 'nvarchar(36)') as SortValue,
+				CASE WHEN T.ts.value('@Disabled', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Disabled', 'int') END as Disabled,
+				CASE WHEN T.ts.value('@Rec_CreateBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateBy', 'uniqueidentifier') END as Rec_CreateBy,
+				CASE WHEN T.ts.value('@Rec_CreateTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_CreateTime', 'datetime') END as Rec_CreateTime,
+				CASE WHEN T.ts.value('@Rec_ModifyBy', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyBy', 'uniqueidentifier') END as Rec_ModifyBy,
+				CASE WHEN T.ts.value('@Rec_ModifyTime', 'varchar(1)')='' THEN NULL ELSE T.ts.value('@Rec_ModifyTime', 'datetime') END as Rec_ModifyTime
+				FROM @model_list.nodes('/es/e') T(ts);
+
+
+				UPDATE {0} SET  
+				[Message] = B.Message,
+				[Level] = B.Level,
+				[SortValue] = B.SortValue,
+				[Disabled] = B.Disabled,
+				[Rec_CreateBy] = B.Rec_CreateBy,
+				[Rec_CreateTime] = B.Rec_CreateTime,
+				[Rec_ModifyBy] = B.Rec_ModifyBy,
+				[Rec_ModifyTime] = B.Rec_ModifyTime
+				FROM {0} A,@TBL B WHERE A.LogId=B.LogId ", GetTableName(DownloadLogDO.TableName));
+
+            if (trans == null)
+            {
+                using (DbConnection conn = GetConn())
+                {
+                    DBTools.ExecuteNonQuery(conn, sql, cmd);
+                }
+            }
+            else
+                DBTools.ExecuteNonQuery(trans.Connection, trans, sql, cmd);
+        }
+        /// <summary>
+        ///    获取DownloadLog信息
+        /// </summary>
+        /// <param name="LogId">主键</param>
+        public DownloadLogDO GetDownloadlog(Guid LogId)
+        {
+            var cmd = new CmdParams { { "@LogId", LogId } };
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE LogId=@LogId", GetTableName(DownloadLogDO.TableName));
+            using (DbConnection conn = GetConn())
+            {
+                return DBTools.ExecuteReader<DownloadLogDO>(conn, sql, cmd);
+            }
+        }
+
+        /// <summary>
+        ///    根据LogIds数组获取DownloadLog信息列表
+        /// </summary>
+        /// <param name="LogIds">主键集合</param>
+        /// <returns>DownloadLog信息列表</returns>
+        public Dictionary<Guid, DownloadLogDO> GetDownloadlogs(IEnumerable<Guid> LogIds)
+        {
+            Guid[] logids = LogIds as Guid[] ?? LogIds.ToArray();
+            if (!logids.Any()) return null;
+            string sql = String.Format("SELECT * FROM {0}(NOLOCK) WHERE LogId in ('{1}')",
+                GetTableName(DownloadLogDO.TableName), logids.Distinct().ToCSV("','"));
+            using (DbConnection conn = GetConn())
+            {
+                IEnumerable<DownloadLogDO> result = DBTools.ReadCollection<DownloadLogDO>(conn, sql, null);
+                return result.ToDictionary(i => i.LogId);
+            }
+        }
+
+        #endregion
 
 
         #endregion

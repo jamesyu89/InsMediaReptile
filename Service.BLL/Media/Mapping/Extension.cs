@@ -61,5 +61,23 @@ namespace Service.BLL.Media.Mapping
         }
 
         #endregion
+
+        #region DownLoadLog
+        private static readonly ObjectsMapper<DownloadLogEntity, DownloadLogDO> mapper_DownloadLogEntity_2_DownloadLogDO = ObjectMapperManager.DefaultInstance.GetMapper<DownloadLogEntity, DownloadLogDO>();
+
+        private static readonly ObjectsMapper<DownloadLogDO, DownloadLogEntity> mapper_DownloadLogDO_2_DownloadLogEntity = ObjectMapperManager.DefaultInstance.GetMapper<DownloadLogDO, DownloadLogEntity>();
+
+        public static DownloadLogEntity ConvertToDto(this DownloadLogDO model)
+        {
+            return mapper_DownloadLogDO_2_DownloadLogEntity.Map(model);
+        }
+
+        public static DownloadLogDO ConvertToModel(this DownloadLogEntity entity)
+        {
+            return mapper_DownloadLogEntity_2_DownloadLogDO.Map(entity);
+        }
+
+
+        #endregion
     }
 }

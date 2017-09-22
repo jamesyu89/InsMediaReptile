@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="InsUser\InsUserTypeDO.cs" />
     <Compile Include="Media\DownloadDO.cs" />
+    <Compile Include="Media\DownloadLogDO.cs" />
     <Compile Include="Media\MediaDO.cs" />
     <Compile Include="Media\MediaTaskDO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

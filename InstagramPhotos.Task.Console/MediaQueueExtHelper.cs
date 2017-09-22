@@ -66,8 +66,8 @@ namespace InstagramPhotos.Task.Consoles
                     Console.WriteLine("开始执行脚本，滚动鼠标...");
                     do
                     {
-                        if (i > 20)//预设只滚动20次，太多次容易卡顿
-                            break;
+                        //if (i > 20)//预设只滚动20次，太多次容易卡顿
+                        //    break;
                         Console.WriteLine($"第{i + 1}次滚动...");
                         ((IJavaScriptExecutor)driver).ExecuteScript($"scrollTo(0,{initialC});");
                         System.Threading.Thread.Sleep(1000 + (i * 50));
@@ -75,7 +75,7 @@ namespace InstagramPhotos.Task.Consoles
                         initialC += 500;//每次递增滚动500的距离
                     } while (i < scrollCount);
                 }
-                Console.WriteLine("页面所有内容全部加载完成(20页)...");
+                Console.WriteLine("页面所有内容全部加载完成...");
 
                 var insDir = url.Substring(url.LastIndexOf('/') + 1);
 
@@ -137,7 +137,7 @@ namespace InstagramPhotos.Task.Consoles
                                 Rec_ModifyBy = Guid.Empty,
                                 Rec_ModifyTime = DateTime.Now,
                                 HttpUrl = mediaUrl,
-                                DirName = task.Url.Substring(url.LastIndexOf('/') + 1)
+                                DirName = task.Url.Substring(task.Url.LastIndexOf('/') + 1)
                             });
                         }
 

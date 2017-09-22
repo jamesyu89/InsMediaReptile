@@ -76,6 +76,7 @@ namespace InstagramPhotos.Framework.Common
 
                 "正在解析下载的资源...".Log(true);
                 ExtraDownloadSource(driver.PageSource, taskId);
+                driver.Quit();
                 return insDir;
             }
         }
@@ -118,6 +119,7 @@ namespace InstagramPhotos.Framework.Common
                             mediaUrls = driver.FindElements(By.TagName("img"));
                             "找到资源的img标签".Log(true);
                         }
+                        driver.Quit();
                         foreach (var item in mediaUrls)
                         {
                             var mediaUrl = item.GetAttribute("src");

@@ -267,6 +267,7 @@
     <Compile Include="Security\MSSQLChecker.cs" />
     <Compile Include="Security\Principal\ILoginHandler.cs" />
     <Compile Include="Security\Sign\SecuritySignHelper.cs" />
+    <Compile Include="Serialize\BinarySerialize.cs" />
     <Compile Include="Serialize\XmlSerialize.cs" />
     <Compile Include="Storage\IStorageEngine.cs" />
     <Compile Include="Storage\OSS\OSSStorageEngine.cs" />

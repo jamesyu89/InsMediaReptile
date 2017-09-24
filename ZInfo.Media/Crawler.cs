@@ -219,16 +219,16 @@ namespace ZInfo.Media
                                     //去重
                                     if (matchs != null && matchs.Count > 0)
                                     {
-                                        var matchsResult = matchs.Cast<Match>().GroupBy(g => g.Groups["img"].Value).Distinct();
+                                        var matchsResult = matchs.Cast<Match>().GroupBy(g => g.Groups["img"].Value).Distinct().ToList();
                                         Print($"匹配成功，共{matchsResult.Count()}条资源可下载");
                                         if (Directory.Exists(dir) && Directory.GetFiles(dir).Count() >= matchsResult.Count())
                                         {
                                             Print("此帖图片已全部下载，下一个");
                                             continue;
                                         }
-                                        for (int x = 0; x < matchs.Count; x++)
+                                        for (int x = 0; x < matchsResult.Count; x++)
                                         {
-                                            var fileUrl = matchs[x].Groups["img"].Value;
+                                            var fileUrl = matchsResult[x].Key;
                                             var fileName = fileUrl.Substring(fileUrl.LastIndexOf('/') + 1);
                                             var filePath = dir + "\\" + fileName;
                                             Print($"[{x}]正在将文件{fileName}存放至{dir}");

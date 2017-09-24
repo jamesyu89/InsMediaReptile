@@ -299,6 +299,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Crawler";
             this.Text = "Crawler";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Crawler_FormClosing);
             this.Load += new System.EventHandler(this.Crawler_Load);
             this.tableLayoutPanel1.ResumeLayout(false);

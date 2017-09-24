@@ -53,104 +53,7 @@ namespace ZInfo.Media
 
         #endregion
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            AnalyCancelToken = new CancellationTokenSource();
-            await Task.Run(() =>
-                {
-                    GetUrls();
-                    if (UrlList != null)
-                    {
-                        for (int i = 0; i < UrlList.Count; i++)//指定列表页
-                        {
-                            var pageIndex = 1;
-                            while (pageIndex < 500)
-                            {
-                                Print($"开始加载资源：{UrlList[i]}");
-                                var httpUrl = $"{UrlList[i]}&page={pageIndex}";
-                                var listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
-                                Print($"资源加载成功，使用正则匹配可下载的资源");
-                                var reg = new Regex("\\<a href\\=\"(?<href>htm_data[/0-9-a-z]+\\.html)\"\\sid[^>]+\\>(?<text>[^>]+)\\</a\\>");
-                                var listMatchs = reg.Matches(listHtml);
-
-                                if (listMatchs != null && listMatchs.Count > 0)
-                                {
-                                    Print($"匹配成功，当前匹配的是第{pageIndex}页内容");
-                                    for (int j = 0; j < listMatchs.Count; j++)
-                                    {
-                                        var dir = BasePath + "\\" + listMatchs[j].Groups["text"].Value;
-                                        var htmlDetailUrl = Domain + "/" + listMatchs[j].Groups["href"].Value;
-                                        Print($"检查目录{dir}是否存在");
-                                        if (!Directory.Exists(dir))
-                                        {
-                                            Print($"目录不存在，正在创建目录");
-                                            Directory.CreateDirectory(dir);
-                                        }
-
-                                        Print($"目录已创建，正在浏览当前页第一个链接");
-
-                                        var detailHtml = HttpFileManager.GetHttpUrlString(htmlDetailUrl);
-                                        if (!string.IsNullOrEmpty(detailHtml))
-                                        {
-                                            var detailReg = new Regex("(?<img>http:[^'\"]+\\.(jpg|jpeg|png|gif))");
-                                            Print($"正在匹配链接加载成功后的可下载资源");
-                                            var matchs = detailReg.Matches(detailHtml);
-                                            //去重
-                                            if (matchs != null && matchs.Count > 0)
-                                            {
-                                                var matchsResult = matchs.Cast<Match>().GroupBy(g => g.Groups["img"].Value).Distinct();
-                                                Print($"匹配成功，共{matchsResult.Count()}条资源可下载");
-                                                if (Directory.Exists(dir) && Directory.GetFiles(dir).Count() >= matchsResult.Count())
-                                                {
-                                                    Print("此帖图片已全部下载，下一个");
-                                                    continue;
-                                                }
-                                                for (int x = 0; x < matchs.Count; x++)
-                                                {
-                                                    var fileUrl = matchs[x].Groups["img"].Value;
-                                                    var fileName = fileUrl.Substring(fileUrl.LastIndexOf('/') + 1);
-                                                    var filePath = dir + "\\" + fileName;
-                                                    Print($"[{x}]正在将文件{fileName}存放至{dir}");
-                                                    if (File.Exists(filePath))//文件存在，Pass
-                                                        continue;
-                                                    HttpFileManager.DownloadFile(fileUrl, filePath);
-                                                    Print($"文件下载成功");
-                                                    Task.Run(() =>
-                                                    {
-                                                        ShowPicture(dir + "\\" + fileName);
-                                                    });
-                                                }
-                                            }
-                                        }
-                                        Print($"当前帖子图片已全部下载完毕");
-                                    }
-                                }
-                                pageIndex += 1;
-                            }
-                        }
-                    }
-                }, AnalyCancelToken.Token);
-        }
-
-        /// <summary>
-        /// 打印消息到界面上
-        /// </summary>
-        /// <param name="message"></param>
-        public void Print(string message)
-        {
-            Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
-            richTextBox1.Invoke(printMessage, message);
-        }
-
-        /// <summary>
-        /// 图片显示到右边
-        /// </summary>
-        /// <param name="message"></param>
-        public void ShowPicture(string picPath)
-        {
-            Action<string> setImg = (s) => pictureBox1.ImageLocation = picPath;
-            pictureBox1.Invoke(setImg, picPath);
-        }
+        #region Events
 
         //取消
         private void button2_Click(object sender, EventArgs e)
@@ -238,5 +141,147 @@ namespace ZInfo.Media
                 this.Activate();
             }
         }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox1.ScrollToCaret();
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            AnalyCancelToken = new CancellationTokenSource();
+            await Task.Run(() =>
+            {
+                DownloadPictures();
+            }, AnalyCancelToken.Token);
+        }
+
+        private void DownloadPictures()
+        {
+            GetUrls();
+            if (UrlList != null)
+            {
+                for (int i = 0; i < UrlList.Count; i++)//指定列表页
+                {
+                    var pageIndex = 1;
+                    while (pageIndex < 500)
+                    {
+                        var httpUrl = $"{UrlList[i]}&page={pageIndex}";
+                        Print($"开始加载第【{pageIndex}】页资源：{httpUrl}");
+                        var listHtml = string.Empty;
+                        try
+                        {
+                        PageList:
+                            listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
+                            if (string.IsNullOrEmpty(listHtml))
+                            {
+                                Print("网络出现异常，30秒后重试");
+                                Thread.Sleep(1000 * 30);//等待30秒再试下一个
+                                goto PageList;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Print($"加载{httpUrl}出现异常，跳至下一个帖子" + ex.Message);
+                            continue;
+                        }
+                        Print($"资源加载成功，使用正则匹配可下载的资源");
+                        var reg = new Regex("\\<a href\\=\"(?<href>htm_data[/0-9-a-z]+\\.html)\"\\sid[^>]+\\>(?<text>[^>]+)\\</a\\>");
+                        var listMatchs = reg.Matches(listHtml);
+
+                        if (listMatchs != null && listMatchs.Count > 0)
+                        {
+                            Print($"匹配成功，当前匹配的是第{pageIndex}页内容");
+                            for (int j = 0; j < listMatchs.Count; j++)
+                            {
+                                var dir = BasePath + "\\" + listMatchs[j].Groups["text"].Value;
+                                var htmlDetailUrl = Domain + "/" + listMatchs[j].Groups["href"].Value;
+                                Print($"检查目录{dir}是否存在");
+                                if (!Directory.Exists(dir))
+                                {
+                                    Print($"目录不存在，正在创建目录");
+                                    Directory.CreateDirectory(dir);
+                                }
+
+                                Print($"目录已创建，正在浏览当前页第{j + 1}个帖子");
+
+                                var detailHtml = HttpFileManager.GetHttpUrlString(htmlDetailUrl);
+                                if (!string.IsNullOrEmpty(detailHtml))
+                                {
+                                    var detailReg = new Regex("(?<img>http:[^'\"]+\\.(jpg|jpeg|png|gif))");
+                                    Print($"正在匹配链接加载成功后的可下载资源");
+                                    var matchs = detailReg.Matches(detailHtml);
+                                    //去重
+                                    if (matchs != null && matchs.Count > 0)
+                                    {
+                                        var matchsResult = matchs.Cast<Match>().GroupBy(g => g.Groups["img"].Value).Distinct();
+                                        Print($"匹配成功，共{matchsResult.Count()}条资源可下载");
+                                        if (Directory.Exists(dir) && Directory.GetFiles(dir).Count() >= matchsResult.Count())
+                                        {
+                                            Print("此帖图片已全部下载，下一个");
+                                            continue;
+                                        }
+                                        for (int x = 0; x < matchs.Count; x++)
+                                        {
+                                            var fileUrl = matchs[x].Groups["img"].Value;
+                                            var fileName = fileUrl.Substring(fileUrl.LastIndexOf('/') + 1);
+                                            var filePath = dir + "\\" + fileName;
+                                            Print($"[{x}]正在将文件{fileName}存放至{dir}");
+                                            if (File.Exists(filePath))//文件存在，Pass
+                                                continue;
+                                            try
+                                            {
+                                                HttpFileManager.DownloadFile(fileUrl, filePath);
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                Print("下载失败，" + e.Message + ",继续下一个图片的下载");
+                                                continue;
+                                            }
+                                            Print($"文件下载成功");
+                                            Task.Run(() =>
+                                            {
+                                                ShowPicture(dir + "\\" + fileName);
+                                            });
+                                        }
+                                    }
+                                }
+                                Print($"当前帖子图片已全部下载完毕");
+                            }
+                        }
+                        pageIndex += 1;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 打印消息到界面上
+        /// </summary>
+        /// <param name="message"></param>
+        public void Print(string message)
+        {
+            Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
+            richTextBox1.Invoke(printMessage, message);
+        }
+
+        /// <summary>
+        /// 图片显示到右边
+        /// </summary>
+        /// <param name="message"></param>
+        public void ShowPicture(string picPath)
+        {
+            Action<string> setImg = (s) => pictureBox1.ImageLocation = picPath;
+            pictureBox1.Invoke(setImg, picPath);
+        }
+
+        #endregion
+
+
     }
 }

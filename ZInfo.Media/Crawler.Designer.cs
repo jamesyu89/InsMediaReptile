@@ -89,15 +89,18 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(28, 0);
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(647, 486);
+            this.richTextBox1.Size = new System.Drawing.Size(699, 495);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // panel2
             // 
+            this.panel2.AutoSize = true;
             this.panel2.Controls.Add(this.checkBox3);
             this.panel2.Controls.Add(this.checkBox2);
             this.panel2.Controls.Add(this.checkBox1);
@@ -230,10 +233,11 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(800, 1122);
+            this.pictureBox1.Size = new System.Drawing.Size(770, 996);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -253,26 +257,30 @@
             // toolStripMenuItemMinimize
             // 
             this.toolStripMenuItemMinimize.Name = "toolStripMenuItemMinimize";
-            this.toolStripMenuItemMinimize.Size = new System.Drawing.Size(211, 30);
+            this.toolStripMenuItemMinimize.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemMinimize.Text = "最小化";
+            this.toolStripMenuItemMinimize.Click += new System.EventHandler(this.toolStripMenuItemMinimize_Click);
             // 
             // toolStripMenuItemMaximize
             // 
             this.toolStripMenuItemMaximize.Name = "toolStripMenuItemMaximize";
-            this.toolStripMenuItemMaximize.Size = new System.Drawing.Size(211, 30);
+            this.toolStripMenuItemMaximize.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemMaximize.Text = "最大化";
+            this.toolStripMenuItemMaximize.Click += new System.EventHandler(this.toolStripMenuItemMaximize_Click);
             // 
             // toolStripMenuItemNormal
             // 
             this.toolStripMenuItemNormal.Name = "toolStripMenuItemNormal";
-            this.toolStripMenuItemNormal.Size = new System.Drawing.Size(211, 30);
+            this.toolStripMenuItemNormal.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemNormal.Text = "还原";
+            this.toolStripMenuItemNormal.Click += new System.EventHandler(this.toolStripMenuItemNormal_Click);
             // 
             // toolStripMenuItemQuit
             // 
             this.toolStripMenuItemQuit.Name = "toolStripMenuItemQuit";
-            this.toolStripMenuItemQuit.Size = new System.Drawing.Size(211, 30);
+            this.toolStripMenuItemQuit.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemQuit.Text = "退出";
+            this.toolStripMenuItemQuit.Click += new System.EventHandler(this.toolStripMenuItemQuit_Click);
             // 
             // notifyIcon1
             // 
@@ -294,6 +302,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Crawler_FormClosing);
             this.Load += new System.EventHandler(this.Crawler_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

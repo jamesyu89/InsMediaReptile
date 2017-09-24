@@ -18,6 +18,7 @@ namespace InstagramPhotos.Framework.Common
         public static void DownloadFile(string httpUrl, string filePath)
         {
             HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
+            rq.Timeout = 1000 * 15;//超时时间设置了30秒
             //发送请求并获取相应回应数据
             HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
             //直到request.GetResponse()程序才开始向目标网页发送Post请求

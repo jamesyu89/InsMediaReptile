@@ -44,7 +44,8 @@ namespace InstagramPhotos.Utility.Helper
 
         public static string SQLConnectDecrypt(string EncryptStr)
         {
-            return YGCFDDecrypt.Crypto.DecryptString(EncryptStr);
+            //return YGCFDDecrypt.Crypto.DecryptString(EncryptStr);
+            return "";
         }
         /// <summary>
         /// 检测数据中修改人和修改时间

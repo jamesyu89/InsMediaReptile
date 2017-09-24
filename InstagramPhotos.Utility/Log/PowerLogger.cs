@@ -12,7 +12,7 @@ namespace InstagramPhotos.Utility.Log
 { /// <summary>
   /// 记录日志 本地测试查看日志使用 仅debug模式起作用 且通常写入同一固定目录下
   /// </summary>
-    public class PowerLogger
+    public class Power//Logger
     {
         #region 字段
 
@@ -57,7 +57,7 @@ namespace InstagramPhotos.Utility.Log
                 var isWeb = CheckIsWebApp(); //是否web应用
                 if (isWeb == true)
                 {
-                    logPath = string.Format(@"C:\PowerLogger\LOG_{0}", DateTime.Now.ToString("MM"));
+                    logPath = string.Format(@"C:\Power//Logger\LOG_{0}", DateTime.Now.ToString("MM"));
                 }
 
                 if (Directory.Exists(logPath) == false)

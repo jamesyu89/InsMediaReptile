@@ -64,7 +64,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_Hash_1！");
+                //Logger.Exception(ex, "Redis框架级错误_Hash_1！");
                 return false;
             }
         }
@@ -83,7 +83,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_Hash_2！");
+                //Logger.Exception(ex, "Redis框架级错误_Hash_2！");
                 return false;
             }
         }
@@ -101,7 +101,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_Hash_3！");
+                //Logger.Exception(ex, "Redis框架级错误_Hash_3！");
                 throw;
             }
         }
@@ -125,7 +125,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_Hash_4！");
+                //Logger.Exception(ex, "Redis框架级错误_Hash_4！");
                 throw;
             }
             return result;

@@ -77,7 +77,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_1！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_1！");
                 return false;
             }
         }
@@ -105,7 +105,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_2！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_2！");
                 return false;
             }
         }
@@ -130,7 +130,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_3！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_3！");
                 return default(V);
             }
         }
@@ -152,7 +152,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_4！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_4！");
                 return new Tuple<long, V>(0, default(V));
             }
         }
@@ -170,7 +170,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_5！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_5！");
                 return 0;
             }
         }
@@ -187,7 +187,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_队列_6！");
+                //Logger.Exception(ex, "Redis框架级错误_队列_6！");
                 throw;
             }
         }

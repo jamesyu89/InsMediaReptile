@@ -42,11 +42,11 @@ namespace InstagramPhotos.Utility.Storage.OSS
 
                 PutObjectResult result = ossClient.PutObject(config_oss_bucket, key, new MemoryStream(image_data), meta);
                     //上传图片
-                Logger.Info("保存图片{0}到OSS", file_name);
+                //Logger.Info("保存图片{0}到OSS", file_name);
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "保存图片{0}到OSS失败，将保存到暂存区{1}", file_name, config_oss_temp_path+dir_name);
+                //Logger.Exception(ex, "保存图片{0}到OSS失败，将保存到暂存区{1}", file_name, config_oss_temp_path+dir_name);
 
                 try
                 {
@@ -54,7 +54,7 @@ namespace InstagramPhotos.Utility.Storage.OSS
                 }
                 catch (Exception)
                 {
-                    Logger.Exception(ex, "保存图片{0}到暂存区失败", file_name);
+                    //Logger.Exception(ex, "保存图片{0}到暂存区失败", file_name);
                 }
             }
 

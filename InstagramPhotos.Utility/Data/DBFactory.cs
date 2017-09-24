@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Data.Common;
 using System.Data.SqlClient;
-using InstagramPhotos.Utility.YIGUO;
 
 namespace InstagramPhotos.Utility.Data
 {
@@ -50,9 +49,7 @@ namespace InstagramPhotos.Utility.Data
             }
             else
             {
-                
-                var wcfdbConn = new WCFDBConn();
-                strSqlConn = Functions.SQLConnectDecrypt(wcfdbConn.GetDbConnectString(ConfigurationManager.AppSettings[dbkey]));
+                strSqlConn = ConfigurationManager.AppSettings[dbkey];
             }
             if (string.IsNullOrEmpty(dbkey))
             {

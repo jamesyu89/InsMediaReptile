@@ -137,7 +137,7 @@ namespace InstagramPhotos.Repository
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
                 return false;
             }
         }
@@ -358,7 +358,7 @@ namespace InstagramPhotos.Repository
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
                 return false;
             }
         }
@@ -553,7 +553,7 @@ namespace InstagramPhotos.Repository
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
                 return false;
             }
         }
@@ -745,7 +745,7 @@ namespace InstagramPhotos.Repository
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
                 return false;
             }
         }

@@ -35,7 +35,7 @@ namespace InstagramPhotos.Utility.Utility
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
                 throw new Exception(outMsg);
             }
         }

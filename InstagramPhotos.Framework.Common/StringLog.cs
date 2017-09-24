@@ -40,5 +40,17 @@ namespace InstagramPhotos.Framework.Common
             }
             return str;
         }
+
+        /// <summary>
+        /// 添加到自定义消息队列
+        /// </summary>
+        /// <param name="str">日志内容</param>
+        /// <param name="addToQueue">是否添加到自定义消息队列</param>
+        /// <returns></returns>
+        public static string Message(this string str)
+        {
+            DefineMessageQueue.AddToQueue(str);
+            return str;
+        }
     }
 }

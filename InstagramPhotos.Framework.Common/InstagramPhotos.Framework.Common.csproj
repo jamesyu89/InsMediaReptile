@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefineMessageQueue.cs" />
+    <Compile Include="HttpFileManager.cs" />
     <Compile Include="MediaQueueExtHelper.cs" />
     <Compile Include="MediaQueueHelper.cs" />
     <Compile Include="StringLog.cs" />

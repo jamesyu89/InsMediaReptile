@@ -102,14 +102,14 @@ namespace InstagramPhotos.Utility.Helper
                 DateTime time = DateTime.ParseExact(query["MTime"], "yyyyMMddHHmmss", null);
                 if (DateTime.Now.Subtract(time) > MAX_LIFE_TIME)
                 {
-                    Logger.Error("上传文件地址，已超过 30 分钟", new Exception(uri.ToString()));
+                    //Logger.Error("上传文件地址，已超过 30 分钟", new Exception(uri.ToString()));
                     return null;
                 }
                 return query;
             }
             else
             {
-                Logger.Error("上传文件地址，验证签名失败", new Exception(uri.ToString()));
+                //Logger.Error("上传文件地址，验证签名失败", new Exception(uri.ToString()));
             }
             return null;
         }

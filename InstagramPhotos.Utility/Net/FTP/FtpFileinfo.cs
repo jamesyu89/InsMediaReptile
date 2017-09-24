@@ -20,7 +20,7 @@ namespace InstagramPhotos.Utility.Net.FTP
 	{
         static System.IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
 
-       // log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+       // log4net.ILog //Logger = log4net.LogManager.Get//Logger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		//Stores extended info about FTP file
 		
 		#region "Properties"
@@ -150,7 +150,7 @@ namespace InstagramPhotos.Utility.Net.FTP
 			Match m = GetMatchingRegex(line);
 
             //log
-           // Logger.Error(string.Format("Parse Line: {0}",line));
+           // //Logger.Error(string.Format("Parse Line: {0}",line));
 
             if (m == null)
             {

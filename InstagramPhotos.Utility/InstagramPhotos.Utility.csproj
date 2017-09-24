@@ -37,14 +37,6 @@
     <Reference Include="EmitMapper">
       <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Jns.BasicService.Log, Version=1.3.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jns.BasicService.Log.1.3.2.1\lib\Jns.BasicService.Log.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Jns.BasicService.MessageCenter, Version=1.2.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jns.BasicService.MessageCenter.1.2.2.4\lib\Jns.BasicService.MessageCenter.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -55,10 +47,6 @@
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMQ.Client, Version=3.5.7.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jns.BasicService.MessageCenter.1.2.2.4\lib\RabbitMQ.Client.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
@@ -75,9 +63,6 @@
     </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.4.5.6\lib\net45\ServiceStack.Text.dll</HintPath>
-    </Reference>
-    <Reference Include="SSOUtil">
-      <HintPath>..\ExtLib\SSOUtil.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.1\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -119,15 +104,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="YGCFDDecrypt">
-      <HintPath>..\ExtLib\YGCFDDecrypt.dll</HintPath>
-    </Reference>
-    <Reference Include="YGDDbDict">
-      <HintPath>..\ExtLib\YGDDbDict.dll</HintPath>
-    </Reference>
-    <Reference Include="YGOP.ESB.Log">
-      <HintPath>..\ExtLib\YGOP.ESB.Log.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\FormsSignSystem.cs" />
@@ -231,8 +207,6 @@
     <Compile Include="KVStore\KVStoreList.cs" />
     <Compile Include="KVStore\KVStoreManager.cs" />
     <Compile Include="KVStore\KVStoreSortedSet.cs" />
-    <Compile Include="Log\JnsLog.cs" />
-    <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\PowerLogger.cs" />
     <Compile Include="Log\TxtRecorder.cs" />
     <Compile Include="Model\ArchResult.cs" />
@@ -251,8 +225,6 @@
     <Compile Include="Page\PageOperate.cs" />
     <Compile Include="Page\Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queue\IQueueEngine.cs" />
-    <Compile Include="Queue\JnsMessageCenter\JMCEngine.cs" />
     <Compile Include="QuickJson\JsonBuilder.cs" />
     <Compile Include="QuickJson\QuickJsonUtil.cs" />
     <Compile Include="QuickJson\QuickStringReader.cs" />
@@ -308,8 +280,6 @@
     <Compile Include="Utility\SysInfoHelper.cs" />
     <Compile Include="Utility\ValidateUtility.cs" />
     <Compile Include="WinService\ServiceControl.cs" />
-    <Compile Include="YIGUO\Functions.cs" />
-    <Compile Include="YIGUO\WCFDBConn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Net\FTP\FTPClient.cd" />

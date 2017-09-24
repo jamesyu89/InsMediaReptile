@@ -49,7 +49,7 @@ namespace InstagramPhotos.Utility.Data
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "ERROR when create CreateConnection:{0}", dbkey);
+                //Logger.Exception(ex, "ERROR when create CreateConnection:{0}", dbkey);
                 throw;
             }
         }
@@ -62,7 +62,7 @@ namespace InstagramPhotos.Utility.Data
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Error when create sqlconnection:{0}", dbkey);
+                //Logger.Exception(ex, "Error when create sqlconnection:{0}", dbkey);
                 throw;
             }
         }

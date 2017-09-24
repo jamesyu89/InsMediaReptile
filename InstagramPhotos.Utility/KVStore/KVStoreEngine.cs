@@ -113,7 +113,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis反序列化失败");
+                //Logger.Exception(ex, "Redis反序列化失败");
             }
             return default(T);
         }
@@ -133,7 +133,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis插入递增数值失败");
+                //Logger.Exception(ex, "Redis插入递增数值失败");
             }
             return result;
         }
@@ -152,7 +152,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis获取string数值失败--key:" + key);
+                //Logger.Exception(ex, "Redis获取string数值失败--key:" + key);
             }
             return "";
         }
@@ -179,7 +179,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis获取string数值keys失败");
+                //Logger.Exception(ex, "Redis获取string数值keys失败");
             }
             return null;
         }
@@ -204,7 +204,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis获取string数值keys失败");
+                //Logger.Exception(ex, "Redis获取string数值keys失败");
             }
             return null;
         }
@@ -225,7 +225,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis String出错--key：" + key);
+                //Logger.Exception(ex, "存入Redis String出错--key：" + key);
             }
             return false;
         }
@@ -243,7 +243,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis出错--key：" + key);
+                //Logger.Exception(ex, "存入Redis出错--key：" + key);
             }
             return false;
         }
@@ -261,7 +261,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "删除Redis出错--key：" + key);
+                //Logger.Exception(ex, "删除Redis出错--key：" + key);
             }
             return false;
         }
@@ -283,7 +283,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "批量删除Redis出错");
+                //Logger.Exception(ex, "批量删除Redis出错");
             }
             return false;
         }
@@ -303,7 +303,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis出错Hash出错:" + ex.Message);
+                //Logger.Exception(ex, "存入Redis出错Hash出错:" + ex.Message);
             }
 
             return false;
@@ -334,7 +334,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis出错Hash出错:" + ex.Message);
+                //Logger.Exception(ex, "存入Redis出错Hash出错:" + ex.Message);
             }
             return false;
         }
@@ -357,7 +357,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "删除redis Hash出错key:" + key);
+                //Logger.Exception(ex, "删除redis Hash出错key:" + key);
             }
             return false;
         }
@@ -376,7 +376,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "读取redis Hash出错key:" + key);
+                //Logger.Exception(ex, "读取redis Hash出错key:" + key);
             }
             return "";
         }
@@ -398,7 +398,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "读取redis Hash出错key:" + key);
+                //Logger.Exception(ex, "读取redis Hash出错key:" + key);
             }
             return result;
         }
@@ -419,7 +419,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis加入队列出错--key:" + key);
+                //Logger.Exception(ex, "Redis加入队列出错--key:" + key);
             }
         }
 
@@ -437,7 +437,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis加入队列出错--key:" + key);
+                //Logger.Exception(ex, "Redis加入队列出错--key:" + key);
             }
         }
 
@@ -454,7 +454,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis加入队列出错--key:" + key);
+                //Logger.Exception(ex, "Redis加入队列出错--key:" + key);
             }
         }
 
@@ -475,7 +475,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis取出队列出错--key:" + key);
+                //Logger.Exception(ex, "Redis取出队列出错--key:" + key);
             }
             return "";
         }
@@ -497,7 +497,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis取出队列出错2--key:" + key);
+                //Logger.Exception(ex, "Redis取出队列出错2--key:" + key);
             }
             return new Tuple<long, string>(0, "");
         }
@@ -518,7 +518,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "Redis取队列数量出错--key:" + key);
+                //Logger.Exception(ex, "Redis取队列数量出错--key:" + key);
             }
             return 0;
         }
@@ -537,7 +537,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis取出队列出错--key:" + key);
+                //Logger.Exception(ex, "Redis取出队列出错--key:" + key);
                 return new List<T>();
             }
         }
@@ -558,7 +558,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "读取Redis是否存在出错--key：" + key);
+                //Logger.Exception(ex, "读取Redis是否存在出错--key：" + key);
                 return false;
             }
         }
@@ -573,7 +573,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis Set出错--key：" + key);
+                //Logger.Exception(ex, "存入Redis Set出错--key：" + key);
             }
             return false;
         }
@@ -591,7 +591,7 @@ namespace InstagramPhotos.Utility.KVStore
             catch (Exception ex)
             {
                 //记录日志 
-                Logger.Exception(ex, "存入Redis Set出错--key：" + key);
+                //Logger.Exception(ex, "存入Redis Set出错--key：" + key);
             }
             return false;
         }

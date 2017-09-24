@@ -32,7 +32,7 @@ namespace InstagramPhotos.Utility.Configuration
             }
             catch (Exception e)
             {
-                Logger.Exception("FileSystemWatcher failed, pls check if you have ADMIN permission", e);
+               // //Logger.Exception("FileSystemWatcher failed, pls check if you have ADMIN permission", e);
                 throw;
             }
         }

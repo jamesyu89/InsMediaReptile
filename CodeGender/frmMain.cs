@@ -309,7 +309,7 @@ namespace InstagramPhotos.CodeGender
             code.AppendLineWithTabs("}", 2);
             code.AppendLineWithTabs("catch (Exception ex)", 2);
             code.AppendLineWithTabs("{", 2);
-            code.AppendLineWithTabs("Logger.Exception(ex);", 3);
+            code.AppendLineWithTabs("//Logger.Exception(ex);", 3);
             code.AppendLineWithTabs("return false;", 3);
             code.AppendLineWithTabs("}", 2);
             code.AppendLineWithTabs("}", 1);

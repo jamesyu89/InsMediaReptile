@@ -60,14 +60,14 @@ namespace InstagramPhotos.Utility.Utility
             if (string.IsNullOrEmpty(key))
             {
                 if (isLog)
-                    Logger.Exception(ex, message + " Key:{0}", key);
+                    //Logger.Exception(ex, message + " Key:{0}", key);
                 if (isThrow)
                     throw new BusinessException(message, ex);
             }
             else
             {
                 if (isLog)
-                    Logger.Exception(message, ex);
+                    //Logger.Exception(message, ex);
                 if (isThrow)
                     throw new BusinessException(message, ex, key);
             }

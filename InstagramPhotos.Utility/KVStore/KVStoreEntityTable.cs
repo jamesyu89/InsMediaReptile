@@ -77,7 +77,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_1！");
+                //Logger.Exception(ex, "Redis框架级错误_1！");
                 return false;
             }
         }
@@ -94,7 +94,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_2！");
+                //Logger.Exception(ex, "Redis框架级错误_2！");
                 return default(V);
             }
         }
@@ -115,7 +115,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_2.1！");
+                //Logger.Exception(ex, "Redis框架级错误_2.1！");
                 return new List<V>();
             }
         }
@@ -133,7 +133,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_4！");
+                //Logger.Exception(ex, "Redis框架级错误_4！");
                 entity = default(V);
                 return false;
             }
@@ -159,7 +159,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_3！");
+                //Logger.Exception(ex, "Redis框架级错误_3！");
                 return false;
             }
         }
@@ -181,7 +181,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_3！");
+                //Logger.Exception(ex, "Redis框架级错误_3！");
                 return false;
             }
         }
@@ -219,7 +219,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "缓存框架级错误_3！");
+                //Logger.Exception(ex, "缓存框架级错误_3！");
                 throw;
             }
         }

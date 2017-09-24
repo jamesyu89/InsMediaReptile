@@ -69,7 +69,7 @@ namespace InstagramPhotos.Utility.Utility
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex);
+                //Logger.Exception(ex);
             }
             Stream.Position = 0;
             var sr = new StreamReader(Stream);

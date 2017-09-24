@@ -46,7 +46,7 @@ namespace InstagramPhotos.Utility.KVStore
             }
             catch (Exception ex)
             {
-                Logger.Exception(ex, "Redis框架级错误_SortedSet_1！");
+                //Logger.Exception(ex, "Redis框架级错误_SortedSet_1！");
                 return false;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstagramPhotos.Utility.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace InstagramPhotos.Framework.Common
             {
                 try
                 {
-                    ServicePointManager.DefaultConnectionLimit = int.MaxValue;
+                    ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
                     HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
                     rq.Method = "GET";
                     rq.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";

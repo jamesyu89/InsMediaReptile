@@ -21,7 +21,13 @@ namespace ZInfo.Media
         private List<string> UrlList = new List<string>();
         private string Domain = AppSettings.GetValue<string>("Domain");
         private CancellationTokenSource AnalyCancelToken = new CancellationTokenSource();
-
+        /// <summary>
+        /// 当前展示到界面上的几张美图
+        /// </summary>
+        private Queue<List<string>> CurrentImageList = new Queue<List<string>>();
+        /// <summary>
+        /// 初始化时默认为加载第1页的帖子
+        /// </summary>
         private int CurrentPage = 1;
 
         public Crawler()
@@ -31,13 +37,15 @@ namespace ZInfo.Media
 
         private void Crawler_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;    //最大化窗体 
+
             //加载cc域名对应的可用地址
             var domain = string.Empty;
-            using (var driver = new PhantomJSDriver(PhantomJSDriverService.CreateDefaultService()))
-            {
-                driver.Navigate().GoToUrl("http://zc.97down.info");
-                domain = driver.Url;
-            }
+            var _service = PhantomJSDriverService.CreateDefaultService();
+            _service.HideCommandPromptWindow = true;
+            var driver = new PhantomJSDriver(_service);
+            driver.Navigate().GoToUrl("http://zc.97down.info");
+            domain = driver.Url;
             var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
             var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
             var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");
@@ -153,6 +161,58 @@ namespace ZInfo.Media
             richTextBox1.ScrollToCaret();
         }
 
+        //定时更新最新下载的图片
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var basePath = AppSettings.GetValue<string>("SaveDir");
+            var baseDir = new DirectoryInfo(basePath);
+            if (baseDir != null)
+            {
+                //获取应用程序的目录集
+                var dirs = baseDir.GetDirectories();
+                if (dirs != null && dirs.Any())
+                {
+                    //上一次应用程序因下载访问的目录是哪个
+                    var dir = dirs.OrderByDescending(o => o.LastAccessTime).First();
+                    //从此目录里的子目录取最新的大图片
+                    var i = 0;
+                Try:
+                    var subDir = dir.GetDirectories().OrderByDescending(o => o.LastAccessTime).ToList()[i];
+                    var files = subDir.GetFiles().OrderByDescending(o => o.LastAccessTime).Take(4);
+                    if (files != null && files.Any())
+                    {
+                        var pathList = new List<string>();
+                        files.ToList().ForEach(f =>
+                        {
+                            pathList.Add(f.FullName);
+                        });
+                        CurrentImageList.Enqueue(pathList);
+                    }
+                    else
+                    {
+                        i++;
+                        goto Try;
+                    }
+                }
+            }
+
+            if (CurrentImageList != null && CurrentImageList.Any())
+            {
+                var list = CurrentImageList.Dequeue();
+                if (list != null && list.Any())
+                {
+                    if (!string.IsNullOrEmpty(list[0]))
+                        pictureBox1.ImageLocation = list[0];
+                    if (!string.IsNullOrEmpty(list[1]))
+                        pictureBox2.ImageLocation = list[1];
+                    if (!string.IsNullOrEmpty(list[2]))
+                        pictureBox3.ImageLocation = list[2];
+                    if (!string.IsNullOrEmpty(list[3]))
+                        pictureBox4.ImageLocation = list[3];
+                }
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -184,14 +244,14 @@ namespace ZInfo.Media
                             listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
                             if (string.IsNullOrEmpty(listHtml))
                             {
-                                Print("网络出现异常，30秒后重试");
+                                Print("网络出现异常，30秒后重试".Log());
                                 Thread.Sleep(1000 * 30);//等待30秒再试下一个
                                 goto PageList;
                             }
                         }
                         catch (Exception ex)
                         {
-                            Print($"加载{httpUrl}出现异常，跳至下一个帖子" + ex.Message);
+                            Print($"加载{httpUrl}出现异常，跳至下一个帖子{ex.Message}".Log());
                             continue;
                         }
                         Print($"资源加载成功，使用正则匹配可下载的资源");
@@ -267,14 +327,14 @@ namespace ZInfo.Media
                                             }
                                             catch (Exception e)
                                             {
-                                                Print("下载失败，" + e.Message + ",继续下一个图片的下载");
+                                                Print("下载失败，" + e.Message + ",继续下一个图片的下载".Log());
                                                 continue;
                                             }
                                             Print($"文件下载成功");
-                                            Task.Run(() =>
-                                            {
-                                                ShowPicture(dir + "\\" + fileName);
-                                            });
+                                            //Task.Run(() =>
+                                            //{
+                                            //    ShowPicture(dir + "\\" + fileName);
+                                            //});
                                         }
                                     }
                                 }
@@ -313,5 +373,7 @@ namespace ZInfo.Media
         }
 
         #endregion
+
+
     }
 }

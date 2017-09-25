@@ -152,7 +152,6 @@ namespace ZInfo.Media
 
         #endregion
 
-
         #region Methods
 
         private async void button1_Click(object sender, EventArgs e)
@@ -178,7 +177,7 @@ namespace ZInfo.Media
                         var listHtml = string.Empty;
                         try
                         {
-                            PageList:
+                        PageList:
                             listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
                             if (string.IsNullOrEmpty(listHtml))
                             {
@@ -249,8 +248,12 @@ namespace ZInfo.Media
                                             Print($"[{x}]正在将文件{fileName}存放至{dir}");
                                             if (File.Exists(filePath))//文件存在，Pass
                                             {
-                                                Print($"文件[{fileName}]已存在，下一个...");
-                                                continue;
+                                                //文件上次未下载成功，重新下载
+                                                if (new FileInfo(filePath).Length >= 35 * 1024)
+                                                {
+                                                    Print($"文件[{fileName}]已存在，下一个...");
+                                                    continue;
+                                                }
                                             }
                                             try
                                             {
@@ -303,12 +306,9 @@ namespace ZInfo.Media
         public void ShowPicture(string picPath)
         {
             Action<string> setImg = (s) => pictureBox1.ImageLocation = picPath;
-            Thread.Sleep(2000);
             pictureBox1.Invoke(setImg, picPath);
         }
 
         #endregion
-
-
     }
 }

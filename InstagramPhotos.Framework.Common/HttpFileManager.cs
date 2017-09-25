@@ -21,6 +21,7 @@ namespace InstagramPhotos.Framework.Common
             {
                 try
                 {
+                    ServicePointManager.DefaultConnectionLimit = int.MaxValue;
                     HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
                     rq.Method = "GET";
                     rq.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";
@@ -63,6 +64,7 @@ namespace InstagramPhotos.Framework.Common
             var html = string.Empty;
             Action action = () =>
             {
+                ServicePointManager.DefaultConnectionLimit = int.MaxValue;
                 HttpWebRequest webRequest = WebRequest.Create(httpUrl) as HttpWebRequest;
                 webRequest.Method = "GET";
                 webRequest.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";

@@ -20,7 +20,7 @@ namespace InstagramPhotos.Framework.Common
             GC.Collect();//回收一次垃圾，保证后续的线程能正常启动连接
             ServicePointManager.DefaultConnectionLimit = 200;
             HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
-            rq.Timeout = 1000 * 15;//超时时间设置了30秒
+            rq.Timeout = 1000 * 60;//超时时间设置了60秒
             rq.KeepAlive = true;
 
             //发送请求并获取相应回应数据
@@ -38,7 +38,6 @@ namespace InstagramPhotos.Framework.Common
             }
             st.Close();
             rps.Close();
-            rps = null;
             rp.Close();
         }
 
@@ -61,7 +60,6 @@ namespace InstagramPhotos.Framework.Common
                 html = reader.ReadToEnd();
                 reader.Close();
                 response.Close();
-                webRequest.
             };
             var flag = 0;
             for (int j = 0; j < 5; j++)

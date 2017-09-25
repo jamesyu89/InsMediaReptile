@@ -16,20 +16,20 @@ namespace ZInfo.Media
         [STAThread]
         static void Main()
         {
-            KVStoreManager.SetEngine(new KVStoreEngine());
+            //KVStoreManager.SetEngine(new KVStoreEngine());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             //处理未捕获的异常
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             //处理UI线程异常
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            //Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             //处理非UI线程异常
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             Application.Run(new Crawler());
 
-            glExitApp = true;//标志应用程序可以退出
+            //glExitApp = true;//标志应用程序可以退出
         }
 
         /// <summary>

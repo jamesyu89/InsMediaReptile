@@ -1,14 +1,11 @@
 ﻿using InstagramPhotos.Framework.Common;
 using InstagramPhotos.Utility.Configuration;
+using OpenQA.Selenium.PhantomJS;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +31,13 @@ namespace ZInfo.Media
 
         private void Crawler_Load(object sender, EventArgs e)
         {
-            var domain = AppSettings.GetValue<string>("Domain");
+            //加载cc域名对应的可用地址
+            var domain = string.Empty;
+            using (var driver = new PhantomJSDriver(PhantomJSDriverService.CreateDefaultService()))
+            {
+                driver.Navigate().GoToUrl("http://zc.97down.info");
+                domain = driver.Url;
+            }
             var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
             var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
             var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");

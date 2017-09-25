@@ -75,6 +75,7 @@ namespace InstagramPhotos.Framework.Common
                 var reader = new StreamReader(stream);
                 html = reader.ReadToEnd();
                 reader.Close();
+                stream.Close();
                 response.Close();
             };
             var flag = 0;

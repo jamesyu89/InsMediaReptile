@@ -23,8 +23,10 @@ namespace ZInfo.Media
 
         private List<string> UrlList = new List<string>();
         private string Domain = AppSettings.GetValue<string>("Domain");
-        private string BasePath = AppSettings.GetValue<string>("SaveDir");
         private CancellationTokenSource AnalyCancelToken = new CancellationTokenSource();
+
+        private int CurrentPage = 1;
+
         public Crawler()
         {
             InitializeComponent();
@@ -43,6 +45,7 @@ namespace ZInfo.Media
 
         private void GetUrls()
         {
+            UrlList.Clear();
             if (checkBox1.Checked)
                 UrlList.Add(textBox1.Text);
             if (checkBox2.Checked)
@@ -166,13 +169,12 @@ namespace ZInfo.Media
             GetUrls();
             if (UrlList != null)
             {
-                for (int i = 0; i < UrlList.Count; i++)//指定列表页
+                Parallel.For(0, UrlList.Count, (i) =>
                 {
-                    var pageIndex = 1;
-                    while (pageIndex < 500)
+                    while (CurrentPage < 500)
                     {
-                        var httpUrl = $"{UrlList[i]}&page={pageIndex}";
-                        Print($"开始加载第【{pageIndex}】页资源：{httpUrl}");
+                        var httpUrl = $"{UrlList[i]}&page={CurrentPage}";
+                        Print($"开始加载第【{CurrentPage}】页资源：{httpUrl}");
                         var listHtml = string.Empty;
                         try
                         {
@@ -196,10 +198,23 @@ namespace ZInfo.Media
 
                         if (listMatchs != null && listMatchs.Count > 0)
                         {
-                            Print($"匹配成功，当前匹配的是第{pageIndex}页内容");
+                            var _basePath = string.Empty;
+                            Print($"匹配成功，当前匹配的是第{CurrentPage}页内容");
+                            if (UrlList[i].Contains("fid=15"))
+                            {
+                                _basePath = AppSettings.GetValue<string>("SaveDir") + "\\自拍偷拍";
+                            }
+                            else if (UrlList[i].Contains("fid=14"))
+                            {
+                                _basePath = AppSettings.GetValue<string>("SaveDir") + "\\唯美写真";
+                            }
+                            else if (UrlList[i].Contains("fid=16"))
+                            {
+                                _basePath = AppSettings.GetValue<string>("SaveDir") + "\\露出激情";
+                            }
                             for (int j = 0; j < listMatchs.Count; j++)
                             {
-                                var dir = BasePath + "\\" + listMatchs[j].Groups["text"].Value;
+                                var dir = _basePath + "\\" + listMatchs[j].Groups["text"].Value;
                                 var htmlDetailUrl = Domain + "/" + listMatchs[j].Groups["href"].Value;
                                 Print($"检查目录{dir}是否存在");
                                 if (!Directory.Exists(dir))
@@ -254,9 +269,14 @@ namespace ZInfo.Media
                                 Print($"当前帖子图片已全部下载完毕");
                             }
                         }
-                        pageIndex += 1;
+                        CurrentPage += 1;
                     }
-                }
+                });
+            }
+            else
+            {
+                MessageBox.Show("请选择一个列表页");
+                return;
             }
         }
 

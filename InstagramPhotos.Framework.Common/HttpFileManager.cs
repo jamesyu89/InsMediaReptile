@@ -17,23 +17,37 @@ namespace InstagramPhotos.Framework.Common
         /// <param name="filePath"></param>
         public static void DownloadFile(string httpUrl, string filePath)
         {
-            HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
-            rq.Timeout = 1000 * 15;//超时时间设置了30秒
-            //发送请求并获取相应回应数据
-            HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
-            //直到request.GetResponse()程序才开始向目标网页发送Post请求
-            var rps = rp.GetResponseStream();
-
-            Stream st = new FileStream(filePath, FileMode.Create);
-            byte[] bar = new byte[1024];
-            int sz = rps.Read(bar, 0, (int)bar.Length);
-            while (sz > 0)
+            while (true)
             {
-                st.Write(bar, 0, sz);
-                sz = rps.Read(bar, 0, (int)bar.Length);
+                try
+                {
+                    HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
+                    rq.Method = "GET";
+                    rq.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";
+                    rq.KeepAlive = true;
+                    HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
+                    var rps = rp.GetResponseStream();
+
+                    Stream st = new FileStream(filePath, FileMode.Create);
+                    byte[] bar = new byte[1024];
+                    int sz = rps.Read(bar, 0, (int)bar.Length);
+                    while (sz > 0)
+                    {
+                        st.Write(bar, 0, sz);
+                        sz = rps.Read(bar, 0, (int)bar.Length);
+                    }
+                    st.Close();
+                    rps.Close();
+                    break;
+                }
+                catch (Exception e)
+                {
+                    e.StackTrace.ToString();
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                    if (true)
+                        continue;
+                }
             }
-            st.Close();
-            rps.Close();
         }
 
         /// <summary>
@@ -46,7 +60,11 @@ namespace InstagramPhotos.Framework.Common
             var html = string.Empty;
             Action action = () =>
             {
-                var webRequest = WebRequest.Create(httpUrl);
+                HttpWebRequest webRequest = WebRequest.Create(httpUrl) as HttpWebRequest;
+                webRequest.Method = "GET";
+                webRequest.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";
+                webRequest.Timeout = 1000 * 30;//超时时间设置了30秒
+                webRequest.KeepAlive = true;
                 var response = webRequest.GetResponse();
                 var stream = response.GetResponseStream();
                 var reader = new StreamReader(stream);

@@ -178,7 +178,7 @@ namespace ZInfo.Media
                         var listHtml = string.Empty;
                         try
                         {
-                        PageList:
+                            PageList:
                             listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
                             if (string.IsNullOrEmpty(listHtml))
                             {
@@ -248,10 +248,16 @@ namespace ZInfo.Media
                                             var filePath = dir + "\\" + fileName;
                                             Print($"[{x}]正在将文件{fileName}存放至{dir}");
                                             if (File.Exists(filePath))//文件存在，Pass
+                                            {
+                                                Print($"文件[{fileName}]已存在，下一个...");
                                                 continue;
+                                            }
                                             try
                                             {
-                                                HttpFileManager.DownloadFile(fileUrl, filePath);
+                                                Task.Factory.StartNew(() =>
+                                                {
+                                                    HttpFileManager.DownloadFile(fileUrl, filePath);
+                                                });
                                             }
                                             catch (Exception e)
                                             {
@@ -297,6 +303,7 @@ namespace ZInfo.Media
         public void ShowPicture(string picPath)
         {
             Action<string> setImg = (s) => pictureBox1.ImageLocation = picPath;
+            Thread.Sleep(2000);
             pictureBox1.Invoke(setImg, picPath);
         }
 

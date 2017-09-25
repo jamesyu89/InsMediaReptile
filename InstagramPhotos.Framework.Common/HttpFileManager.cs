@@ -38,6 +38,7 @@ namespace InstagramPhotos.Framework.Common
                     }
                     st.Close();
                     rps.Close();
+                    rp.Close();
                     break;
                 }
                 catch (Exception e)
@@ -57,6 +58,8 @@ namespace InstagramPhotos.Framework.Common
         /// <returns></returns>
         public static string GetHttpUrlString(string httpUrl)
         {
+            GC.Collect();//回收一次垃圾，保证后续的线程能正常启动连接
+            ServicePointManager.DefaultConnectionLimit = 200;
             var html = string.Empty;
             Action action = () =>
             {

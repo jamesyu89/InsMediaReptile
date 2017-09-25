@@ -259,6 +259,7 @@ namespace InstagramPhotos.Framework.Common
             //pds.Proxy = $"{ip}:{port}";  
             //设置代理服务器认证信息
             //pds.ProxyAuthentication = GetProxyAuthorization();
+            pds.HideCommandPromptWindow = true;
             return pds;
         }
 

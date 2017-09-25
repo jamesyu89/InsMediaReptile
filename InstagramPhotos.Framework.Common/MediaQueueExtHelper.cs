@@ -111,7 +111,7 @@ namespace InstagramPhotos.Framework.Common
                             if (img != null)
                             {
                                 mediaUrls.Add(img);
-                               "找到资源所在的唯一标签".Log(true);
+                                "找到资源所在的唯一标签".Log(true);
                             }
                         }
                         catch
@@ -153,11 +153,13 @@ namespace InstagramPhotos.Framework.Common
         /// <returns></returns>
         private static PhantomJSDriverService GetPhantomJSDriverService()
         {
+
             PhantomJSDriverService pds = PhantomJSDriverService.CreateDefaultService();
             //设置代理服务器地址
             //pds.Proxy = $"{ip}:{port}";  
             //设置代理服务器认证信息
             //pds.ProxyAuthentication = GetProxyAuthorization();
+            pds.HideCommandPromptWindow = true;
             return pds;
         }
 

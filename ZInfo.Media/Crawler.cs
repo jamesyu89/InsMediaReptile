@@ -24,7 +24,8 @@ namespace ZInfo.Media
         /// <summary>
         /// 当前展示到界面上的几张美图
         /// </summary>
-        private Queue<List<string>> CurrentImageList = new Queue<List<string>>();
+        private Queue<string> CurrentImageList = new Queue<string>();
+        private List<string> _imageList = new List<string>();
         /// <summary>
         /// 初始化时默认为加载第1页的帖子
         /// </summary>
@@ -40,18 +41,82 @@ namespace ZInfo.Media
             this.WindowState = FormWindowState.Maximized;    //最大化窗体 
 
             //加载cc域名对应的可用地址
-            var domain = string.Empty;
-            var _service = PhantomJSDriverService.CreateDefaultService();
-            _service.HideCommandPromptWindow = true;
-            var driver = new PhantomJSDriver(_service);
-            driver.Navigate().GoToUrl("http://zc.97down.info");
-            domain = driver.Url;
-            var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
-            var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
-            var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");
-            textBox1.Text = zp;
-            textBox2.Text = wm;
-            textBox3.Text = lc;
+            Action<string> setTbx1 = (s) => { textBox1.Text = s; };
+            Action<string> setTbx2 = (s) => { textBox2.Text = s; };
+            Action<string> setTbx3 = (s) => { textBox3.Text = s; };
+            Task.Run(() =>
+            {
+                var _service = PhantomJSDriverService.CreateDefaultService();
+                _service.HideCommandPromptWindow = true;
+                var driver = new PhantomJSDriver(_service);
+                driver.Navigate().GoToUrl("http://zc.97down.info");
+                var domain = driver.Url;
+                var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
+                var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
+                var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");
+                textBox1.Invoke(setTbx1, zp);
+                textBox2.Invoke(setTbx2, wm);
+                textBox3.Invoke(setTbx3, lc);
+            });
+
+            //加载图片
+            var listImage = new List<string>();
+            var basePath = AppSettings.GetValue<string>("SaveDir");
+            var baseDir = new DirectoryInfo(basePath);
+            if (baseDir != null)
+            {
+                if (!_imageList.Any())
+                {
+                    //获取应用程序的版块目录集
+                    var dirs = baseDir.GetDirectories();
+                    if (dirs != null && dirs.Any())
+                    {
+                        //遍历版块目录
+                        for (int i = 0; i < dirs.Length; i++)
+                        {
+                            //遍历版块下的每个帖子目录
+                            var tieDir = dirs[i].GetDirectories();
+                            for (int j = 0; j < tieDir.Length; j++)
+                            {
+                                //取出每个帖子里下载的图片(只取大图,未下载完成的不加入到队列)
+                                var dirFiles = tieDir[i].GetFiles().Where(f => f.Length > 50 * 1024);
+                                if (dirFiles != null && dirFiles.Any())
+                                {
+                                    dirFiles.Select(f => f.FullName).ToList().ForEach(f =>
+                                    {
+                                        _imageList.Add(f);
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(basePath);
+            }
+
+            if (_imageList.Count >= 4)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    var _random = new Random();
+                    var r = _random.Next(0, _imageList.Count);
+                    listImage.Add(_imageList[i]);
+                }
+            }
+            if (listImage != null && listImage.Any())
+            {
+                if (!string.IsNullOrEmpty(listImage[0]))
+                    pictureBox1.ImageLocation = listImage[0];
+                if (!string.IsNullOrEmpty(listImage[1]))
+                    pictureBox2.ImageLocation = listImage[1];
+                if (!string.IsNullOrEmpty(listImage[2]))
+                    pictureBox3.ImageLocation = listImage[2];
+                if (!string.IsNullOrEmpty(listImage[3]))
+                    pictureBox4.ImageLocation = listImage[3];
+            }
         }
 
         private void GetUrls()
@@ -164,52 +229,26 @@ namespace ZInfo.Media
         //定时更新最新下载的图片
         private void timer1_Tick(object sender, EventArgs e)
         {
-            var basePath = AppSettings.GetValue<string>("SaveDir");
-            var baseDir = new DirectoryInfo(basePath);
-            if (baseDir != null)
+            var listImage = new List<string>();
+            if (_imageList.Count >= 4)
             {
-                //获取应用程序的目录集
-                var dirs = baseDir.GetDirectories();
-                if (dirs != null && dirs.Any())
+                for (int i = 0; i < 4; i++)
                 {
-                    //上一次应用程序因下载访问的目录是哪个
-                    var dir = dirs.OrderByDescending(o => o.LastAccessTime).First();
-                    //从此目录里的子目录取最新的大图片
-                    var i = 0;
-                Try:
-                    var subDir = dir.GetDirectories().OrderByDescending(o => o.LastAccessTime).ToList()[i];
-                    var files = subDir.GetFiles().OrderByDescending(o => o.LastAccessTime).Take(4);
-                    if (files != null && files.Any())
-                    {
-                        var pathList = new List<string>();
-                        files.ToList().ForEach(f =>
-                        {
-                            pathList.Add(f.FullName);
-                        });
-                        CurrentImageList.Enqueue(pathList);
-                    }
-                    else
-                    {
-                        i++;
-                        goto Try;
-                    }
+                    var _random = new Random();
+                    var r = _random.Next(0, _imageList.Count);
+                    listImage.Add(_imageList[i]);
                 }
             }
-
-            if (CurrentImageList != null && CurrentImageList.Any())
+            if (listImage != null && listImage.Any())
             {
-                var list = CurrentImageList.Dequeue();
-                if (list != null && list.Any())
-                {
-                    if (!string.IsNullOrEmpty(list[0]))
-                        pictureBox1.ImageLocation = list[0];
-                    if (!string.IsNullOrEmpty(list[1]))
-                        pictureBox2.ImageLocation = list[1];
-                    if (!string.IsNullOrEmpty(list[2]))
-                        pictureBox3.ImageLocation = list[2];
-                    if (!string.IsNullOrEmpty(list[3]))
-                        pictureBox4.ImageLocation = list[3];
-                }
+                if (!string.IsNullOrEmpty(listImage[0]))
+                    pictureBox1.ImageLocation = listImage[0];
+                if (!string.IsNullOrEmpty(listImage[1]))
+                    pictureBox2.ImageLocation = listImage[1];
+                if (!string.IsNullOrEmpty(listImage[2]))
+                    pictureBox3.ImageLocation = listImage[2];
+                if (!string.IsNullOrEmpty(listImage[3]))
+                    pictureBox4.ImageLocation = listImage[3];
             }
         }
 
@@ -371,6 +410,8 @@ namespace ZInfo.Media
             Action<string> setImg = (s) => pictureBox1.ImageLocation = picPath;
             pictureBox1.Invoke(setImg, picPath);
         }
+
+
 
         #endregion
 

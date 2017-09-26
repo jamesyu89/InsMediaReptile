@@ -1,6 +1,7 @@
 ﻿using InstagramPhotos.Utility.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,38 +19,31 @@ namespace InstagramPhotos.Framework.Common
         /// <param name="filePath"></param>
         public static void DownloadFile(string httpUrl, string filePath)
         {
-            while (true)
-            {
-                try
-                {
-                    ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
-                    HttpWebRequest rq = WebRequest.Create(httpUrl) as HttpWebRequest;
-                    rq.Method = "GET";
-                    rq.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";
-                    rq.KeepAlive = true;
-                    HttpWebResponse rp = rq.GetResponse() as HttpWebResponse;
-                    var rps = rp.GetResponseStream();
+            ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(httpUrl);
+            req.ServicePoint.Expect100Continue = false;
+            req.ServicePoint.UseNagleAlgorithm = false;
+            req.ServicePoint.ConnectionLimit = 65500;
+            req.AllowWriteStreamBuffering = false;
+            req.Proxy = null;
+            req.Method = "GET";
+            //req.KeepAlive = true;
+            req.ContentType = "image/*";
+            req.Timeout = 1000 * 100;
+            HttpWebResponse rsp = (HttpWebResponse)req.GetResponse();
+            Stream stream = null;
 
-                    Stream st = new FileStream(filePath, FileMode.Create);
-                    byte[] bar = new byte[1024];
-                    int sz = rps.Read(bar, 0, (int)bar.Length);
-                    while (sz > 0)
-                    {
-                        st.Write(bar, 0, sz);
-                        sz = rps.Read(bar, 0, (int)bar.Length);
-                    }
-                    st.Close();
-                    rps.Close();
-                    rp.Close();
-                    break;
-                }
-                catch (Exception e)
-                {
-                    e.StackTrace.ToString();
-                    System.Diagnostics.Trace.WriteLine(e.Message);
-                    if (true)
-                        continue;
-                }
+            try
+            {
+                // 以字符流的方式读取HTTP响应
+                stream = rsp.GetResponseStream();
+                Image.FromStream(stream).Save(filePath);
+            }
+            finally
+            {
+                // 释放资源
+                if (stream != null) stream.Close();
+                if (rsp != null) rsp.Close();
             }
         }
 
@@ -61,11 +55,10 @@ namespace InstagramPhotos.Framework.Common
         public static string GetHttpUrlString(string httpUrl)
         {
             GC.Collect();//回收一次垃圾，保证后续的线程能正常启动连接
-            ServicePointManager.DefaultConnectionLimit = 200;
+            ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
             var html = string.Empty;
             Action action = () =>
             {
-                ServicePointManager.DefaultConnectionLimit = int.MaxValue;
                 HttpWebRequest webRequest = WebRequest.Create(httpUrl) as HttpWebRequest;
                 webRequest.Method = "GET";
                 webRequest.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";

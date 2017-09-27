@@ -32,16 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Crawler));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -57,12 +58,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.panel14 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.panel15 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemMinimize = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemMaximize = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,38 +71,38 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel6.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.panel14.SuspendLayout();
             this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.952087F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.86584F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.952087F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.88022F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.15035F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.19941F));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17908F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.50142F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17908F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.57021F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.57021F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.panel13, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel11, 3, 5);
-            this.tableLayoutPanel1.Controls.Add(this.panel14, 5, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel14, 4, 5);
             this.tableLayoutPanel1.Controls.Add(this.panel10, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel9, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 5);
@@ -116,9 +115,8 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel8, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel12, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel12, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel15, 4, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -137,30 +135,73 @@
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel13.Controls.Add(this.pictureBox1);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(709, 103);
+            this.panel13.Location = new System.Drawing.Point(725, 103);
             this.panel13.Name = "panel13";
             this.tableLayoutPanel1.SetRowSpan(this.panel13, 4);
-            this.panel13.Size = new System.Drawing.Size(362, 394);
+            this.panel13.Size = new System.Drawing.Size(372, 394);
             this.panel13.TabIndex = 12;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(368, 390);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panel11
             // 
             this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel11.Controls.Add(this.pictureBox3);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(709, 503);
+            this.panel11.Location = new System.Drawing.Point(725, 503);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(362, 496);
+            this.panel11.Size = new System.Drawing.Size(372, 496);
             this.panel11.TabIndex = 11;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.ErrorImage")));
+            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(368, 492);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // panel14
+            // 
+            this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel14.Controls.Add(this.pictureBox4);
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel14.Location = new System.Drawing.Point(1103, 503);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(375, 496);
+            this.panel14.TabIndex = 10;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
+            this.pictureBox4.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(371, 492);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 3;
+            this.pictureBox4.TabStop = false;
             // 
             // panel10
             // 
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel10.Controls.Add(this.checkBox3);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(562, 203);
+            this.panel10.Location = new System.Drawing.Point(575, 203);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(141, 94);
+            this.panel10.Size = new System.Drawing.Size(144, 94);
             this.panel10.TabIndex = 8;
             // 
             // checkBox3
@@ -171,7 +212,7 @@
             this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox3.Location = new System.Drawing.Point(0, 0);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(137, 90);
+            this.checkBox3.Size = new System.Drawing.Size(140, 90);
             this.checkBox3.TabIndex = 10;
             this.checkBox3.Text = "选中";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -181,9 +222,9 @@
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel9.Controls.Add(this.checkBox2);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(562, 103);
+            this.panel9.Location = new System.Drawing.Point(575, 103);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(141, 94);
+            this.panel9.Size = new System.Drawing.Size(144, 94);
             this.panel9.TabIndex = 7;
             // 
             // checkBox2
@@ -194,7 +235,7 @@
             this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox2.Location = new System.Drawing.Point(0, 0);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(137, 90);
+            this.checkBox2.Size = new System.Drawing.Size(140, 90);
             this.checkBox2.TabIndex = 9;
             this.checkBox2.Text = "选中";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -207,7 +248,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 503);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(700, 496);
+            this.panel5.Size = new System.Drawing.Size(716, 496);
             this.panel5.TabIndex = 2;
             // 
             // richTextBox1
@@ -216,43 +257,10 @@
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(696, 492);
+            this.richTextBox1.Size = new System.Drawing.Size(712, 492);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(366, 390);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.ErrorImage")));
-            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(358, 492);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(358, 390);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // textBox2
             // 
@@ -260,10 +268,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Font = new System.Drawing.Font("宋体", 13F);
-            this.textBox2.Location = new System.Drawing.Point(150, 103);
+            this.textBox2.Location = new System.Drawing.Point(153, 103);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(406, 94);
+            this.textBox2.Size = new System.Drawing.Size(416, 94);
             this.textBox2.TabIndex = 4;
             // 
             // panel6
@@ -274,7 +282,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(3, 303);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(700, 94);
+            this.panel6.Size = new System.Drawing.Size(716, 94);
             this.panel6.TabIndex = 3;
             // 
             // button1
@@ -283,7 +291,7 @@
             this.button1.Font = new System.Drawing.Font("宋体", 14F);
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(696, 90);
+            this.button1.Size = new System.Drawing.Size(712, 90);
             this.button1.TabIndex = 6;
             this.button1.Text = "启动(重新)爬取资源";
             this.button1.UseVisualStyleBackColor = true;
@@ -293,10 +301,10 @@
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("宋体", 13F);
-            this.textBox1.Location = new System.Drawing.Point(150, 3);
+            this.textBox1.Location = new System.Drawing.Point(153, 3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(406, 94);
+            this.textBox1.Size = new System.Drawing.Size(416, 94);
             this.textBox1.TabIndex = 3;
             // 
             // panel3
@@ -306,7 +314,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 103);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(141, 94);
+            this.panel3.Size = new System.Drawing.Size(144, 94);
             this.panel3.TabIndex = 2;
             // 
             // label2
@@ -326,7 +334,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(141, 94);
+            this.panel7.Size = new System.Drawing.Size(144, 94);
             this.panel7.TabIndex = 3;
             // 
             // label1
@@ -350,7 +358,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 203);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(141, 94);
+            this.panel4.Size = new System.Drawing.Size(144, 94);
             this.panel4.TabIndex = 1;
             // 
             // label3
@@ -370,10 +378,10 @@
             // 
             this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox3.Font = new System.Drawing.Font("宋体", 13F);
-            this.textBox3.Location = new System.Drawing.Point(150, 203);
+            this.textBox3.Location = new System.Drawing.Point(153, 203);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(406, 94);
+            this.textBox3.Size = new System.Drawing.Size(416, 94);
             this.textBox3.TabIndex = 5;
             // 
             // panel2
@@ -385,7 +393,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 403);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(700, 94);
+            this.panel2.Size = new System.Drawing.Size(716, 94);
             this.panel2.TabIndex = 1;
             // 
             // button2
@@ -394,7 +402,7 @@
             this.button2.Font = new System.Drawing.Font("宋体", 14F);
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(696, 90);
+            this.button2.Size = new System.Drawing.Size(712, 90);
             this.button2.TabIndex = 7;
             this.button2.Text = "停止爬取";
             this.button2.UseVisualStyleBackColor = true;
@@ -405,9 +413,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel8.Controls.Add(this.checkBox1);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(562, 3);
+            this.panel8.Location = new System.Drawing.Point(575, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(141, 94);
+            this.panel8.Size = new System.Drawing.Size(144, 94);
             this.panel8.TabIndex = 6;
             // 
             // checkBox1
@@ -418,41 +426,42 @@
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBox1.Location = new System.Drawing.Point(0, 0);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(137, 90);
+            this.checkBox1.Size = new System.Drawing.Size(140, 90);
             this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "选中";
             this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // panel14
-            // 
-            this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel14.Controls.Add(this.pictureBox4);
-            this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel14.Location = new System.Drawing.Point(1108, 503);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(370, 496);
-            this.panel14.TabIndex = 10;
             // 
             // panel12
             // 
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel12.Controls.Add(this.pictureBox2);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(1108, 103);
+            this.panel12.Location = new System.Drawing.Point(1103, 103);
             this.panel12.Name = "panel12";
             this.tableLayoutPanel1.SetRowSpan(this.panel12, 4);
-            this.panel12.Size = new System.Drawing.Size(370, 394);
+            this.panel12.Size = new System.Drawing.Size(375, 394);
             this.panel12.TabIndex = 9;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(371, 390);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(709, 3);
+            this.panel1.Location = new System.Drawing.Point(725, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(769, 94);
+            this.panel1.Size = new System.Drawing.Size(753, 94);
             this.panel1.TabIndex = 0;
             // 
             // label4
@@ -462,30 +471,10 @@
             this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(765, 90);
+            this.label4.Size = new System.Drawing.Size(749, 90);
             this.label4.TabIndex = 4;
             this.label4.Text = "最近抓取的4张图，按时间排序";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
-            this.pictureBox4.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(366, 492);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
-            // 
-            // panel15
-            // 
-            this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(1077, 103);
-            this.panel15.Name = "panel15";
-            this.tableLayoutPanel1.SetRowSpan(this.panel15, 5);
-            this.panel15.Size = new System.Drawing.Size(25, 896);
-            this.panel15.TabIndex = 13;
             // 
             // contextMenuStrip1
             // 
@@ -496,34 +485,34 @@
             this.toolStripMenuItemNormal,
             this.toolStripMenuItemQuit});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(135, 116);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 124);
             this.contextMenuStrip1.Text = "Instagram爬虫";
             // 
             // toolStripMenuItemMinimize
             // 
             this.toolStripMenuItemMinimize.Name = "toolStripMenuItemMinimize";
-            this.toolStripMenuItemMinimize.Size = new System.Drawing.Size(134, 28);
+            this.toolStripMenuItemMinimize.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemMinimize.Text = "最小化";
             this.toolStripMenuItemMinimize.Click += new System.EventHandler(this.toolStripMenuItemMinimize_Click);
             // 
             // toolStripMenuItemMaximize
             // 
             this.toolStripMenuItemMaximize.Name = "toolStripMenuItemMaximize";
-            this.toolStripMenuItemMaximize.Size = new System.Drawing.Size(134, 28);
+            this.toolStripMenuItemMaximize.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemMaximize.Text = "最大化";
             this.toolStripMenuItemMaximize.Click += new System.EventHandler(this.toolStripMenuItemMaximize_Click);
             // 
             // toolStripMenuItemNormal
             // 
             this.toolStripMenuItemNormal.Name = "toolStripMenuItemNormal";
-            this.toolStripMenuItemNormal.Size = new System.Drawing.Size(134, 28);
+            this.toolStripMenuItemNormal.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemNormal.Text = "还原";
             this.toolStripMenuItemNormal.Click += new System.EventHandler(this.toolStripMenuItemNormal_Click);
             // 
             // toolStripMenuItemQuit
             // 
             this.toolStripMenuItemQuit.Name = "toolStripMenuItemQuit";
-            this.toolStripMenuItemQuit.Size = new System.Drawing.Size(134, 28);
+            this.toolStripMenuItemQuit.Size = new System.Drawing.Size(147, 30);
             this.toolStripMenuItemQuit.Text = "退出";
             this.toolStripMenuItemQuit.Click += new System.EventHandler(this.toolStripMenuItemQuit_Click);
             // 
@@ -531,7 +520,7 @@
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "爬虫v1.0";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick_1);
             // 
@@ -555,15 +544,16 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -574,10 +564,9 @@
             this.panel2.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.panel14.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -624,6 +613,5 @@
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Panel panel15;
     }
 }

@@ -21,6 +21,7 @@ namespace ZInfo.Media
         private List<string> UrlList = new List<string>();
         private string Domain = AppSettings.GetValue<string>("Domain");
         private CancellationTokenSource AnalyCancelToken = new CancellationTokenSource();
+        private int t = 0;
         /// <summary>
         /// 当前展示到界面上的几张美图
         /// </summary>
@@ -30,7 +31,6 @@ namespace ZInfo.Media
         /// 初始化时默认为加载第1页的帖子
         /// </summary>
         private int CurrentPage = 1;
-
         public Crawler()
         {
             InitializeComponent();
@@ -59,64 +59,7 @@ namespace ZInfo.Media
                 textBox3.Invoke(setTbx3, lc);
             });
 
-            //加载图片
-            var listImage = new List<string>();
-            var basePath = AppSettings.GetValue<string>("SaveDir");
-            var baseDir = new DirectoryInfo(basePath);
-            if (baseDir != null)
-            {
-                if (!_imageList.Any())
-                {
-                    //获取应用程序的版块目录集
-                    var dirs = baseDir.GetDirectories();
-                    if (dirs != null && dirs.Any())
-                    {
-                        //遍历版块目录
-                        for (int i = 0; i < dirs.Length; i++)
-                        {
-                            //遍历版块下的每个帖子目录
-                            var tieDir = dirs[i].GetDirectories();
-                            for (int j = 0; j < tieDir.Length; j++)
-                            {
-                                //取出每个帖子里下载的图片(只取大图,未下载完成的不加入到队列)
-                                var dirFiles = tieDir[i].GetFiles().Where(f => f.Length > 50 * 1024);
-                                if (dirFiles != null && dirFiles.Any())
-                                {
-                                    dirFiles.Select(f => f.FullName).ToList().ForEach(f =>
-                                    {
-                                        _imageList.Add(f);
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Directory.CreateDirectory(basePath);
-            }
 
-            if (_imageList.Count >= 4)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    var _random = new Random();
-                    var r = _random.Next(0, _imageList.Count);
-                    listImage.Add(_imageList[i]);
-                }
-            }
-            if (listImage != null && listImage.Any())
-            {
-                if (!string.IsNullOrEmpty(listImage[0]))
-                    pictureBox1.ImageLocation = listImage[0];
-                if (!string.IsNullOrEmpty(listImage[1]))
-                    pictureBox2.ImageLocation = listImage[1];
-                if (!string.IsNullOrEmpty(listImage[2]))
-                    pictureBox3.ImageLocation = listImage[2];
-                if (!string.IsNullOrEmpty(listImage[3]))
-                    pictureBox4.ImageLocation = listImage[3];
-            }
         }
 
         private void GetUrls()
@@ -229,27 +172,57 @@ namespace ZInfo.Media
         //定时更新最新下载的图片
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //加载图片
             var listImage = new List<string>();
-            if (_imageList.Count >= 4)
+            var basePath = AppSettings.GetValue<string>("SaveDir");
+            var baseDir = new DirectoryInfo(basePath);
+            if (baseDir != null)
             {
-                for (int i = 0; i < 4; i++)
+                //获取应用程序的版块目录集
+                var dirs = baseDir.GetDirectories();
+                if (dirs != null && dirs.Any())
                 {
-                    var _random = new Random();
-                    var r = _random.Next(0, _imageList.Count);
-                    listImage.Add(_imageList[i]);
+                    //遍历版块目录
+                    for (int i = 0; i < dirs.Length; i++)
+                    {
+                        //遍历版块下的每个帖子目录
+                        var tieDir = dirs[i].GetDirectories().OrderByDescending(o => o.LastAccessTime).ToList();
+
+                        //取出每个帖子里下载的图片(只取大图,未下载完成的不加入到队列)
+                        if (t < tieDir.Count)
+                        {
+                            var dirFiles = tieDir[t].GetFiles().Where(f => f.Length > 50 * 1024);
+                            if (dirFiles != null && dirFiles.Any())
+                            {
+                                dirFiles.Select(f => f.FullName).ToList().ForEach(f =>
+                                {
+                                    _imageList.Add(f);
+                                });
+                            }
+                        }
+                    }
                 }
             }
-            if (listImage != null && listImage.Any())
+            else
             {
-                if (!string.IsNullOrEmpty(listImage[0]))
-                    pictureBox1.ImageLocation = listImage[0];
-                if (!string.IsNullOrEmpty(listImage[1]))
-                    pictureBox2.ImageLocation = listImage[1];
-                if (!string.IsNullOrEmpty(listImage[2]))
-                    pictureBox3.ImageLocation = listImage[2];
-                if (!string.IsNullOrEmpty(listImage[3]))
-                    pictureBox4.ImageLocation = listImage[3];
+                Directory.CreateDirectory(basePath);
             }
+            if (_imageList.Any())
+            {
+                var list = _imageList.Skip(t).Take(4).ToList();
+                try
+                {
+                    pictureBox1.ImageLocation = list[0];
+                    pictureBox2.ImageLocation = list[1];
+                    pictureBox3.ImageLocation = list[2];
+                    pictureBox4.ImageLocation = list[3];
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            t += 1;
         }
 
         #endregion

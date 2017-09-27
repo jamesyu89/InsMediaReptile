@@ -437,6 +437,7 @@
             // 
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel12.Controls.Add(this.pictureBox2);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(1108, 103);
             this.panel12.Name = "panel12";
             this.tableLayoutPanel1.SetRowSpan(this.panel12, 4);

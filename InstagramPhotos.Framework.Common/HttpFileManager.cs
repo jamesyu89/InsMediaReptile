@@ -19,31 +19,37 @@ namespace InstagramPhotos.Framework.Common
         /// <param name="filePath"></param>
         public static void DownloadFile(string httpUrl, string filePath)
         {
-            ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(httpUrl);
-            req.ServicePoint.Expect100Continue = false;
-            req.ServicePoint.UseNagleAlgorithm = false;
-            req.ServicePoint.ConnectionLimit = 65500;
-            req.AllowWriteStreamBuffering = false;
-            req.Proxy = null;
-            req.Method = "GET";
-            //req.KeepAlive = true;
-            req.ContentType = "image/*";
-            req.Timeout = 1000 * 100;
-            HttpWebResponse rsp = (HttpWebResponse)req.GetResponse();
-            Stream stream = null;
-
             try
             {
-                // 以字符流的方式读取HTTP响应
-                stream = rsp.GetResponseStream();
-                Image.FromStream(stream).Save(filePath);
+                ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
+                HttpWebRequest req = WebRequest.Create(httpUrl) as HttpWebRequest;
+                req.ServicePoint.Expect100Continue = false;
+                req.ServicePoint.UseNagleAlgorithm = false;
+                req.ServicePoint.ConnectionLimit = 65500;
+                req.AllowWriteStreamBuffering = false;
+                req.Proxy = null;
+                req.Method = "GET";
+                req.Timeout = 1000 * 100;
+                req.UserAgent = "Opera/9.25 (Windows NT 6.0; U; en)";
+                HttpWebResponse rp = req.GetResponse() as HttpWebResponse;
+                var rps = rp.GetResponseStream();
+
+                Stream st = new FileStream(filePath, FileMode.Create);
+                byte[] bar = new byte[1024];
+                int sz = rps.Read(bar, 0, (int)bar.Length);
+                while (sz > 0)
+                {
+                    st.Write(bar, 0, sz);
+                    sz = rps.Read(bar, 0, (int)bar.Length);
+                }
+                st.Close();
+                rps.Close();
+                rp.Close();
             }
-            finally
+            catch (Exception e)
             {
-                // 释放资源
-                if (stream != null) stream.Close();
-                if (rsp != null) rsp.Close();
+                e.StackTrace.ToString();
+                System.Diagnostics.Trace.WriteLine(e.Message);
             }
         }
 

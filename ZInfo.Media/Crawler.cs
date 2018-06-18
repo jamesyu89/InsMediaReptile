@@ -283,15 +283,15 @@ namespace ZInfo.Media
                                 Print($"匹配成功，当前匹配的是第{CurrentPage}页内容");
                                 if (UrlList[i].Contains("fid=15"))
                                 {
-                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\自拍偷拍";
+                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\zp";
                                 }
                                 else if (UrlList[i].Contains("fid=14"))
                                 {
-                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\唯美写真";
+                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\xz";
                                 }
                                 else if (UrlList[i].Contains("fid=16"))
                                 {
-                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\露出激情";
+                                    _basePath = AppSettings.GetValue<string>("SaveDir") + "\\lc";
                                 }
                                 for (int j = 0; j < listMatchs.Count; j++)
                                 {
@@ -376,10 +376,13 @@ namespace ZInfo.Media
         /// 打印消息到界面上
         /// </summary>
         /// <param name="message"></param>
-        public void Print(string message)
+        public async void Print(string message)
         {
-            Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
-            richTextBox1.Invoke(printMessage, message);
+            await Task.Factory.StartNew(() =>
+            {
+                Action<string> printMessage = (s) => richTextBox1.AppendText(s + Environment.NewLine);
+                richTextBox1.Invoke(printMessage, message);
+            });
         }
 
         /// <summary>

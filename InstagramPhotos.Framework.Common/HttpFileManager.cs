@@ -25,7 +25,7 @@ namespace InstagramPhotos.Framework.Common
                 HttpWebRequest req = WebRequest.Create(httpUrl) as HttpWebRequest;
                 req.ServicePoint.Expect100Continue = false;
                 req.ServicePoint.UseNagleAlgorithm = false;
-                req.ServicePoint.ConnectionLimit = 65500;
+                req.ServicePoint.ConnectionLimit = 512;
                 req.AllowWriteStreamBuffering = false;
                 req.Proxy = null;
                 req.Method = "GET";

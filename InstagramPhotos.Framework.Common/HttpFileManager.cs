@@ -61,7 +61,7 @@ namespace InstagramPhotos.Framework.Common
         public static string GetHttpUrlString(string httpUrl)
         {
             GC.Collect();//回收一次垃圾，保证后续的线程能正常启动连接
-            ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "512"));
+            ServicePointManager.DefaultConnectionLimit = int.Parse(AppSettings.GetValue<string>("DefaultConnectionLimit", "20"));
             var html = string.Empty;
             Action action = () =>
             {

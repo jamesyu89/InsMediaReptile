@@ -68,7 +68,6 @@ namespace InstagramPhotos
                         Print("处理队列中....".Log());
                         MediaQueueHelper.Instance.Start();
                         Console.WriteLine(Environment.NewLine);
-                        Console.WriteLine(Environment.NewLine);
                     }
                     else
                     {
@@ -86,6 +85,7 @@ namespace InstagramPhotos
         private void button3_Click(object sender, EventArgs e)
         {
             AnalyCancelToken.Cancel();
+            Print($"取消分析任务".Log(true));
         }
 
         //下载
@@ -216,15 +216,24 @@ namespace InstagramPhotos
         private void button4_Click(object sender, EventArgs e)
         {
             DownloadCancelToken.Cancel();
+            Print($"取消下载任务".Log(true));
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+            if (richTextBox1.Lines.Count()>1000)
+            {
+                richTextBox1.Clear();
+            }
             richTextBox1.ScrollToCaret();
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
+            if (richTextBox2.Lines.Count() > 1000)
+            {
+                richTextBox2.Clear();
+            }
             richTextBox2.ScrollToCaret();
         }
 
@@ -239,7 +248,6 @@ namespace InstagramPhotos
                 //使关闭时窗口向右下角缩小的效果
                 this.WindowState = FormWindowState.Minimized;
                 this.notifyIcon1.Visible = true;
-                //this.m_cartoonForm.CartoonClose();
                 this.Hide();
                 return;
             }

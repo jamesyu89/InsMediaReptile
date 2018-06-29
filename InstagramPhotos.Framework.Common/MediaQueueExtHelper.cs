@@ -27,57 +27,65 @@ namespace InstagramPhotos.Framework.Common
         {
             using (var driver = new PhantomJSDriver(GetPhantomJSDriverService()))
             {
-                $"正在加载地址：{url}...".Log(true);
-                driver.Navigate().GoToUrl(url);
-                //最大化窗口
-                MaxBrowser(driver);
-                "正在调整浏览器窗体大小...".Log(true);
-                //第1次加载更多
-                //用户的分享超过一屏时
-                IWebElement moreShare = null;
                 try
                 {
-                    moreShare = driver.FindElement(By.LinkText("更多"));
-                }
-                catch
-                {
-                    "该用户可分享的内容少于一屏，跳过流程解析...".Log(true);
-                }
-                if (moreShare != null)
-                {
-                    "正在点击页面的“更多”按钮...".Log(true);
-                    driver.FindElement(By.LinkText("更多")).Click();
-                    System.Threading.Thread.Sleep(2000);
-                    "正在加载第二页内容...".Log(true);
-                    "第二页内容加载完成...".Log(true);
+                    $"正在加载地址：{url}...".Log(true);
+                    driver.Navigate().GoToUrl(url);
+                    //最大化窗口
+                    MaxBrowser(driver);
+                    "调整浏览器窗体为最大化...".Log(true);
+                    //如果有“更多”按钮
+                    IWebElement moreShare = null;
+                    try
+                    {
+                        moreShare = driver.FindElement(By.LinkText("更多"));
+                    }
+                    catch
+                    {
+                        "页面上没有找到“更多”按钮...".Log(true);
+                        "尝试直接滚动鼠标以加载分页内容...".Log(true);
+                    }
+                    if (moreShare != null)
+                    {
+                        "正在点击页面的“更多”按钮...".Log(true);
+                        driver.FindElement(By.LinkText("更多")).Click();
+                        System.Threading.Thread.Sleep(2000);
+                    }
+
                     //获取需要滚动加载的次数
                     "正在计算全部需要加载的页数...".Log(true);
-                    var cardCount = int.Parse(driver.FindElements(By.CssSelector("._fd86t")).First().Text.Replace(",", ""));
-                    var scrollCount = cardCount / 12 == 0 ? cardCount / 12 : (cardCount / 12) + 1;
+                    var cardCount = int.Parse(driver.FindElements(By.CssSelector(".g47SY")).First().Text.Replace(",", ""));
+                    var scrollCount = cardCount / (3 * 8) == 0 ? cardCount / (3 * 8) : (cardCount / (3 * 8)) + 1;
                     $"计算完成，全部需要加载{scrollCount}页...".Log(true);
-                    //默认滚动条移动到y轴3000的位置
-                    var initialC = 3000;
+                    //默认第一次滚动条移动到y轴1900的位置,刚好翻一页
+                    var initialC = 1900;
                     var i = 0;
                     "开始执行脚本，滚动鼠标...".Log(true);
                     do
                     {
-                        //if (i > 20)//预设只滚动20次，太多次容易卡顿
-                        //    break;
-                        $"第{i + 1}次滚动...".Log(true);
+                        $"第{i + 1}次滚动鼠标...".Log(true);
                         ((IJavaScriptExecutor)driver).ExecuteScript($"scrollTo(0,{initialC});");
+                        $"Y轴当前位置{initialC}".Log(true);
                         System.Threading.Thread.Sleep(1000 + (i * 50));
                         i++;
                         initialC += 500;//每次递增滚动500的距离
                     } while (i < scrollCount);
+                    "页面所有内容全部加载完成...".Log(true);
+
+                    var insDir = url.Substring(url.LastIndexOf('/') + 1);
+                    "正在解析下载的资源...".Log(true);
+                    ExtraDownloadSource(driver.PageSource, taskId);
+                    return insDir;
                 }
-                "页面所有内容全部加载完成...".Log(true);
-
-                var insDir = url.Substring(url.LastIndexOf('/') + 1);
-
-                "正在解析下载的资源...".Log(true);
-                ExtraDownloadSource(driver.PageSource, taskId);
-                driver.Quit();
-                return insDir;
+                catch (Exception e)
+                {
+                    e.Message.Log(true);
+                    throw e;
+                }
+                finally
+                {
+                    driver.Quit();
+                }
             }
         }
 
@@ -88,7 +96,7 @@ namespace InstagramPhotos.Framework.Common
         public void ExtraDownloadSource(string html, Guid taskId)
         {
             //解析出资源
-            var regExt = new Regex("\\<a\\s*href\\=\"(?<href>\\/p\\/\\S+\\/)\"\\>");
+            var regExt = new Regex("\\<a\\s*href\\=\"(?<href>\\/p\\/\\S+)\"\\>");
             var matchs = regExt.Matches(html);
 
             var task = mediaService.GetMediatask(taskId);

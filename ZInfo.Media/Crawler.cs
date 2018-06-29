@@ -44,21 +44,29 @@ namespace ZInfo.Media
             Action<string> setTbx1 = (s) => { textBox1.Text = s; };
             Action<string> setTbx2 = (s) => { textBox2.Text = s; };
             Action<string> setTbx3 = (s) => { textBox3.Text = s; };
-            Task.Run(() =>
+            Action<bool> setBtn1 = (s) => { button1.Enabled = s; };
+            try
             {
-                var _service = PhantomJSDriverService.CreateDefaultService();
-                _service.HideCommandPromptWindow = true;
-                var driver = new PhantomJSDriver(_service);
-                driver.Navigate().GoToUrl("http://zc.97down.info");
-                var domain = driver.Url;
-                var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
-                var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
-                var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");
-                textBox1.Invoke(setTbx1, zp);
-                textBox2.Invoke(setTbx2, wm);
-                textBox3.Invoke(setTbx3, lc);
-            });
-
+                Task.Run(() =>
+                    {
+                        var _service = PhantomJSDriverService.CreateDefaultService();
+                        _service.HideCommandPromptWindow = true;
+                        var driver = new PhantomJSDriver(_service);
+                        driver.Navigate().GoToUrl("http://zc.97down.info");
+                        var domain = driver.Url;
+                        var zp = domain + AppSettings.GetValue<string>("ListPageUrl_ZP");
+                        var wm = domain + AppSettings.GetValue<string>("ListPageUrl_WM");
+                        var lc = domain + AppSettings.GetValue<string>("ListPageUrl_LC");
+                        textBox1.Invoke(setTbx1, zp);
+                        textBox2.Invoke(setTbx2, wm);
+                        textBox3.Invoke(setTbx3, lc);
+                        button1.Invoke(setBtn1, true);
+                    });
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
 
         }
 
@@ -259,7 +267,7 @@ namespace ZInfo.Media
                             var listHtml = string.Empty;
                             try
                             {
-                            PageList:
+                                PageList:
                                 listHtml = HttpFileManager.GetHttpUrlString(httpUrl);
                                 if (string.IsNullOrEmpty(listHtml))
                                 {

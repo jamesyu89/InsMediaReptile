@@ -1,16 +1,16 @@
-1.�������Ŀ¼�ṹ��
+1.解决方案目录结构：
 00 UI
-	�˲�ΪApplication������ľ�̬UI��Դ����web��̬ҳ��css��images��
+	此层为Application层所需的静态UI资源，如web静态页、css、images等
 01 Application
-	�˲�ΪӦ�ó���㣬��.exe�ļ���webվ���Ŀ¼�������ļ��ȣ�������Ϊ���վ��
+	此层为应用程序层，如.exe文件、web站点根目录发布的文件等，可添加为多个站点
 02 Service
-	�˲�Ϊ����㣬��Ͻ4���Ӳ㣬�ֱ�Ϊ
-	QueryModel------------��ѯʵ��
-	Service---------------�ӿڷ���ע��
-	Service.Interface-----�ӿڶ���
-	ViewModel-------------��ͼģ��(������֮�����)
+	此层为服务层，下辖4个子层，分别为
+	QueryModel------------查询实体
+	Service---------------接口服务注册
+	Service.Interface-----接口定义
+	ViewModel-------------视图模型(供各层之间调用)
 03 Business
-	ҵ���ʵ�֣�Ŀ¼�ṹ�������£�
+	业务层实现，目录结构举例如下：
 	  Order
 		|----Mapping
 				|----Extension.cs
@@ -18,17 +18,17 @@
 		|----OrderHelper.cs
 		|----OrderService.cs
 04 Data
-	���ݷ��ʲ㣬�˲����2���Ӳ㣬���£�
-	DomainModel-------����ģ�Ͳ㣬�˲������ݿ������(��Ҫ�Ǳ�)��ֱ�ӹ�ϵӳ��
-	Repository--------���ݴ�ȡ�㣬�˲��������ݿ⽻����ʵ�֣�Ŀǰ֧��MSSQL��MySQL
+	数据访问层，此层包含2个子层，如下：
+	DomainModel-------领域模型层，此层是数据库各对象(主要是表)的直接关系映射
+	Repository--------数据存取层，此层是与数据库交互的实现，目前支持MSSQL及MySQL
 05 Utility
-	���ͨ���м���㣬�˲��ṩ������������.NET�������
+	框架通用中间件层，此层提供解决各种问题的.NET解决方案
 06 Tools
-	���߲㣬�˲�Ŀǰֻ���ô����Զ����ɵĹ��̣�����Ҫ�������������ӡ�
+	工具层，此层目前只放置代码自动生成的工程，有需要可以自行再添加。
 07 Solution Items
-	�������˵����δ������
+	解决方案说明及未尽事项
 
-2.��Ŀ���
-	��������,����о���һ�¸��������ܼ�����˼�롣��������������Ͽ��Խ������Web��
-	����ץȡ���⡣Application���Consoles��Download�ǿ���̨д��ץȡ�罻ƽ̨Instagram
-	����MM��ͼ��֪�������Ķ�̬��ZInfo.Media��ץ����������Դ��ͼƬ��
+2.项目简介
+	闲来无聊,最近研究了一下各种爬虫框架及技术思想。本解决方案理论上可以解决任意Web的
+	数据抓取问题。Application层的Consoles及Download是控制台写的抓取社交平台Instagram
+	各种MM靓图及知名博主的动态。
